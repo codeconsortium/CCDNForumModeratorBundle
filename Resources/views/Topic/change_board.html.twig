@@ -1,0 +1,66 @@
+{% extends param('ccdn_forum_moderator.topic.layout_templates.change_board') %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('bundles/ccdncomponentcrumbtrail/css/crumbs.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('bundles/ccdncomponentcommon/css/form.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block title %}{{ 'title.topic.change_board' | trans({'%topic_title%': topic.getTitle }, 'CCDNForumModeratorBundle') }}{% endblock %}
+
+{% block sidebar %}
+	{% if is_granted('ROLE_MODERATOR') %}
+	<div class="common_box_5 bg_header_smoke">
+		<div class="common_box_header"><span class="heading_glow">{{ 'sidebar.header.special' | trans({}, 'CCDNComponentCommonBundle') }}</span></div>
+		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_cp') }}">{{ 'general.view.link_moderate' | trans({}, 'CCDNComponentCommonBundle') }}</a></div>
+		{% if is_granted('ROLE_ADMIN') %}
+		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_admin_forum_cp') }}">{{ 'general.view.link_administrate' | trans({}, 'CCDNComponentCommonBundle') }}</a></div>
+		{% endif %}
+	</div>
+	{% endif %}
+{% endblock %}
+
+{% block body %}
+
+{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+
+{% include 'CCDNComponentCommonBundle:Flashes:flashes.html.twig' %}
+
+
+<div class="common_box_5 bg_header_smoke">
+	<div class="common_box_header">
+		<span class="heading_glow">{{ 'title.topic.change_board' | trans({'%topic_title%': topic.getTitle }, 'CCDNForumModeratorBundle') }}</span>
+	</div>
+	<div class="common_box_panel">
+		<form action="{{ path('cc_moderator_forum_topic_change_board', { 'topic_id': topic.getId, 'board_id': topic.getBoard.getId } ) }}" method="post" {{ form_enctype(form) }}>
+			{{ form_row(form._token) }}
+			<table class="common_list">
+				<thead>
+					<th style="width: 30%;"></th>
+					<th style="width: 70%;"></th>
+				</thead>
+				<tfoot>
+				</tfoot>
+				<tbody>
+					<tr class="{{ cycler(['row_odd', 'row_even'], 'cycle') }}">
+						<td class="h_align_right v_align_top">{{ form_label(form.board, null, { 'label': 'form.label.board'| trans({}, 'CCDNForumModeratorBundle') }) }}</td>
+						<td class="h_align_left v_align_top">
+							{{ form_errors(form.board) }}
+							{{ form_widget(form.board) }}
+						</td>
+					</tr>
+					<tr class="{{ cycler(['row_odd', 'row_even'], 'cycle') }}">
+						<td class="h_align_centre v_align_middle" colspan="2">
+							<input type="submit" value="{{ 'form.button.topic.move_to_board' | trans({}, 'CCDNForumModeratorBundle') }}" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>
+
+
+{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+
+{% endblock %}

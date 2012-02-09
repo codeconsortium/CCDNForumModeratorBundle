@@ -1,0 +1,123 @@
+cc_moderator_forum_cp:
+    pattern: /{_locale}/moderate/forum/flagged/posts/show
+    defaults: { _controller: CCDNForumModeratorBundle:Flag:showFlagged, _locale: en, page: 1, status: 0 }
+    requirements:
+        _locale: en        
+
+cc_moderator_forum_topic_change_board:
+    pattern:    /{_locale}/moderate/forum/topic/{topic_id}/change/board
+    defaults:   { _controller: CCDNForumModeratorBundle:Topic:move, _locale: en }
+    requirements:
+        _locale: en
+    
+# ---- deleting
+cc_moderator_forum_topic_delete:
+    pattern:    /{_locale}/moderate/forum/topic/{topic_id}/delete
+    defaults:   { _controller: CCDNForumModeratorBundle:Topic:delete, _locale: en }
+    requirements:
+        _locale: en
+
+cc_moderator_forum_topic_delete_confirmed:
+    pattern:    /{_locale}/moderate/forum/topic/{topic_id}/delete/confirm
+    defaults:   { _controller: CCDNForumModeratorBundle:Topic:deleteConfirmed, _locale: en }
+    requirements:
+        _locale: en
+        
+cc_moderator_forum_topic_restore:
+    pattern:    /{_locale}/moderate/forum/topic/{topic_id}/restore
+    defaults:   { _controller: CCDNForumModeratorBundle:Topic:restore, _locale: en }
+    requirements:
+        _locale: en
+
+cc_moderator_forum_post_restore:
+    pattern:    /{_locale}/moderate/forum/post/{post_id}/restore
+    defaults:   { _controller: CCDNForumModeratorBundle:Post:restore, _locale: en }
+    requirements:
+        _locale: en
+
+# locked post moderation
+cc_moderator_forum_show_all_locked_posts:
+    pattern: /{_locale}/moderate/forum/post/show/locked
+    defaults: { _controller: CCDNForumModeratorBundle:Post:showLocked, _locale: en, page: 1 }
+    requirements:
+        _locale: en    
+
+cc_moderator_forum_show_all_locked_posts_paginated:
+    pattern: /{_locale}/moderate/forum/post/show/locked/page/{page}
+    defaults: { _controller: CCDNForumModeratorBundle:Post:showLocked, _locale: en, page: 1 }
+    requirements:
+        _locale: en
+                
+cc_moderator_forum_lock_post:
+    pattern: /{_locale}/moderate/forum/post/{post_id}/lock
+    defaults: { _controller: CCDNForumModeratorBundle:Post:lock, _locale: en}
+    requirements:
+        _locale: en    
+
+cc_moderator_forum_unlock_post:
+    pattern: /{_locale}/moderate/forum/post/{post_id}/unlock
+    defaults: { _controller: CCDNForumModeratorBundle:Post:unlock, _locale: en}
+    requirements:
+        _locale: en
+
+# closed topic moderation
+cc_moderator_forum_show_all_closed_topics:
+    pattern: /{_locale}/moderate/forum/topic/show/closed
+    defaults: { _controller: CCDNForumModeratorBundle:Topic:showClosed, _locale: en, page: 1 }
+    requirements:
+        _locale: en
+
+cc_moderator_forum_show_all_closed_topics_paginated:
+    pattern: /{_locale}/moderate/forum/topic/show/closed/page/{page}
+    defaults: { _controller: CCDNForumModeratorBundle:Topic:showClosed, _locale: en, page: 1 }
+    requirements:
+        _locale: en
+                        
+cc_moderator_forum_close_topic:
+    pattern: /{_locale}/moderate/forum/topic/{topic_id}/close
+    defaults: { _controller: CCDNForumModeratorBundle:Topic:close, _locale: en}
+    requirements:
+        _locale: en    
+
+cc_moderator_forum_reopen_topic:
+    pattern: /{_locale}/moderate/forum/topic/{topic_id}/reopen
+    defaults: { _controller: CCDNForumModeratorBundle:Topic:reopen, _locale: en}
+    requirements:
+        _locale: en
+
+# flagged posts moderation
+cc_moderator_forum_show_all_flagged_posts:
+    pattern: /{_locale}/moderate/forum/flagged/posts/show
+    defaults: { _controller: CCDNForumModeratorBundle:Flag:showFlagged, _locale: en, page: 1, status: 0 }
+    requirements:
+        _locale: en
+
+cc_moderator_forum_show_all_flagged_posts_paginated:
+    pattern: /{_locale}/moderate/forum/flagged/posts/show/page/{page}
+    defaults: { _controller: CCDNForumModeratorBundle:Flag:showFlaggedPosts, _locale: en, page: 1, status: 0 }
+    requirements:
+        _locale: en
+
+cc_moderator_forum_show_all_flagged_posts_status:
+    pattern: /{_locale}/moderate/forum/flagged/posts/show/with/status/{status}
+    defaults: { _controller: CCDNForumModeratorBundle:Flag:showFlagged, _locale: en, page: 1, status: 0 }
+    requirements:
+        _locale: en
+
+cc_moderator_forum_show_all_flagged_posts_status_paginated:
+    pattern: /{_locale}/moderate/forum/flagged/posts/show/with/status/{status}/page/{page}
+    defaults: { _controller: CCDNForumModeratorBundle:Flag:showFlaggedPosts, _locale: en, page: 1, status: 0 }
+    requirements:
+        _locale: en
+
+cc_moderator_forum_mark_flag:
+    pattern: /{_locale}/moderate/forum/mark/post/flag/{flag_id}
+    defaults: { _controller: CCDNForumModeratorBundle:Flag:markFlag, _locale: en }
+    requirements:
+        _locale: en    
+
+cc_moderator_forum_show_flag:
+    pattern: /{_locale}/moderate/forum/show/flag/{flag_id}
+    defaults: { _controller: CCDNForumModeratorBundle:Flag:showFlag, _locale: en }
+    requirements:
+        _locale: en

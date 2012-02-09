@@ -1,0 +1,51 @@
+<div class="common_box_panel">
+	<div class="row padding_5">
+		<div class="column">{{ flag.getFlaggedDate|date("d/m/Y - H:i:s") }}</div>
+		<div class="column">&nbsp;<a class="post_link" name="{{ flag.getPost.getId }}" href="#{{ flag.getPost.getId }}">#{{ flag.getId }}</a>&nbsp;</div>
+	</div>
+</div>
+<div class="common_box_panel bg_item_light">
+	<div class="row padding_10">
+		<div class="column v_align_middle"><img class="avatar" width="100px" height="100px" src="{{ asset('bundles/ccdncomponentcommon/images/profile/anonymous_avatar.gif') }}" width="100px" height="100px" /></div>
+		<div class="column v_align_top">
+			<div class="row h_align_centre padding_5">
+				{% if flag.getFlaggedBy %}
+				<a class="username_medium" href="{{ path(user_profile_route, {'user_id': flag.getFlaggedBy.getId } ) }}">{{ flag.getFlaggedBy }}</a>
+				{% else %}Guest{% endif %}
+			</div>
+			<div class="row h_align_centre padding_5">
+				<img class="star_rating" width="16px" height="16px" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" width="16px" height="16px" 
+				/><img class="star_rating" width="16px" height="16px" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" width="16px" height="16px" 
+				/><img class="star_rating" width="16px" height="16px" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" width="16px" height="16px" 
+				/><img class="star_rating" width="16px" height="16px" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" width="16px" height="16px" 
+				/><img class="star_rating" width="16px" height="16px" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" width="16px" height="16px" />
+			</div>
+			<div class="row h_align_centre padding_5">{{ 'post.user.post_count' | trans({'%post_count%': '50'}, 'CCDNForumForumBundle') }}</div>
+		</div>
+
+
+	</div>
+	
+	<div class="row">
+		<img class="text_bubble_chevron" width="30px" height="20px" src="{{ asset('bundles/CCDNForumForum/images/text_bubble/chevron.png') }}" />
+		
+		<div class="common_box_5 margin_10 padding_10 text_bubble">
+			{{ reason_codes[flag.getReason] }}<hr />
+			{{ 'flag.description' | trans({}, 'CCDNForumModeratorBundle') }}<br />
+			{{ flag.getDescription }}
+		</div>
+		<div class="common_box_5 margin_10 padding_10 text_bubble">
+			{{ status_codes[flag.getStatus] }}&nbsp;&#45;&nbsp;<a href="{{ path('cc_moderator_forum_mark_flag', {'flag_id': flag.getId }) }}">{{ 'link.flag.update' | trans({}, 'CCDNForumModeratorBundle') }}</a>
+		
+			{% if flag.getModeratedBy %}
+				<hr />
+				{{ 'flag.moderated_by' | trans({}, 'CCDNForumModeratorBundle') }}
+				{% if flag.getModeratedBy %}<a class="username_medium" href="{{ path(user_profile_route, {'user_id': flag.getModeratedBy.getId } ) }}">{{ flag.getModeratedBy }}</a>
+				{% else %}Guest{% endif %}
+				{{ 'actioned.at' | trans({'%date%': flag.getModeratedDate|date("d/m/Y - H:i:s")}, 'CCDNForumModeratorBundle') }}
+				<br /><br />
+				{{ flag.getModeratorsNote }}
+			{% endif %}
+		</div>
+	</div>
+</div>

@@ -1,0 +1,88 @@
+{% extends param('ccdn_forum_moderator.flag.layout_templates.flag_mark') %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('bundles/ccdncomponentcrumbtrail/css/crumbs.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('bundles/ccdncomponentcommon/css/form.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('bundles/CCDNForumForum/css/topic.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block title %}{{ 'title.flag.update' | trans({'%flag_id%': flag.getId }, 'CCDNForumModeratorBundle' )}}{% endblock %}
+
+{% block sidebar %}
+	{% if is_granted('ROLE_MODERATOR') %}
+	<div class="common_box_5 bg_header_smoke">
+		<div class="common_box_header"><span class="heading_glow">{{ 'sidebar.header.special' | trans({}, 'CCDNComponentCommonBundle') }}</span></div>
+		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_cp') }}">{{ 'general.view.link_moderate' | trans({}, 'CCDNComponentCommonBundle') }}</a></div>
+		{% if is_granted('ROLE_ADMIN') %}
+		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_admin_forum_cp') }}">{{ 'general.view.link_administrate' | trans({}, 'CCDNComponentCommonBundle') }}</a></div>
+		{% endif %}
+	</div>
+	{% endif %}
+
+	<div class="common_box_5 bg_header_smoke">
+		<div class="common_box_header"><span class="heading_glow">{{ 'sidebar.header.tools' | trans({}, 'CCDNForumModeratorBundle') }}</span></div>
+		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_show_all_flagged_posts', {}) }}">{{ 'sidebar.link.show_all_flagged_posts' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>	
+		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_show_all_locked_posts', {}) }}">{{ 'sidebar.link.show_all_locked_posts' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>
+		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_show_all_closed_topics', {}) }}">{{ 'sidebar.link.show_all_closed_topics' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>
+	</div>
+{% endblock %}
+
+{% block body %}
+
+{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+
+{% include 'CCDNComponentCommonBundle:Flashes:flashes.html.twig' %}
+
+
+<div class="common_box_5 bg_header_smoke">
+	<div class="common_box_header">
+		<span class="heading_glow">{{ 'title.flag.update' | trans({'%flag_id%': flag.getId }, 'CCDNForumModeratorBundle' )}}</span>
+	</div>
+	<div class="common_box_panel">
+		<form action="{{ path('cc_moderator_forum_mark_flag', { 'flag_id': flag.getId } ) }}" method="post" {{ form_enctype(form) }}>
+			{{ form_row(form._token) }}
+			<div class="errors">{{ form_errors(form) }}</div>
+			<table class="common_list">
+				<thead>
+					<th style="width: 30%;"></th>
+					<th style="width: 70%;"></th>
+				</thead>
+				<tfoot>
+				</tfoot>
+				<tbody>
+					<tr class="{{ cycler(['row_odd', 'row_even'], 'cycle') }}">
+						<td class="h_align_right v_align_top">{{ form_label(form.status, null, { 'label': 'form.label.flag.status'| trans({}, 'CCDNForumModeratorBundle') }) }}</td>
+						<td class="h_align_left v_align_top">
+							{{ form_errors(form.status) }}
+							{{ form_widget(form.status) }}
+						</td>
+					</tr>
+					<tr class="{{ cycler(['row_odd', 'row_even'], 'cycle') }}">
+						<td class="h_align_right v_align_top">{{ form_label(form.moderators_note, null, { 'label': 'form.label.flag.moderators_note'| trans({}, 'CCDNForumModeratorBundle') }) }}</td>
+						<td class="h_align_left v_align_top">
+							{{ form_errors(form.moderators_note) }}
+							{{ form_widget(form.moderators_note) }}
+						</td>
+					</tr>
+					<tr class="{{ cycler(['row_odd', 'row_even'], 'cycle') }}">
+						<td class="h_align_centre v_align_middle" colspan="2">
+							<input type="submit" value="{{ 'form.button.flag.update' | trans({}, 'CCDNForumModeratorBundle') }}" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>
+
+<div class="common_box_5 bg_header_smoke">
+	<div class="common_box_header">
+		<span class="heading_glow">{{ 'title.flag.show' | trans({'%flag_id%': flag.getId, '%topic%': flag.getPost.getTopic.getTitle, '%post_id%': flag.getPost.getId }, 'CCDNForumModeratorBundle') }}</span>
+	</div>
+	{% include "CCDNForumModeratorBundle:Flag:item_flag.html.twig" %}
+</div>
+
+{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends param('ccdn_forum_moderator.topic.layout_templates.show_closed') %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('bundles/ccdncomponentcrumbtrail/css/crumbs.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('bundles/CCDNForumForum/css/board.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block title %}{{ 'title.topic.closed' | trans({}, 'CCDNForumModeratorBundle') }}{% endblock %}
+
+{% block sidebar %}
+	{% if is_granted('ROLE_MODERATOR') %}
+	<div class="common_box_5 bg_header_smoke">
+		<div class="common_box_header"><span class="heading_glow">{{ 'sidebar.header.special' | trans({}, 'CCDNComponentCommonBundle') }}</span></div>
+		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_cp') }}">{{ 'general.view.link_moderate' | trans({}, 'CCDNComponentCommonBundle') }}</a></div>
+		{% if is_granted('ROLE_ADMIN') %}
+		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_admin_forum_cp') }}">{{ 'general.view.link_administrate' | trans({}, 'CCDNComponentCommonBundle') }}</a></div>
+		{% endif %}
+	</div>
+	{% endif %}
+
+	<div class="common_box_5 bg_header_smoke">
+		<div class="common_box_header"><span class="heading_glow">{{ 'sidebar.header.tools' | trans({}, 'CCDNForumModeratorBundle') }}</span></div>
+		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_show_all_flagged_posts', {}) }}">{{ 'sidebar.link.show_all_flagged_posts' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>	
+		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_show_all_locked_posts', {}) }}">{{ 'sidebar.link.show_all_locked_posts' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>
+		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_show_all_closed_topics', {}) }}">{{ 'sidebar.link.show_all_closed_topics' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>
+	</div>
+{% endblock %}
+
+{% block body %}
+
+{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+
+{% include 'CCDNComponentCommonBundle:Flashes:flashes.html.twig' %}
+
+<div class="common_box_5 bg_header_smoke">
+	<div class="common_box_header">
+		<span class="heading_glow">{{ 'title.topic.closed' | trans({}, 'CCDNForumModeratorBundle') }}</span>
+	</div>
+	<div class="common_box_panel">
+		<img class="icon_16x16" width="16px" height="16px" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_closed.png') }}" />
+		<a class="heading_link" href="{{ path(app.request.attributes.get('_route')) }}">{{ 'title.topic.closed' | trans({}, 'CCDNForumModeratorBundle') }}</a><br />
+	</div>
+	<div class="common_box_panel common_tool_strip">
+		<div class="pagerfanta">
+			{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_closed_topics_paginated', 'routeParams':{}} ) }}
+		</div>
+	</div>
+	<div class="common_box_panel">
+		<table class="common_list">
+			<thead>
+				<th></th>
+				<th>{{ 'board.table.head.topic_title' | trans({}, 'CCDNForumForumBundle') }}</th>
+				<th>{{ 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') }}</th>
+				<th>{{ 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') }}</th>
+				<th>{{ 'board.table.head.last_post' | trans({}, 'CCDNForumForumBundle') }}</th>
+			</thead>
+			<tfoot>
+			</tfoot>
+			<tbody>
+				{% for row, topic in topics %}
+					<tr class="{{ cycle(['row_odd', 'row_even'], row) }}">
+						<td class="padding_5 h_align_centre v_align_middle">
+							<a href="{{ path('cc_forum_topic_show', {'topic_id': topic.getId }) }}"><img class="icon_16x16" width="16px" height="16px" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_communication.png') }}" /></a>
+						</td>
+						<td class="padding_5 h_align_left v_align_top">
+							<a class="topic_link" href="{{ path('cc_forum_topic_show', {'topic_id': topic.getId }) }}">{{ topic.getTitle }}</a><br />
+							<span class="first_post">
+							{{ 'post.posted_by' | trans({}, 'CCDNForumForumBundle') }}
+							{% if topic.getFirstPost %}
+								{% if topic.getFirstPost.getCreatedBy %}
+									{% if topic.getFirstPost %}
+									<a class="username_medium" href="{{ path(user_profile_route, {'user_id': topic.getFirstPost.getCreatedBy.getId } ) }}">{{ topic.getFirstPost.getCreatedBy }}</a>
+									{% else %}
+									Guest
+									{% endif %}
+									{{ 'actioned.at' | trans({'%date%': topic.getFirstPost.getCreatedDate|date("d/m/Y - H:i:s")}, 'CCDNForumForumBundle') }}
+								{% endif %}
+							{% endif %}
+							</span>&nbsp;&nbsp;
+						</td>
+						<td class="h_align_left v_align_middle">
+							<span class="stat_label">{{ 'board.table.body.reply_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;<span class="stat">{{ topic.getReplyCount }}</span><br/>
+						</td>
+						<td class="h_align_left v_align_middle">
+							<span class="stat_label">{{ 'board.table.body.view_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;<span class="stat">{{ topic.getViewCount }}</span>
+						</td>
+						<td class="h_align_left v_align_middle">
+							<span class="last_post padding_5">				
+							{% if topic.getLastPost %}
+								{{ 'post.posted_by' | trans({}, 'CCDNForumForumBundle') }}
+								{% if topic.getLastPost.getCreatedBy %}
+									<a class="username_medium" href="{{ path(user_profile_route, {'user_id': topic.getLastPost.getCreatedBy.getId } ) }}">{{ topic.getLastPost.getCreatedBy }}</a>
+								{% else %}
+									Guest
+								{% endif %}
+								{% set page = divCeil((topic.getReplyCount + 1), posts_per_page) %}
+								{{ 'actioned.at' | trans({}, 'CCDNForumForumBundle') }} <a class="last_post_date" href="{{ path('cc_forum_topic_show_paginated', {'topic_id': topic.getId, 'page':page } ) }}#{{ topic.getLastPost.getId }}">{{ topic.getLastPost.getCreatedDate|date("d/m/Y - H:i:s") }}</a>
+							{% endif %}
+							</span>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td class="h_align_centre v_align_middle" colspan="5" width="100%">
+							{{ 'board.table.empty' | trans({}, 'CCDNForumForumBundle') }}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="common_box_panel common_tool_strip">
+		<div class="pagerfanta">
+		    {{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_closed_topics_paginated', 'routeParams':{}} ) }}
+		</div>
+	</div>
+</div>
+
+{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+
+
+{% endblock %}

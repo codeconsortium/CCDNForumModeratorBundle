@@ -1,0 +1,54 @@
+sidebar.header.tools: Moderator Tools
+sidebar.link.show_all_flagged_posts: Flagged Posts
+sidebar.link.show_all_locked_posts: Locked Posts
+sidebar.link.show_all_closed_topics: Closed Topics
+
+sidebar.header.flags_by_reason: Flags by Reason
+sidebar.header.flags_by_status: Flags by Status
+
+crumbs.flag.index: Flag Index
+crumbs.flag.show: Flag %flag_id%
+crumbs.flag.mark: Update Flag
+crumbs.post.locked.index: Show Locked Posts
+crumbs.topic.closed.index: Show Closed Topics
+crumbs.topic.change_board: Change Board
+
+title.flag.show.all: Flagged Posts
+title.flag.show: 'Flag: "#%flag_id%" on post: "#%post_id%", of topic: "%topic%"'
+title.flag.update: 'Update flag: "#%flag_id%"'
+title.post.locked: 'Locked Posts'
+title.topic.closed: 'Closed Topics'
+title.topic.change_board: 'Change board for topic: "%topic_title%"'
+
+link.flag.update: Change Status
+link.topic.change_board: Change Board
+
+flash.flag.update.success: 'Flag: #%flag_id% updated.'
+flash.post.lock.success: 'Post: #%post_id% locked.'
+flash.post.unlock.success: 'Post: #%post_id% unlocked.'
+flash.post.restore.success: 'Post: #%post_id% restored.'
+
+flash.topic.close.success: 'Topic "%topic_title%" closed.'
+flash.topic.reopen.success: 'Topic: "%topic_title%" reopened.'
+flash.topic.move.success: 'Topic: "%topic_title%" moved.'
+flash.topic.restore.success: 'Topic: "%topic_title%" restored.'
+flash.topic.delete.success: 'Topic: "%topic_title%" deleted.'
+
+flag.table.head.topic: Topic
+flag.table.head.board: Board
+flag.table.head.reason: Reason
+flag.table.head.status: Status
+flag.table.none: There are no current flags.
+
+flag.flagged_by: Flagged by 
+flag.moderated_by: Moderated by
+flag.posted_on_board: Posted on 
+actioned.at: ' at '
+
+flag.description: 'Description: '
+
+form.label.flag.status: 'Status: '
+form.label.flag.moderators_note: 'Case Notes: '
+form.label.board: 'Board: '
+form.button.flag.update: Update
+form.button.topic.move_to_board: Update Topic
