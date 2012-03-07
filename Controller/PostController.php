@@ -46,7 +46,7 @@ class PostController extends ContainerAware
 
 		$user = $this->container->get('security.context')->getToken()->getUser();
 
-		$posts_paginated = $this->container->get('post.repository')->findLockedPostsForModeratorsPaginated();
+		$posts_paginated = $this->container->get('ccdn_forum_forum.post.repository')->findLockedPostsForModeratorsPaginated();
 			
 		$posts_per_page = $this->container->getParameter('ccdn_forum_moderator.post.posts_per_page');
 		$posts_paginated->setMaxPerPage($posts_per_page);
@@ -57,7 +57,7 @@ class PostController extends ContainerAware
 		}
 		
 		// setup crumb trail.
-		$crumb_trail = $this->container->get('crumb_trail')
+		$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
 			->add($this->container->get('translator')->trans('crumbs.post.locked.index', array(), 'CCDNForumModeratorBundle'), 
 				$this->container->get('router')->generate('cc_moderator_forum_show_all_locked_posts'), "home");
 				
@@ -88,13 +88,13 @@ class PostController extends ContainerAware
 
 		$user = $this->container->get('security.context')->getToken()->getUser();
 
-		$post = $this->container->get('post.repository')->find($post_id);
+		$post = $this->container->get('ccdn_forum_forum.post.repository')->find($post_id);
 
 		if ( ! $post) {
 			throw new NotFoundHttpException('No such post exists!');
 		}
 
-		$this->container->get('post.manager')->lock($post, $user)->flushNow();
+		$this->container->get('ccdn_forum_forum.post.manager')->lock($post, $user)->flushNow();
 
 		$this->container->get('session')->setFlash('notice', 
 			$this->container->get('translator')->trans('flash.post.lock.success', array('%post_id%' => $post_id), 'CCDNForumModeratorBundle'));
@@ -117,13 +117,13 @@ class PostController extends ContainerAware
 			throw new AccessDeniedException('You do not have access to this section.');
 		}
 
-		$post = $this->container->get('post.repository')->find($post_id);
+		$post = $this->container->get('ccdn_forum_forum.post.repository')->find($post_id);
 
 		if ( ! $post) {
 			throw new NotFoundHttpException('No such post exists!');
 		}
 		
-		$this->container->get('post.manager')->unlock($post)->flushNow();
+		$this->container->get('ccdn_forum_forum.post.manager')->unlock($post)->flushNow();
 
 		$this->container->get('session')->setFlash('notice', 
 			$this->container->get('translator')->trans('flash.post.unlock.success', array('%post_id%' => $post_id), 'CCDNForumModeratorBundle'));
@@ -145,13 +145,13 @@ class PostController extends ContainerAware
 			throw new AccessDeniedException('You do not have permission to use this resource!');
 		}
 
-		$post = $this->container->get('post.repository')->findPostForEditing($post_id);
+		$post = $this->container->get('ccdn_forum_forum.post.repository')->findPostForEditing($post_id);
 
 		if ( ! $post) {
 			throw new NotFoundHttpException('No such post exists!');
 		}
 
-		$this->container->get('post.manager')->restore($post)->flushNow();
+		$this->container->get('ccdn_forum_forum.post.manager')->restore($post)->flushNow();
 
 		// set flash message
 		$this->container->get('session')->setFlash('notice', 

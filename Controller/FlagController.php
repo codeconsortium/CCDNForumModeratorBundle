@@ -46,14 +46,14 @@ class FlagController extends ContainerAware
 
 		$user = $this->container->get('security.context')->getToken()->getUser();
 		
-		$status_codes = $this->container->get('flag.form.default_choices')->getStatusCodes();
+		$status_codes = $this->container->get('ccdn_forum_forum.flag.form.default_choices')->getStatusCodes();
 		
 		if (!array_key_exists($status, $status_codes))
 		{
 			throw new NotFoundHttpException('The status code you are looking up does not exist!');
 		}
 
-		$flags_paginated = $this->container->get('flag.repository')->findForModeratorsByStatusPaginated($status);
+		$flags_paginated = $this->container->get('ccdn_forum_forum.flag.repository')->findForModeratorsByStatusPaginated($status);
 			
 		$flags_per_page = $this->container->getParameter('ccdn_forum_moderator.flag.flags_per_page');
 		$flags_paginated->setMaxPerPage($flags_per_page);
@@ -64,7 +64,7 @@ class FlagController extends ContainerAware
 		}	
 		
 		// setup crumb trail.
-		$crumb_trail = $this->container->get('crumb_trail')
+		$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
 			->add($this->container->get('translator')->trans('crumbs.flag.index', array(), 'CCDNForumModeratorBundle'), 
 				$this->container->get('router')->generate('cc_moderator_forum_show_all_flagged_posts'), "home");
 				
@@ -74,8 +74,8 @@ class FlagController extends ContainerAware
 			'posts' => $flags_paginated,
 			'pager' => $flags_paginated,
 			'crumbs' => $crumb_trail,
-			'reason_codes' => $this->container->get('flag.form.default_choices')->getReasonCodes(),
-			'status_codes' => $this->container->get('flag.form.default_choices')->getStatusCodes(),
+			'reason_codes' => $this->container->get('ccdn_forum_forum.flag.form.default_choices')->getReasonCodes(),
+			'status_codes' => $this->container->get('ccdn_forum_forum.flag.form.default_choices')->getStatusCodes(),
 		));
 		
 	}
@@ -96,14 +96,14 @@ class FlagController extends ContainerAware
 
 		$user = $this->container->get('security.context')->getToken()->getUser();
 		
-		$flag = $this->container->get('flag.repository')->find($flag_id);
+		$flag = $this->container->get('ccdn_forum_forum.flag.repository')->find($flag_id);
 		
 		if ( ! $flag) {
 			throw new NotFoundHttpException('No such flag exists!');
 		}
 		
 		// setup crumb trail.
-		$crumb_trail = $this->container->get('crumb_trail')
+		$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
 			->add($this->container->get('translator')->trans('crumbs.flag.index', array(), 'CCDNForumModeratorBundle'), 
 				$this->container->get('router')->generate('cc_moderator_forum_show_all_flagged_posts'), "home")
 			->add($this->container->get('translator')->trans('crumbs.flag.show', array('%flag_id%' => '#' . $flag->getId()), 'CCDNForumModeratorBundle'),
@@ -114,8 +114,8 @@ class FlagController extends ContainerAware
 			'user' => $user,
 			'flag' => $flag,
 			'crumbs' => $crumb_trail,
-			'reason_codes' => $this->container->get('flag.form.default_choices')->getReasonCodes(),
-			'status_codes' => $this->container->get('flag.form.default_choices')->getStatusCodes(),
+			'reason_codes' => $this->container->get('ccdn_forum_forum.flag.form.default_choices')->getReasonCodes(),
+			'status_codes' => $this->container->get('ccdn_forum_forum.flag.form.default_choices')->getStatusCodes(),
 		));
 		
 	}
@@ -138,13 +138,13 @@ class FlagController extends ContainerAware
 
 		$user = $this->container->get('security.context')->getToken()->getUser();
 		
-		$flag = $this->container->get('flag.repository')->find($flag_id);
+		$flag = $this->container->get('ccdn_forum_forum.flag.repository')->find($flag_id);
 		
 		if ( ! $flag) {
 			throw new NotFoundHttpException('No such flag exists!');
 		}
 			
-		$formHandler = $this->container->get('flag.form.update.handler')->setOptions(array('flag' => $flag, 'user' => $user));
+		$formHandler = $this->container->get('ccdn_forum_moderator.flag.form.update.handler')->setOptions(array('flag' => $flag, 'user' => $user));
 					
 		if ($formHandler->process())
 		{
@@ -158,7 +158,7 @@ class FlagController extends ContainerAware
 			$form = $formHandler->getForm();
 			
 			// setup crumb trail.
-			$crumb_trail = $this->container->get('crumb_trail')
+			$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
 				->add($this->container->get('translator')->trans('crumbs.flag.index', array(), 'CCDNForumModeratorBundle'), 
 					$this->container->get('router')->generate('cc_moderator_forum_show_all_flagged_posts'), "home")
 				->add($this->container->get('translator')->trans('crumbs.flag.show', array('%flag_id%' => '#' . $flag->getId()), 'CCDNForumModeratorBundle'),
@@ -173,8 +173,8 @@ class FlagController extends ContainerAware
 				'post' => $flag->getPost(),
 				'crumbs' => $crumb_trail,
 				'form' => $form->createView(),
-				'reason_codes' => $this->container->get('flag.form.default_choices')->getReasonCodes(),
-				'status_codes' => $this->container->get('flag.form.default_choices')->getStatusCodes(),
+				'reason_codes' => $this->container->get('ccdn_forum_forum.flag.form.default_choices')->getReasonCodes(),
+				'status_codes' => $this->container->get('ccdn_forum_forum.flag.form.default_choices')->getStatusCodes(),
 			));
 		}
 		

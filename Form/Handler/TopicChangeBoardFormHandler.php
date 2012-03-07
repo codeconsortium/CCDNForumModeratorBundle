@@ -137,7 +137,7 @@ class TopicChangeBoardFormHandler
 	{
 		if (!$this->form)
 		{
-			$topicChangeBoardType = $this->container->get('topic.form.change_board.type');
+			$topicChangeBoardType = $this->container->get('ccdn_forum_moderator.topic.form.change_board.type');
 			$topicChangeBoardType->setDefaultValues(array('board' => $this->options['topic']->getBoard()->getId()));
 			$this->form = $this->factory->create($topicChangeBoardType, $this->options['topic']);
 		}

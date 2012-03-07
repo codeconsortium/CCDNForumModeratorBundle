@@ -45,7 +45,7 @@ class TopicController extends ContainerAware
 
 		$user = $this->container->get('security.context')->getToken()->getUser();
 
-		$topics_paginated = $this->container->get('topic.repository')->findClosedTopicsForModeratorsPaginated();
+		$topics_paginated = $this->container->get('ccdn_forum_forum.topic.repository')->findClosedTopicsForModeratorsPaginated();
 			
 		$topics_per_page = $this->container->getParameter('ccdn_forum_moderator.topic.topics_per_page');
 		$topics_paginated->setMaxPerPage($topics_per_page);
@@ -58,7 +58,7 @@ class TopicController extends ContainerAware
 		$posts_per_page = $this->container->getParameter('ccdn_forum_moderator.topic.posts_per_page');
 		
 		// setup crumb trail.
-		$crumb_trail = $this->container->get('crumb_trail')
+		$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
 			->add($this->container->get('translator')->trans('crumbs.topic.closed.index', array(), 'CCDNForumModeratorBundle'), 
 				$this->container->get('router')->generate('cc_moderator_forum_show_all_closed_topics'), "home");
 		
@@ -90,13 +90,13 @@ class TopicController extends ContainerAware
 
 		$user = $this->container->get('security.context')->getToken()->getUser();
 			
-		$topic = $this->container->get('topic.repository')->find($topic_id);
+		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
 
 		if ( ! $topic) {
 			throw new NotFoundHttpException('No such topic exists!');
 		}
 		
-		$this->container->get('topic.manager')->close($topic, $user)->flushNow();
+		$this->container->get('ccdn_forum_forum.topic.manager')->close($topic, $user)->flushNow();
 		
 		$this->container->get('session')->setFlash('notice', 
 			$this->container->get('translator')->trans('flash.topic.close.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
@@ -121,13 +121,13 @@ class TopicController extends ContainerAware
 
 		$user = $this->container->get('security.context')->getToken()->getUser();
 			
-		$topic = $this->container->get('topic.repository')->find($topic_id);
+		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
 
 		if ( ! $topic) {
 			throw new NotFoundHttpException('No such topic exists!');
 		}
 		
-		$this->container->get('topic.manager')->reopen($topic)->flushNow();
+		$this->container->get('ccdn_forum_forum.topic.manager')->reopen($topic)->flushNow();
 		
 		$this->container->get('session')->setFlash('notice', 
 			$this->container->get('translator')->trans('flash.topic.reopen.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
@@ -150,13 +150,13 @@ class TopicController extends ContainerAware
 			throw new AccessDeniedException('You do not have access to this section.');
 		}
 
-		$topic = $this->container->get('topic.repository')->find($topic_id);
+		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
 		
 		if ( ! $topic) {
 			throw new NotFoundHttpException('No such topic exists!');
 		}
 		
-		$formHandler = $this->container->get('topic.form.change_board.handler')->setOptions(array('topic' => $topic));
+		$formHandler = $this->container->get('ccdn_forum_moderator.topic.form.change_board.handler')->setOptions(array('topic' => $topic));
 
 		if ($formHandler->process())
 		{
@@ -171,7 +171,7 @@ class TopicController extends ContainerAware
 			$category = $board->getCategory();
 			
 			// setup crumb trail.
-			$crumb_trail = $this->container->get('crumb_trail')
+			$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
 				->add($this->container->get('translator')->trans('crumbs.forum_index', array(), 'CCDNForumForumBundle'), 
 					$this->container->get('router')->generate('cc_forum_category_index'), "home")
 				->add($category->getName(), 
@@ -206,13 +206,13 @@ class TopicController extends ContainerAware
 			throw new AccessDeniedException('You do not have permission to use this resource!');
 		}
 
-		$topic = $this->container->get('topic.repository')->find($topic_id);
+		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
 
 		if ( ! $topic) {
 			throw new NotFoundHttpException('No such topic exists!');
 		}
 
-		$this->container->get('topic.manager')->restore($topic)->flushNow();
+		$this->container->get('ccdn_forum_forum.topic.manager')->restore($topic)->flushNow();
 
 		// set flash message
 		$this->container->get('session')->setFlash('notice', 
@@ -237,7 +237,7 @@ class TopicController extends ContainerAware
 
 		$user = $this->container->get('security.context')->getToken()->getUser();
 			
-		$topic = $this->container->get('topic.repository')->find($topic_id);
+		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
 	
 		if ( ! $topic) {
 			throw new NotFoundHttpException('No such post exists!');
@@ -251,7 +251,7 @@ class TopicController extends ContainerAware
 //		$pageTitle = $this->container->get('translator')->trans('title.topic.delete', array('%topic_title%' => $topic->getTitle()), 'CCDNForumForumBundle');
 		
 		// setup crumb trail.
-		$crumb_trail = $this->container->get('crumb_trail')
+		$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
 			->add($this->container->get('translator')->trans('crumbs.forum_index', array(), 'CCDNForumForumBundle'), 
 				$this->container->get('router')->generate('cc_forum_category_index'), "home")
 			->add($category->getName(),	$this->container->get('router')->generate('cc_forum_category_show', array('category_id' => $category->getId())), "category")
@@ -284,13 +284,13 @@ class TopicController extends ContainerAware
 
 		$user = $this->container->get('security.context')->getToken()->getUser();
 
-		$topic = $this->container->get('topic.repository')->find($topic_id);
+		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
 
 		if ( ! $topic) {
 			throw new NotFoundHttpException('No such topic exists!');
 		}
 
-		$this->container->get('topic.manager')->softDelete($topic, $user)->flushNow();
+		$this->container->get('ccdn_forum_forum.topic.manager')->softDelete($topic, $user)->flushNow();
 
 		// set flash message
 		$this->container->get('session')->setFlash('notice', 

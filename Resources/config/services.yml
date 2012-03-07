@@ -5,15 +5,15 @@ parameters:
     ccdn_forum_moderator.topic.form.change_board.type.class:      CCDNForum\ModeratorBundle\Form\Type\TopicChangeBoardType
 
 services:
-    flag.form.update.handler:
+    ccdn_forum_moderator.flag.form.update.handler:
         class:  %ccdn_forum_moderator.flag.form.update.handler.class%
-        arguments:  [@form.factory, @service_container, @flag.manager]
-    flag.form.update.type:
+        arguments:  [@form.factory, @service_container, @ccdn_forum_forum.flag.manager]
+    ccdn_forum_moderator.flag.form.update.type:
         class:  %ccdn_forum_moderator.flag.form.update.type.class%
         arguments:  [@doctrine]
-    topic.form.change_board.handler:
+    ccdn_forum_moderator.topic.form.change_board.handler:
         class:  %ccdn_forum_moderator.topic.form.change_board.handler.class%
-        arguments:  [@form.factory, @service_container, @topic.manager]
-    topic.form.change_board.type:
+        arguments:  [@form.factory, @service_container, @ccdn_forum_forum.topic.manager]
+    ccdn_forum_moderator.topic.form.change_board.type:
         class:  %ccdn_forum_moderator.topic.form.change_board.type.class%
         arguments:  [@doctrine]
