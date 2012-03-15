@@ -43,6 +43,7 @@ class CCDNForumModeratorExtension extends Extension
 
 
 		$container->setParameter('ccdn_forum_moderator.template.engine', $config['template']['engine']);
+		$container->setParameter('ccdn_forum_moderator.template.theme', $config['template']['theme']);
 		$container->setParameter('ccdn_forum_moderator.user.profile_route', $config['user']['profile_route']);
 		
 		$this->getFlagSection($container, $config);

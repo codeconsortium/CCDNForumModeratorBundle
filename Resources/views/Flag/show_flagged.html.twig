@@ -47,10 +47,8 @@
 		<img class="icon_16x16" width="16px" height="16px" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_flag.png') }}" />
 		<a class="heading_link" href="{{ path(app.request.attributes.get('_route')) }}">{{ 'title.flag.show.all' | trans({}, 'CCDNForumModeratorBundle') }}</a><br />
 	</div>
-	<div class="common_box_panel common_tool_strip">
-		<div class="pagerfanta">
-			{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_flagged_posts_status_paginated', 'routeParams':{}} ) }}
-		</div>
+	<div class="pagerfanta">
+		{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_flagged_posts_status_paginated', 'routeParams':{}} ) }}
 	</div>
 	<div class="common_box_panel">
 		<table class="common_list">
@@ -131,10 +129,8 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="common_box_panel common_tool_strip">
-		<div class="pagerfanta">
-			{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_flagged_posts_status_paginated', 'routeParams':{}} ) }}
-		</div>
+	<div class="pagerfanta">
+		{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_flagged_posts_status_paginated', 'routeParams':{}} ) }}
 	</div>
 </div>
 

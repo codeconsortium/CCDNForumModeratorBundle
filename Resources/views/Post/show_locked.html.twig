@@ -42,18 +42,14 @@
 		<img class="icon_16x16" width="16px" height="16px" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_locked.png') }}" />
 		<a class="heading_link" href="{{ path(app.request.attributes.get('_route')) }}">{{ 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') }}</a>
 	</div>
-	<div class="common_box_panel common_tool_strip">
-		<div class="pagerfanta">
-			{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_locked_posts_paginated', 'routeParams':{}} ) }}
-		</div>
+	<div class="pagerfanta">
+		{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_locked_posts_paginated', 'routeParams':{}} ) }}
 	</div>
 	{% for key, post in posts %}
 		{% include "CCDNForumForumBundle:Post:item_post.html.twig" %}
 	{% endfor %}
-	<div class="common_box_panel common_tool_strip">
-		<div class="pagerfanta">
-			{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_locked_posts_paginated', 'routeParams':{}} ) }}
-		</div>
+	<div class="pagerfanta">
+		{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_locked_posts_paginated', 'routeParams':{}} ) }}
 	</div>
 </div>
 

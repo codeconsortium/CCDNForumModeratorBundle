@@ -3,7 +3,6 @@
 {% block stylesheets %}
 	{{ parent() }}
 	<link href="{{ asset('bundles/ccdncomponentcrumbtrail/css/crumbs.css') }}" rel="stylesheet" type="text/css" />
-	<link href="{{ asset('bundles/ccdncomponentcommon/css/form.css') }}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('bundles/CCDNForumForum/css/topic.css') }}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
@@ -40,34 +39,29 @@
 		<span class="heading_glow">{{ 'title.flag.update' | trans({'%flag_id%': flag.getId }, 'CCDNForumModeratorBundle' )}}</span>
 	</div>
 	<div class="common_box_panel">
+		{% form_theme form param('ccdn_forum_moderator.template.theme') %}
 		<form action="{{ path('cc_moderator_forum_mark_flag', { 'flag_id': flag.getId } ) }}" method="post" {{ form_enctype(form) }}>
 			{{ form_row(form._token) }}
 			<div class="errors">{{ form_errors(form) }}</div>
 			<table class="common_list">
-				<thead>
-					<th style="width: 30%;"></th>
-					<th style="width: 70%;"></th>
-				</thead>
-				<tfoot>
-				</tfoot>
 				<tbody>
 					<tr class="{{ cycler(['row_odd', 'row_even'], 'cycle') }}">
-						<td class="h_align_right v_align_top">{{ form_label(form.status, null, { 'label': 'form.label.flag.status'| trans({}, 'CCDNForumModeratorBundle') }) }}</td>
-						<td class="h_align_left v_align_top">
+						<td class="form_label">{{ form_label(form.status, null, { 'label': 'form.label.flag.status'| trans({}, 'CCDNForumModeratorBundle') }) }}</td>
+						<td class="form_widget">
 							{{ form_errors(form.status) }}
 							{{ form_widget(form.status) }}
 						</td>
 					</tr>
 					<tr class="{{ cycler(['row_odd', 'row_even'], 'cycle') }}">
-						<td class="h_align_right v_align_top">{{ form_label(form.moderators_note, null, { 'label': 'form.label.flag.moderators_note'| trans({}, 'CCDNForumModeratorBundle') }) }}</td>
-						<td class="h_align_left v_align_top">
+						<td class="form_label">{{ form_label(form.moderators_note, null, { 'label': 'form.label.flag.moderators_note'| trans({}, 'CCDNForumModeratorBundle') }) }}</td>
+						<td class="form_widget">
 							{{ form_errors(form.moderators_note) }}
 							{{ form_widget(form.moderators_note) }}
 						</td>
 					</tr>
 					<tr class="{{ cycler(['row_odd', 'row_even'], 'cycle') }}">
-						<td class="h_align_centre v_align_middle" colspan="2">
-							<input type="submit" value="{{ 'form.button.flag.update' | trans({}, 'CCDNForumModeratorBundle') }}" />
+						<td class="form_tool_strip" colspan="2">
+							<input type="submit" class="widget_submit" value="{{ 'form.button.flag.update' | trans({}, 'CCDNForumModeratorBundle') }}" />
 						</td>
 					</tr>
 				</tbody>

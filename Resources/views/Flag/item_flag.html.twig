@@ -27,25 +27,27 @@
 	</div>
 	
 	<div class="row">
-		<img class="text_bubble_chevron" width="30px" height="20px" src="{{ asset('bundles/CCDNForumForum/images/text_bubble/chevron.png') }}" />
-		
-		<div class="common_box_5 margin_10 padding_10 text_bubble">
-			{{ reason_codes[flag.getReason] }}<hr />
-			{{ 'flag.description' | trans({}, 'CCDNForumModeratorBundle') }}<br />
-			{{ flag.getDescription }}
-		</div>
-		<div class="common_box_5 margin_10 padding_10 text_bubble">
-			{{ status_codes[flag.getStatus] }}&nbsp;&#45;&nbsp;<a href="{{ path('cc_moderator_forum_mark_flag', {'flag_id': flag.getId }) }}">{{ 'link.flag.update' | trans({}, 'CCDNForumModeratorBundle') }}</a>
-		
+		<div class="padding_10">
+			<div class="text_bubble_header" style="text-align: left !important; padding-left: 10px;">
+				{{ reason_codes[flag.getReason] }}
+			</div>
+			<div class="text_bubble_body">
+				{{ 'flag.description' | trans({}, 'CCDNForumModeratorBundle') }}<br />
+				{{ flag.getDescription }}
+			</div>
 			{% if flag.getModeratedBy %}
-				<hr />
+			<div class="text_bubble_body">
 				{{ 'flag.moderated_by' | trans({}, 'CCDNForumModeratorBundle') }}
 				{% if flag.getModeratedBy %}<a class="username_medium" href="{{ path(user_profile_route, {'user_id': flag.getModeratedBy.getId } ) }}">{{ flag.getModeratedBy }}</a>
 				{% else %}Guest{% endif %}
 				{{ 'actioned.at' | trans({'%date%': flag.getModeratedDate|date("d/m/Y - H:i:s")}, 'CCDNForumModeratorBundle') }}
 				<br /><br />
 				{{ flag.getModeratorsNote }}
+			</div>
 			{% endif %}
+			<div class="text_bubble_footer">
+				{{ status_codes[flag.getStatus] }}&nbsp;&#45;&nbsp;<a href="{{ path('cc_moderator_forum_mark_flag', {'flag_id': flag.getId }) }}">{{ 'link.flag.update' | trans({}, 'CCDNForumModeratorBundle') }}</a>
+			</div>
 		</div>
 	</div>
 </div>
