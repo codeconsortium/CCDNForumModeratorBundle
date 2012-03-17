@@ -46,14 +46,14 @@
 	<div class="common_box_panel">
 		<table class="common_list">
 			<thead>
-				<th></th>
-				<th>{{ 'board.table.head.topic_title' | trans({}, 'CCDNForumForumBundle') }}</th>
-				<th>{{ 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') }}</th>
-				<th>{{ 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') }}</th>
-				<th>{{ 'board.table.head.last_post' | trans({}, 'CCDNForumForumBundle') }}</th>
+				<tr>
+					<th></th>
+					<th>{{ 'board.table.head.topic_title' | trans({}, 'CCDNForumForumBundle') }}</th>
+					<th>{{ 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') }}</th>
+					<th>{{ 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') }}</th>
+					<th>{{ 'board.table.head.last_post' | trans({}, 'CCDNForumForumBundle') }}</th>
+				</tr>
 			</thead>
-			<tfoot>
-			</tfoot>
 			<tbody>
 				{% for row, topic in topics %}
 					<tr class="{{ cycle(['row_odd', 'row_even'], row) }}">
@@ -77,7 +77,7 @@
 							</span>&nbsp;&nbsp;
 						</td>
 						<td class="h_align_left v_align_middle">
-							<span class="stat_label">{{ 'board.table.body.reply_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;<span class="stat">{{ topic.getReplyCount }}</span><br/>
+							<span class="stat_label">{{ 'board.table.body.reply_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;<span class="stat">{{ topic.getReplyCount }}</span><br>
 						</td>
 						<td class="h_align_left v_align_middle">
 							<span class="stat_label">{{ 'board.table.body.view_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;<span class="stat">{{ topic.getViewCount }}</span>

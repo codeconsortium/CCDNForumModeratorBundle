@@ -53,12 +53,12 @@
 	<div class="common_box_panel">
 		<table class="common_list">
 			<thead>
-				<th></th>
-				<th class="h_align_left v_align_middle">{{ 'flag.table.head.topic' | trans({}, 'CCDNForumModeratorBundle') }}</th>
-				<th class="h_align_left v_align_middle">{{ 'flag.table.head.board' | trans({}, 'CCDNForumModeratorBundle') }}</th>
+				<tr>
+					<th></th>
+					<th class="h_align_left v_align_middle">{{ 'flag.table.head.topic' | trans({}, 'CCDNForumModeratorBundle') }}</th>
+					<th class="h_align_left v_align_middle">{{ 'flag.table.head.board' | trans({}, 'CCDNForumModeratorBundle') }}</th>
+				</tr>
 			</thead>
-			<tfoot>
-			</tfoot>
 			<tbody>
 			{% for post_key, post in posts %}
 				<tr class="{{ cycler(['row_odd', 'row_even'], 'posts') }} }}">
@@ -86,11 +86,13 @@
 						<div class="common_box_panel margin_0">
 							<table class="common_list">
 								<thead>
-									<th></th>
-									<th class="padding_5 h_align_left v_align_middle">{{ 'flag.table.head.reason' | trans({}, 'CCDNForumModeratorBundle') }}</th>
-									<th class="padding_5 h_align_left v_align_middle">{{ 'flag.flagged_by' | trans({}, 'CCDNForumModeratorBundle') }}</th>
-									<th class="padding_5 h_align_left v_align_middle">{{ 'actioned.at' | trans({}, 'CCDNForumModeratorBundle') }}</th>
-									<th class="padding_5 h_align_left v_align_middle">{{ 'flag.table.head.status' | trans({}, 'CCDNForumModeratorBundle') }}</th>
+									<tr>
+										<th></th>
+										<th class="padding_5 h_align_left v_align_middle">{{ 'flag.table.head.reason' | trans({}, 'CCDNForumModeratorBundle') }}</th>
+										<th class="padding_5 h_align_left v_align_middle">{{ 'flag.flagged_by' | trans({}, 'CCDNForumModeratorBundle') }}</th>
+										<th class="padding_5 h_align_left v_align_middle">{{ 'actioned.at' | trans({}, 'CCDNForumModeratorBundle') }}</th>
+										<th class="padding_5 h_align_left v_align_middle">{{ 'flag.table.head.status' | trans({}, 'CCDNForumModeratorBundle') }}</th>
+									</tr>
 								</thead>
 								<tbody>
 									{% for flag_key, flag in post.flags %}
