@@ -3,7 +3,6 @@
 {% block stylesheets %}
 	{{ parent() }}
 	<link href="{{ asset('bundles/ccdncomponentcrumbtrail/css/crumbs.css') }}" rel="stylesheet" type="text/css" />
-	<link href="{{ asset('bundles/CCDNForumForum/css/topic.css') }}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block title %}{{ 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') }}{% endblock %}
@@ -39,7 +38,7 @@
 		<span class="heading_glow">{{ 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') }}</span>
 	</div>
 	<div class="common_box_panel">
-		<img class="icon_16x16" width="16px" height="16px" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_locked.png') }}" />
+		<img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_locked.png') }}" alt="icon" />
 		<a class="heading_link" href="{{ path(app.request.attributes.get('_route')) }}">{{ 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') }}</a>
 	</div>
 	<div class="pagerfanta">

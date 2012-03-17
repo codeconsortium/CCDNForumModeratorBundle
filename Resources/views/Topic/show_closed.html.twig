@@ -3,7 +3,6 @@
 {% block stylesheets %}
 	{{ parent() }}
 	<link href="{{ asset('bundles/ccdncomponentcrumbtrail/css/crumbs.css') }}" rel="stylesheet" type="text/css" />
-	<link href="{{ asset('bundles/CCDNForumForum/css/board.css') }}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block title %}{{ 'title.topic.closed' | trans({}, 'CCDNForumModeratorBundle') }}{% endblock %}
@@ -38,7 +37,7 @@
 		<span class="heading_glow">{{ 'title.topic.closed' | trans({}, 'CCDNForumModeratorBundle') }}</span>
 	</div>
 	<div class="common_box_panel">
-		<img class="icon_16x16" width="16px" height="16px" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_closed.png') }}" />
+		<img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_closed.png') }}" alt="icon" />
 		<a class="heading_link" href="{{ path(app.request.attributes.get('_route')) }}">{{ 'title.topic.closed' | trans({}, 'CCDNForumModeratorBundle') }}</a><br />
 	</div>
 	<div class="pagerfanta">
@@ -59,7 +58,7 @@
 				{% for row, topic in topics %}
 					<tr class="{{ cycle(['row_odd', 'row_even'], row) }}">
 						<td class="padding_5 h_align_centre v_align_middle">
-							<a href="{{ path('cc_forum_topic_show', {'topic_id': topic.getId }) }}"><img class="icon_16x16" width="16px" height="16px" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_communication.png') }}" /></a>
+							<a href="{{ path('cc_forum_topic_show', {'topic_id': topic.getId }) }}"><img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_communication.png') }}" alt="icon" /></a>
 						</td>
 						<td class="padding_5 h_align_left v_align_top">
 							<a class="topic_link" href="{{ path('cc_forum_topic_show', {'topic_id': topic.getId }) }}">{{ topic.getTitle }}</a><br />

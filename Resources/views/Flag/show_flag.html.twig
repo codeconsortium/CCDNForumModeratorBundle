@@ -3,7 +3,6 @@
 {% block stylesheets %}
 	{{ parent() }}
 	<link href="{{ asset('bundles/ccdncomponentcrumbtrail/css/crumbs.css') }}" rel="stylesheet" type="text/css" />
-	<link href="{{ asset('bundles/CCDNForumForum/css/topic.css') }}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block title %}{{ 'title.flag.show' | trans({'%flag_id%': flag.getId, '%topic%': flag.getPost.getTopic.getTitle, '%post_id%': flag.getPost.getId }, 'CCDNForumModeratorBundle') }}{% endblock %}
@@ -46,7 +45,7 @@
 		<span class="heading_glow">#{{ flag.getId}}</span>
 	</div>
 	<div class="common_box_panel">
-		<img class="icon_16x16" width="16px" height="16px" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_flag.png') }}" />
+		<img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_flag.png') }}" alt="icon" />
 		<a class="heading_link" href="">{{ 'title.flag.show' | trans({'%flag_id%': flag.getId, '%topic%': flag.getPost.getTopic.getTitle, '%post_id%': flag.getPost.getId }, 'CCDNForumModeratorBundle') }}</a><br />
 	</div>
 	{% include "CCDNForumModeratorBundle:Flag:item_flag.html.twig" %}

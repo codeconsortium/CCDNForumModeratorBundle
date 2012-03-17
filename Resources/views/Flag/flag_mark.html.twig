@@ -3,7 +3,6 @@
 {% block stylesheets %}
 	{{ parent() }}
 	<link href="{{ asset('bundles/ccdncomponentcrumbtrail/css/crumbs.css') }}" rel="stylesheet" type="text/css" />
-	<link href="{{ asset('bundles/CCDNForumForum/css/topic.css') }}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 {% block title %}{{ 'title.flag.update' | trans({'%flag_id%': flag.getId }, 'CCDNForumModeratorBundle' )}}{% endblock %}
