@@ -44,8 +44,8 @@
 		<span class="heading_glow">{{ 'title.flag.show.all' | trans({}, 'CCDNForumModeratorBundle') }}</span>
 	</div>
 	<div class="common_box_panel">
-		<img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_flag.png') }}" alt="icon" />
-		<a class="heading_link" href="{{ path(app.request.attributes.get('_route')) }}">{{ 'title.flag.show.all' | trans({}, 'CCDNForumModeratorBundle') }}</a><br />
+		<img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_flag.png') }}" alt="icon">
+		<a class="heading_link" href="{{ path(app.request.attributes.get('_route')) }}">{{ 'title.flag.show.all' | trans({}, 'CCDNForumModeratorBundle') }}</a><br>
 	</div>
 	<div class="pagerfanta">
 		{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_flagged_posts_status_paginated', 'routeParams':{}} ) }}
@@ -62,10 +62,10 @@
 			<tbody>
 			{% for post_key, post in posts %}
 				<tr class="{{ cycler(['row_odd', 'row_even'], 'posts') }} }}">
-					<td class="h_align_centre v_align_middle"><img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_communication.png') }}" alt="icon" /></td>
+					<td class="h_align_centre v_align_middle"><img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_communication.png') }}" alt="icon"></td>
 					<td class="h_align_left v_align_top">
 						<a href="{{ path('cc_forum_topic_show', {'topic_id': post.getTopic.getId }) }}">#{{post.getId}}&nbsp;{{ post.getTopic.getTitle }}</a>
-						<br />
+						<br>
 						{{ 'post.posted_by' | trans({}, 'CCDNForumForumBundle') }}
 						{% if post.getCreatedBy %}
 							<a class="username_medium" href="{{ path(user_profile_route, {'user_id': post.getCreatedBy.getId } ) }}">{{ post.getCreatedBy }}</a>
@@ -95,7 +95,7 @@
 								<tbody>
 									{% for flag_key, flag in post.flags %}
 									<tr class="{{ cycle(['row_odd', 'row_even'], flag_key) }}">
-										<td class="padding_5 h_align_centre v_align_middle"><img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_flag.png') }}" alt="icon" /></td>
+										<td class="padding_5 h_align_centre v_align_middle"><img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_flag.png') }}" alt="icon"></td>
 										<td class="padding_5 h_align_left v_align_middle">
 											<a href="{{ path('cc_moderator_forum_show_flag', {'flag_id': flag.getId }) }}">{{ reason_codes[flag.getReason] }}</a>
 										</td>

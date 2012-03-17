@@ -6,7 +6,7 @@
 </div>
 <div class="common_box_panel bg_item_light">
 	<div class="row padding_10">
-		<div class="column v_align_middle"><img class="avatar" width="100" height="100" src="{{ asset('bundles/ccdncomponentcommon/images/profile/anonymous_avatar.gif') }}" alt="avatar" /></div>
+		<div class="column v_align_middle"><img class="avatar" width="100" height="100" src="{{ asset('bundles/ccdncomponentcommon/images/profile/anonymous_avatar.gif') }}" alt="avatar"></div>
 		<div class="column v_align_top">
 			<div class="row h_align_centre padding_5">
 				{% if flag.getFlaggedBy %}
@@ -15,10 +15,10 @@
 			</div>
 			<div class="row h_align_centre padding_5">
 				<img class="star_rating" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" alt="icon" 
-				/><img class="star_rating" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" alt="icon" 
-				/><img class="star_rating" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" alt="icon" 
-				/><img class="star_rating" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" alt="icon" 
-				/><img class="star_rating" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" alt="icon" />
+				><img class="star_rating" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" alt="icon" 
+				><img class="star_rating" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" alt="icon" 
+				><img class="star_rating" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" alt="icon" 
+				><img class="star_rating" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" alt="icon">
 			</div>
 			<div class="row h_align_centre padding_5">{{ 'post.user.post_count' | trans({'%post_count%': '50'}, 'CCDNForumForumBundle') }}</div>
 		</div>
@@ -32,7 +32,7 @@
 				{{ reason_codes[flag.getReason] }}
 			</div>
 			<div class="text_bubble_body">
-				{{ 'flag.description' | trans({}, 'CCDNForumModeratorBundle') }}<br />
+				{{ 'flag.description' | trans({}, 'CCDNForumModeratorBundle') }}<br>
 				{{ flag.getDescription }}
 			</div>
 			{% if flag.getModeratedBy %}
@@ -41,7 +41,7 @@
 				{% if flag.getModeratedBy %}<a class="username_medium" href="{{ path(user_profile_route, {'user_id': flag.getModeratedBy.getId } ) }}">{{ flag.getModeratedBy }}</a>
 				{% else %}Guest{% endif %}
 				{{ 'actioned.at' | trans({'%date%': flag.getModeratedDate|date("d/m/Y - H:i:s")}, 'CCDNForumModeratorBundle') }}
-				<br /><br />
+				<br><br>
 				{{ flag.getModeratorsNote }}
 			</div>
 			{% endif %}

@@ -37,8 +37,8 @@
 		<span class="heading_glow">{{ 'title.topic.closed' | trans({}, 'CCDNForumModeratorBundle') }}</span>
 	</div>
 	<div class="common_box_panel">
-		<img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_closed.png') }}" alt="icon" />
-		<a class="heading_link" href="{{ path(app.request.attributes.get('_route')) }}">{{ 'title.topic.closed' | trans({}, 'CCDNForumModeratorBundle') }}</a><br />
+		<img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_closed.png') }}" alt="icon">
+		<a class="heading_link" href="{{ path(app.request.attributes.get('_route')) }}">{{ 'title.topic.closed' | trans({}, 'CCDNForumModeratorBundle') }}</a><br>
 	</div>
 	<div class="pagerfanta">
 		{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_closed_topics_paginated', 'routeParams':{}} ) }}
@@ -58,10 +58,10 @@
 				{% for row, topic in topics %}
 					<tr class="{{ cycle(['row_odd', 'row_even'], row) }}">
 						<td class="padding_5 h_align_centre v_align_middle">
-							<a href="{{ path('cc_forum_topic_show', {'topic_id': topic.getId }) }}"><img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_communication.png') }}" alt="icon" /></a>
+							<a href="{{ path('cc_forum_topic_show', {'topic_id': topic.getId }) }}"><img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_communication.png') }}" alt="icon"></a>
 						</td>
 						<td class="padding_5 h_align_left v_align_top">
-							<a class="topic_link" href="{{ path('cc_forum_topic_show', {'topic_id': topic.getId }) }}">{{ topic.getTitle }}</a><br />
+							<a class="topic_link" href="{{ path('cc_forum_topic_show', {'topic_id': topic.getId }) }}">{{ topic.getTitle }}</a><br>
 							<span class="first_post">
 							{{ 'post.posted_by' | trans({}, 'CCDNForumForumBundle') }}
 							{% if topic.getFirstPost %}
