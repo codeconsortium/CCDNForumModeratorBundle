@@ -55,17 +55,21 @@ Installation:
     git=http://github.com/whiteoctober/WhiteOctoberPagerfantaBundle.git
     target=/bundles/WhiteOctober/PagerfantaBundle
 
-[CommonBundle]
+[CCDNComponentCommonBundle]
     git=http://github.com/codeconsortium/CommonBundle.git
     target=/bundles/CCDNComponent/CommonBundle
 
-[BBCodeBundle]
+[CCDNComponentBBCodeBundle]
     git=http://github.com/codeconsortium/BBCodeBundle.git
     target=/bundles/CCDNComponent/BBCodeBundle
 
-[CrumbTrailBundle]
+[CCDNComponentCrumbTrailBundle]
     git=http://github.com/codeconsortium/CrumbTrailBundle.git
     target=/bundles/CCDNComponent/CrumbTrailBundle
+
+[CCDNComponentDashboardBundle]
+    git=http://github.com/codeconsortium/DashboardBundle.git
+    target=/bundles/CCDNComponent/DashboardBundle
 
 [CCDNComponentAttachmentBundle]
 	git=http://github.com/codeconsortium/AttachmentBundle.git
@@ -201,6 +205,10 @@ ccdn_attachment_file_store= "/your/folder/where/you/want/to/store/attachments"
 4) In your app/config/routing.yml add:  
 
 ```sh
+CCDNComponentDashboardBundle:
+	resource: @"CCDNComponentDashboardBundle/Resources/config/routing.yml"
+	prefix: /
+
 CCDNComponentAttachmentBundle:
     resource: "@CCDNComponentAttachmentBundle/Resources/config/routing.yml"
     prefix: /

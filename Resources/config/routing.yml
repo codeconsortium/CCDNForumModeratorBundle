@@ -1,8 +1,6 @@
 cc_moderator_forum_cp:
-    pattern: /{_locale}/moderate/forum/flagged/posts/show
-    defaults: { _controller: CCDNForumModeratorBundle:Flag:showFlagged, _locale: en, page: 1, status: 0 }
-    requirements:
-        _locale: en        
+    pattern: /{_locale}/dashboard/moderator
+    defaults: { _controller: CCDNComponentDashboardBundle:Dashboard:show, _locale: en }
 
 cc_moderator_forum_topic_change_board:
     pattern:    /{_locale}/moderate/forum/topic/{topic_id}/change/board
