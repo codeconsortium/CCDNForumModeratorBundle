@@ -58,8 +58,7 @@ class PostController extends ContainerAware
 		
 		// setup crumb trail.
 		$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
-			->add($this->container->get('translator')->trans('crumbs.post.locked.index', array(), 'CCDNForumModeratorBundle'), 
-				$this->container->get('router')->generate('cc_moderator_forum_show_all_locked_posts'), "home");
+			->add($this->container->get('translator')->trans('crumbs.post.locked.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_show_all_locked_posts'), "home");
 				
 		return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Post:show_locked.html.' . $this->getEngine(), array(
 			'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
@@ -96,11 +95,9 @@ class PostController extends ContainerAware
 
 		$this->container->get('ccdn_forum_forum.post.manager')->lock($post, $user)->flushNow();
 
-		$this->container->get('session')->setFlash('notice', 
-			$this->container->get('translator')->trans('flash.post.lock.success', array('%post_id%' => $post_id), 'CCDNForumModeratorBundle'));
+		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.lock.success', array('%post_id%' => $post_id), 'CCDNForumModeratorBundle'));
 
-		return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', 
-			array('topic_id' => $post->getTopic()->getId()) ));
+		return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $post->getTopic()->getId()) ));
 	}
 	
 	
@@ -125,11 +122,9 @@ class PostController extends ContainerAware
 		
 		$this->container->get('ccdn_forum_forum.post.manager')->unlock($post)->flushNow();
 
-		$this->container->get('session')->setFlash('notice', 
-			$this->container->get('translator')->trans('flash.post.unlock.success', array('%post_id%' => $post_id), 'CCDNForumModeratorBundle'));
+		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.unlock.success', array('%post_id%' => $post_id), 'CCDNForumModeratorBundle'));
 			
-		return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', 
-			array('topic_id' => $post->getTopic()->getId()) ));	
+		return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $post->getTopic()->getId()) ));	
 	}
 	
 	
@@ -154,8 +149,7 @@ class PostController extends ContainerAware
 		$this->container->get('ccdn_forum_forum.post.manager')->restore($post)->flushNow();
 
 		// set flash message
-		$this->container->get('session')->setFlash('notice', 
-			$this->container->get('translator')->trans('flash.post.restore.success', array('%post_id%' => $post_id), 'CCDNForumModeratorBundle'));
+		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.restore.success', array('%post_id%' => $post_id), 'CCDNForumModeratorBundle'));
 
 		// forward user
 		return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $post->getTopic()->getId()) ));

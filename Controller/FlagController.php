@@ -65,8 +65,7 @@ class FlagController extends ContainerAware
 		
 		// setup crumb trail.
 		$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
-			->add($this->container->get('translator')->trans('crumbs.flag.index', array(), 'CCDNForumModeratorBundle'), 
-				$this->container->get('router')->generate('cc_moderator_forum_show_all_flagged_posts'), "home");
+			->add($this->container->get('translator')->trans('crumbs.flag.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_show_all_flagged_posts'), "home");
 				
 		return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Flag:show_flagged.html.' . $this->getEngine(), array(
 			'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
@@ -104,10 +103,8 @@ class FlagController extends ContainerAware
 		
 		// setup crumb trail.
 		$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
-			->add($this->container->get('translator')->trans('crumbs.flag.index', array(), 'CCDNForumModeratorBundle'), 
-				$this->container->get('router')->generate('cc_moderator_forum_show_all_flagged_posts'), "home")
-			->add($this->container->get('translator')->trans('crumbs.flag.show', array('%flag_id%' => '#' . $flag->getId()), 'CCDNForumModeratorBundle'),
-				$this->container->get('router')->generate('cc_moderator_forum_show_flag', array('flag_id' => $flag->getId())), "flag");
+			->add($this->container->get('translator')->trans('crumbs.flag.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_show_all_flagged_posts'), "home")
+			->add($this->container->get('translator')->trans('crumbs.flag.show', array('%flag_id%' => '#' . $flag->getId()), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_show_flag', array('flag_id' => $flag->getId())), "flag");
 				
 		return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Flag:show_flag.html.' . $this->getEngine(), array(
 			'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
@@ -148,23 +145,17 @@ class FlagController extends ContainerAware
 					
 		if ($formHandler->process())
 		{
-			$this->container->get('session')->setFlash('notice', 
-				$this->container->get('translator')->trans('flash.flag.update.success', array('%flag_id%' => $flag_id), 'CCDNForumModeratorBundle'));
+			$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.flag.update.success', array('%flag_id%' => $flag_id), 'CCDNForumModeratorBundle'));
 			
 			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_flagged_posts', array() ));
 		}
 		else
 		{
-			$form = $formHandler->getForm();
-			
 			// setup crumb trail.
 			$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
-				->add($this->container->get('translator')->trans('crumbs.flag.index', array(), 'CCDNForumModeratorBundle'), 
-					$this->container->get('router')->generate('cc_moderator_forum_show_all_flagged_posts'), "home")
-				->add($this->container->get('translator')->trans('crumbs.flag.show', array('%flag_id%' => '#' . $flag->getId()), 'CCDNForumModeratorBundle'),
-					$this->container->get('router')->generate('cc_moderator_forum_show_flag', array('flag_id' => $flag->getId())), "flag")
-				->add($this->container->get('translator')->trans('crumbs.flag.mark', array(), 'CCDNForumModeratorBundle'),
-					$this->container->get('router')->generate('cc_moderator_forum_mark_flag', array('flag_id' => $flag->getId())), "edit");
+				->add($this->container->get('translator')->trans('crumbs.flag.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_show_all_flagged_posts'), "home")
+				->add($this->container->get('translator')->trans('crumbs.flag.show', array('%flag_id%' => '#' . $flag->getId()), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_show_flag', array('flag_id' => $flag->getId())), "flag")
+				->add($this->container->get('translator')->trans('crumbs.flag.mark', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_mark_flag', array('flag_id' => $flag->getId())), "edit");
 			
 			return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Flag:flag_mark.html.' . $this->getEngine(), array(
 				'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
@@ -172,7 +163,7 @@ class FlagController extends ContainerAware
 				'flag' => $flag,
 				'post' => $flag->getPost(),
 				'crumbs' => $crumb_trail,
-				'form' => $form->createView(),
+				'form' => $formHandler->getForm()->createView(),
 				'reason_codes' => $this->container->get('ccdn_forum_forum.flag.form.default_choices')->getReasonCodes(),
 				'status_codes' => $this->container->get('ccdn_forum_forum.flag.form.default_choices')->getStatusCodes(),
 			));
