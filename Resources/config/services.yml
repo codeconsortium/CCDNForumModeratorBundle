@@ -4,7 +4,7 @@ parameters:
     ccdn_forum_moderator.topic.form.change_board.handler.class:   CCDNForum\ModeratorBundle\Form\Handler\TopicChangeBoardFormHandler
     ccdn_forum_moderator.topic.form.change_board.type.class:      CCDNForum\ModeratorBundle\Form\Type\TopicChangeBoardType
 
-    ccdn_forum_moderator.dashboard_integrator.class:              CCDNForum\ModeratorBundle\Component\Dashboard\DashboardIntegrator
+    ccdn_forum_moderator.dashboard.integrator.class:              CCDNForum\ModeratorBundle\Component\Dashboard\DashboardIntegrator
 
 services:
     ccdn_forum_moderator.flag.form.update.handler:
@@ -20,8 +20,8 @@ services:
         class:  %ccdn_forum_moderator.topic.form.change_board.type.class%
         arguments:  [@doctrine]
 
-    ccdn_forum_moderator.dashboard_integrator:
-        class: %ccdn_forum_moderator.dashboard_integrator.class%
+    ccdn_forum_moderator.dashboard.integrator:
+        class: %ccdn_forum_moderator.dashboard.integrator.class%
         arguments: [@service_container]
         tags:
-            - { name: ccdn_component_dashboard.registry }
+            - { name: ccdn_component_dashboard.integrator }
