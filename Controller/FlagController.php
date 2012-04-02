@@ -141,7 +141,7 @@ class FlagController extends ContainerAware
 			throw new NotFoundHttpException('No such flag exists!');
 		}
 			
-		$formHandler = $this->container->get('ccdn_forum_moderator.flag.form.update.handler')->setOptions(array('flag' => $flag, 'user' => $user));
+		$formHandler = $this->container->get('ccdn_forum_moderator.flag.form.update.handler')->setDefaultValues(array('flag' => $flag, 'user' => $user));
 					
 		if ($formHandler->process())
 		{

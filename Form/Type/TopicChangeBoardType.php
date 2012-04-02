@@ -23,20 +23,14 @@ use Symfony\Component\Form\FormBuilder;
  */
 class TopicChangeBoardType extends AbstractType
 {
+
 	
 	
 	/**
 	 *
 	 * @access protected
 	 */
-	protected $options;
-	
-	
-	/**
-	 *
-	 * @access protected
-	 */
-	protected $defaults;
+	protected $defaults = array();
 	
 	
 	/**
@@ -44,9 +38,11 @@ class TopicChangeBoardType extends AbstractType
 	 * @access public
 	 * @param Array() $options
 	 */
-	public function setOptions($options)
+	public function setDefaultValues(array $defaults = null)
 	{
-		$this->options = $options;
+		$this->defaults = array_merge($this->defaults, $defaults);
+		
+		return $this;
 	}
 	
 	
@@ -64,17 +60,7 @@ class TopicChangeBoardType extends AbstractType
 			'preferred_choices' => array($this->defaults['board']),
 		));
 	}
-	
-	
-	/**
-	 *
-	 * @access public
-	 * @param Array() $defaults
-	 */
-	public function setDefaultValues($defaults)
-	{
-		$this->defaults = $defaults;
-	}
+
 	
 
 	/**

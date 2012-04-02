@@ -61,7 +61,7 @@ class TopicChangeBoardFormHandler
 	 *
 	 * @access protected
 	 */
-	protected $options;
+	protected $defaults = array();
 	
 	
 	/**
@@ -78,7 +78,7 @@ class TopicChangeBoardFormHandler
 	 */
 	public function __construct(FormFactory $factory, ContainerInterface $container, EntityManagerInterface $manager)
 	{
-		$this->options = array();
+		$this->defaults = array();
 		$this->factory = $factory;
 		$this->container = $container;
 		$this->manager = $manager;
@@ -93,9 +93,9 @@ class TopicChangeBoardFormHandler
 	 * @param Array() $options
 	 * @return $this
 	 */
-	public function setOptions(array $options = null )
+	public function setDefaultValues(array $defaults = null)
 	{
-		$this->options = $options;
+		$this->defaults = array_merge($this->defaults, $defaults);
 		
 		return $this;
 	}
@@ -138,8 +138,8 @@ class TopicChangeBoardFormHandler
 		if (!$this->form)
 		{
 			$topicChangeBoardType = $this->container->get('ccdn_forum_moderator.topic.form.change_board.type');
-			$topicChangeBoardType->setDefaultValues(array('board' => $this->options['topic']->getBoard()->getId()));
-			$this->form = $this->factory->create($topicChangeBoardType, $this->options['topic']);
+			$topicChangeBoardType->setDefaultValues(array('board' => $this->defaults['topic']->getBoard()->getId()));
+			$this->form = $this->factory->create($topicChangeBoardType, $this->defaults['topic']);
 		}
 		
 		return $this->form;

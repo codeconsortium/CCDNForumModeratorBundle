@@ -61,7 +61,7 @@ class FlagUpdateFormHandler
 	 *
 	 * @access protected
 	 */
-	protected $options;
+	protected $defaults = array();
 	
 	
 	/**
@@ -78,7 +78,7 @@ class FlagUpdateFormHandler
 	 */
 	public function __construct(FormFactory $factory, ContainerInterface $container, EntityManagerInterface $manager)
 	{
-		$this->options = array();
+		$this->defaults = array();
 		$this->factory = $factory;
 		$this->container = $container;
 		$this->manager = $manager;
@@ -93,9 +93,9 @@ class FlagUpdateFormHandler
 	 * @param Array() $options
 	 * @return $this
 	 */
-	public function setOptions(array $options = null )
+	public function setDefaultValues(array $defaults = null)
 	{
-		$this->options = $options;
+		$this->defaults = array_merge($this->defaults, $defaults);
 		
 		return $this;
 	}
@@ -117,7 +117,7 @@ class FlagUpdateFormHandler
 			$formData = $this->form->getData();
 
 			$formData->setModeratedDate(new \DateTime());
-			$formData->setModeratedBy($this->options['user']);
+			$formData->setModeratedBy($this->defaults['user']);
 			
 			if ($this->form->isValid())
 			{	
@@ -141,8 +141,8 @@ class FlagUpdateFormHandler
 		if (!$this->form)
 		{
 			$flagType = $this->container->get('ccdn_forum_moderator.flag.form.update.type');
-			$flagType->setOptions(array('flag_default_choices' => $this->container->get('ccdn_forum_forum.flag.form.default_choices')));
-			$this->form = $this->factory->create($flagType, $this->options['flag']);
+			$flagType->setDefaultValues(array('flag_default_choices' => $this->container->get('ccdn_forum_forum.flag.form.default_choices')));
+			$this->form = $this->factory->create($flagType, $this->defaults['flag']);
 		}
 		
 		return $this->form;

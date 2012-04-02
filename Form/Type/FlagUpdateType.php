@@ -29,7 +29,8 @@ class FlagUpdateType extends AbstractType
 	 *
 	 * @access protected
 	 */
-	protected $options;
+	protected $defaults = array();
+	
 	
 	
 	/**
@@ -37,10 +38,13 @@ class FlagUpdateType extends AbstractType
 	 * @access public
 	 * @param Array() $options
 	 */
-	public function setOptions($options)
+	public function setDefaultValues(array $defaults = null)
 	{
-		$this->options = $options;
+		$this->defaults = array_merge($this->defaults, $defaults);
+		
+		return $this;
 	}
+	
 	
 	
 	/**
@@ -52,7 +56,7 @@ class FlagUpdateType extends AbstractType
 	{
 		
 		$builder->add('status', 'choice', array(
-			'choices' => $this->options['flag_default_choices']->getStatusCodes()
+			'choices' => $this->defaults['flag_default_choices']->getStatusCodes()
 		));
 		$builder->add('moderators_note');
 	}

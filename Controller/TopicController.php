@@ -151,7 +151,7 @@ class TopicController extends ContainerAware
 			throw new NotFoundHttpException('No such topic exists!');
 		}
 		
-		$formHandler = $this->container->get('ccdn_forum_moderator.topic.form.change_board.handler')->setOptions(array('topic' => $topic));
+		$formHandler = $this->container->get('ccdn_forum_moderator.topic.form.change_board.handler')->setDefaultValues(array('topic' => $topic));
 
 		if ($formHandler->process())
 		{
