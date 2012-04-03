@@ -29,6 +29,7 @@ class FlagController extends ContainerAware
 {
 
 	
+	
 	/**
 	 *
 	 * Displays flagged messages
@@ -80,6 +81,7 @@ class FlagController extends ContainerAware
 	}
 	
 	
+	
 	/**
 	 *
 	 * @access public
@@ -116,6 +118,7 @@ class FlagController extends ContainerAware
 		));
 		
 	}
+	
 	
 	
 	/**
@@ -171,6 +174,88 @@ class FlagController extends ContainerAware
 		
 	}
 	
+
+
+	/**
+	 *
+	 * @access public
+	 * @return RedirectResponse
+	 */
+	public function bulkAction()
+	{
+		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR'))
+		{
+			throw new AccessDeniedException('You do not have access to this section.');
+		}
+
+		//
+		// Get all the flag id's.
+		//
+		$flagIds = array();
+		$ids = $_POST;
+		foreach ($ids as $flagKey => $flagId)
+		{
+			// check_{{ flag.id }}_for_{{ post.getId }}
+			if (substr($flagKey, 0, 6) == 'check_')
+			{
+				//
+				// Cast the key values to int upon extraction. 
+				//
+				preg_match('/^check_([0-9]*)_/', $flagKey, $matches);
+				
+				if (array_key_exists(0, $matches))
+				{
+					$id = (int) substr($matches[0], 6, (strlen($matches[0]) -1));
+
+					if (is_int($id) == true)
+					{
+						$flagIds[] = $id;
+					}
+				}
+			}
+		}
+
+		//
+		// Don't bother if there are no flags to process.
+		//
+		if (count($flagIds) < 1)
+		{
+			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_flagged_posts'));
+		}
+
+		$user = $this->container->get('security.context')->getToken()->getUser();
+
+		$flags = $this->container->get('ccdn_forum_forum.flag.repository')->findTheseFlagsById($flagIds);
+
+		if ( ! $flags || empty($flags))
+		{
+			throw new NotFoundHttpException('No flags found!');
+		}
+
+		$statusCodes = $this->container->get('ccdn_forum_forum.flag.form.default_choices')->getStatusCodes();
+		$statusCode = $flags[0]->getStatus();
+		$statusName = array_search($statusCode, $statusCodes);
+
+		if (isset($_POST['submit_delete']))
+		{
+			$this->container->get('ccdn_forum_forum.flag.manager')->bulkDelete($flags)->flushNow();
+		}
+		if (isset($_POST['submit_mark_as']))
+		{			
+			$markAs = (int) $_POST['select_mark_as'];
+			
+			if (is_int($markAs) == true)
+			{
+				$this->container->get('ccdn_forum_forum.flag.manager')->bulkMarkAs($flags, $markAs)->flushNow();
+			} else {
+				$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.flag.bad_status', array(), 'CCDNForumModeratorBundle'));
+			}
+		}
+
+		return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_flagged_posts_status', array('status' => $statusName)));
+	}
+		
+		
 	
 	/**
 	 *

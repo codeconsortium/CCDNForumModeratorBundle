@@ -22,7 +22,8 @@ title.topic.change_board: 'Change board for topic: "%topic_title%"'
 
 link.flag.update: Change Status
 link.topic.change_board: Change Board
-
+link.flag.delete: Delete Flag
+link.flag.mark_as: Change Status
 flash.flag.update.success: 'Flag: #%flag_id% updated.'
 flash.post.lock.success: 'Post: #%post_id% locked.'
 flash.post.unlock.success: 'Post: #%post_id% unlocked.'
@@ -33,6 +34,7 @@ flash.topic.reopen.success: 'Topic: "%topic_title%" reopened.'
 flash.topic.move.success: 'Topic: "%topic_title%" moved.'
 flash.topic.restore.success: 'Topic: "%topic_title%" restored.'
 flash.topic.delete.success: 'Topic: "%topic_title%" deleted.'
+flash.flag.bad_status: 'Bad flag status.'
 
 flag.table.head.topic: Topic
 flag.table.head.board: Board

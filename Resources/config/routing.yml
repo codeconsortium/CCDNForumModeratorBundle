@@ -119,3 +119,7 @@ cc_moderator_forum_show_flag:
     defaults: { _controller: CCDNForumModeratorBundle:Flag:showFlag, _locale: en }
     requirements:
         _locale: en
+        
+cc_moderate_forum_flag_action_bulk:
+    pattern:    /{_locale}/moderate/forum/flagged/action/checked
+    defaults:   { _controller: CCDNForumModeratorBundle:Flag:bulk, _locale: en }

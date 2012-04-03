@@ -5,6 +5,11 @@
 	<link href="{{ asset('bundles/ccdncomponentcrumbtrail/css/crumbs.css') }}" rel="stylesheet" type="text/css">
 {% endblock %}
 
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('bundles/ccdncomponentcommon/js/jquery.checkboxes.js') }}" type="text/javascript"></script>
+{% endblock %}
+
 {% block title %}{{ 'title.flag.show.all' | trans({}, 'CCDNForumModeratorBundle') }}{% endblock %}
 
 {% block sidebar %}
@@ -52,6 +57,17 @@
 		{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_flagged_posts_status_paginated', 'routeParams':{}} ) }}
 	</div>
 	{% endif %}
+	
+	<form method="POST" action="{{ path('cc_moderate_forum_flag_action_bulk') }}">
+	<div class="common_tool_strip">
+		<input type="submit" class="widget_submit" value="{{ 'link.flag.delete' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_delete">
+		<select name="select_mark_as" class="widget_select">
+			{% for status_key, status in status_codes %}
+				<option class="widget_select" value="{{ status_key }}">{{ status }}</option>
+			{% endfor %}
+		</select>
+		<input type="submit" class="widget_submit" value="{{ 'link.flag.mark_as' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_mark_as">
+	</div>
 	<div class="common_box_panel">
 		<table class="common_list">
 			<thead>
@@ -89,7 +105,8 @@
 							<table class="common_list">
 								<thead>
 									<tr>
-										<th></th>
+										<th style="width: 18px; vertical-align: middle; text-align: center;"><input type="checkbox" id="check_all" name="check_all_for_{{ post.getId }}"></th>
+										<th style="width: 18px; vertical-align: middle; text-align: center;"><img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_flag.png') }}" alt="icon"></th>
 										<th class="padding_5 h_align_left v_align_middle">{{ 'flag.table.head.reason' | trans({}, 'CCDNForumModeratorBundle') }}</th>
 										<th class="padding_5 h_align_left v_align_middle">{{ 'flag.flagged_by' | trans({}, 'CCDNForumModeratorBundle') }}</th>
 										<th class="padding_5 h_align_left v_align_middle">{{ 'actioned.at' | trans({}, 'CCDNForumModeratorBundle') }}</th>
@@ -99,22 +116,25 @@
 								<tbody>
 									{% for flag_key, flag in post.flags %}
 									<tr class="{{ cycle(['row_odd', 'row_even'], flag_key) }}">
-										<td class="padding_5 h_align_centre v_align_middle"><img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_flag.png') }}" alt="icon"></td>
+										<td class"h_align_centre v_align_middle">
+											<input type="checkbox" id="flag_{{ flag.id }}" name="check_{{ flag.id }}_for_{{ post.getId }}">
+										</td>
+										<td class="h_align_centre v_align_middle"><img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_flag.png') }}" alt="icon"></td>
 										<td class="padding_5 h_align_left v_align_middle">
 											<a href="{{ path('cc_moderator_forum_show_flag', {'flag_id': flag.getId }) }}">{{ reason_codes[flag.getReason] }}</a>
 										</td>
-										<td class="padding_5 h_align_left v_align_middle">
+										<td class="padding_5 h_align_left v_align_middle" style="width: 200px;">
 											{% if flag.getFlaggedBy %}
 												<a class="username_medium" href="{{ path(user_profile_route, {'user_id': flag.getFlaggedBy.getId } ) }}">{{ flag.getFlaggedBy }}</a>
 											{% else %}
 												Guest
 											{% endif %}
 										</td>
-										<td class="padding_5 h_align_left v_align_middle">
+										<td class="padding_5 h_align_left v_align_middle" style="width: 150px;">
 											{{ flag.getFlaggedDate|date("d/m/Y - H:i:s") }}
 										</td>
-										<td class="padding_5 h_align_left v_align_middle">
-											{{ status_codes[flag.getStatus] }}
+										<td class="padding_5 h_align_left v_align_middle" style="width: 100px;">
+											<a href="{{ path('cc_moderator_forum_show_flag', {'flag_id': flag.getId }) }}">{{ status_codes[flag.getStatus] }}</a>
 										</td>
 									</tr>
 									{% endfor %}
@@ -133,6 +153,8 @@
 			</tbody>
 		</table>
 	</div>
+	</form>
+
 	{% if pager.haveToPaginate %}
 	<div class="pagerfanta">
 		{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_flagged_posts_status_paginated', 'routeParams':{}} ) }}
