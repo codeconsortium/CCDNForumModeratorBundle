@@ -37,10 +37,6 @@
 	<div class="common_box_header">
 		<span class="heading_glow">{{ 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') }}</span>
 	</div>
-	<div class="common_box_panel">
-		<img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_locked.png') }}" alt="icon">
-		<a class="heading_link" href="{{ path(app.request.attributes.get('_route')) }}">{{ 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') }}</a>
-	</div>
 	{% if pager.haveToPaginate %}
 	<div class="pagerfanta">
 		{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_locked_posts_paginated', 'routeParams':{}} ) }}
