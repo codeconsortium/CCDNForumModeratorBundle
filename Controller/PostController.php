@@ -54,7 +54,7 @@ class PostController extends ContainerAware
 		
 		// setup crumb trail.
 		$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
-			->add($this->container->get('translator')->trans('crumbs.post.locked.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_show_all_locked_posts'), "home");
+			->add($this->container->get('translator')->trans('crumbs.post.locked.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_posts_show_all_locked'), "home");
 				
 		return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Post:show_locked.html.' . $this->getEngine(), array(
 			'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
@@ -191,7 +191,7 @@ class PostController extends ContainerAware
 		//
 		if (count($itemIds) < 1)
 		{
-			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_locked_posts'));
+			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_posts_show_all_locked'));
 		}
 
 		$user = $this->container->get('security.context')->getToken()->getUser();
@@ -202,7 +202,7 @@ class PostController extends ContainerAware
 		{
 			$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.no_posts_found', array(), 'CCDNForumModeratorBundle'));
 			
-			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_locked_posts'));
+			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_posts_show_all_locked'));
 		}
 
 		if (isset($_POST['submit_lock']))
@@ -222,7 +222,7 @@ class PostController extends ContainerAware
 			$this->container->get('ccdn_forum_forum.post.manager')->bulkSoftDelete($posts)->flushNow();
 		}
 
-		return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_locked_posts'));
+		return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_posts_show_all_locked'));
 	}
 	
 	

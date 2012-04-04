@@ -5,19 +5,19 @@ cc_moderator_forum_cp:
 #
 # Post Moderation.
 #
-cc_moderator_forum_show_all_locked_posts:
+cc_moderator_forum_posts_show_all_locked:
     pattern: /{_locale}/moderate/forum/post/show/locked
     defaults: { _controller: CCDNForumModeratorBundle:Post:showLocked, _locale: en, page: 1 }
 
-cc_moderator_forum_show_all_locked_posts_paginated:
+cc_moderator_forum_posts_show_all_locked_paginated:
     pattern: /{_locale}/moderate/forum/post/show/locked/page/{page}
     defaults: { _controller: CCDNForumModeratorBundle:Post:showLocked, _locale: en, page: 1 }
                 
-cc_moderator_forum_lock_post:
+cc_moderator_forum_post_lock:
     pattern: /{_locale}/moderate/forum/post/{post_id}/lock
     defaults: { _controller: CCDNForumModeratorBundle:Post:lock, _locale: en }
 
-cc_moderator_forum_unlock_post:
+cc_moderator_forum_post_unlock:
     pattern: /{_locale}/moderate/forum/post/{post_id}/unlock
     defaults: { _controller: CCDNForumModeratorBundle:Post:unlock, _locale: en }
 
