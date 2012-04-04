@@ -54,6 +54,8 @@ class PostController extends ContainerAware
 		
 		// setup crumb trail.
 		$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
+			->add('Dashboard', $this->container->get('router')->generate('cc_dashboard_index'), 'sitemap')
+			->add('Moderator', $this->container->get('router')->generate('cc_dashboard_show', array('category' => 'moderator')), 'sitemap')
 			->add($this->container->get('translator')->trans('crumbs.post.locked.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_posts_show_all_locked'), "home");
 				
 		return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Post:show_locked.html.' . $this->getEngine(), array(

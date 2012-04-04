@@ -68,6 +68,8 @@ class FlagController extends ContainerAware
 		
 		// setup crumb trail.
 		$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
+			->add('Dashboard', $this->container->get('router')->generate('cc_dashboard_index'), 'sitemap')
+			->add('Moderator', $this->container->get('router')->generate('cc_dashboard_show', array('category' => 'moderator')), 'sitemap')
 			->add($this->container->get('translator')->trans('crumbs.flag.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_flagged_show_all'), "home");
 				
 		return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Flag:show_flagged.html.' . $this->getEngine(), array(
@@ -109,6 +111,8 @@ class FlagController extends ContainerAware
 		
 		// setup crumb trail.
 		$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
+			->add('Dashboard', $this->container->get('router')->generate('cc_dashboard_index'), 'sitemap')
+			->add('Moderator', $this->container->get('router')->generate('cc_dashboard_show', array('category' => 'moderator')), 'sitemap')
 			->add($this->container->get('translator')->trans('crumbs.flag.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_flagged_show_all'), "home")
 			->add($this->container->get('translator')->trans('crumbs.flag.show', array('%flag_id%' => '#' . $flag->getId()), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_flag_show', array('flag_id' => $flag->getId())), "flag");
 				
