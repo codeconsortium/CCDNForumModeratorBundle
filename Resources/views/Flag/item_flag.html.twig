@@ -46,7 +46,7 @@
 			</div>
 			{% endif %}
 			<div class="text_bubble_footer">
-				{{ status_codes[flag.getStatus] }}&nbsp;&#45;&nbsp;<a href="{{ path('cc_moderator_forum_mark_flag', {'flag_id': flag.getId }) }}">{{ 'link.flag.update' | trans({}, 'CCDNForumModeratorBundle') }}</a>
+				{{ status_codes[flag.getStatus] }}&nbsp;&#45;&nbsp;<a href="{{ path('cc_moderator_forum_flag_mark', {'flag_id': flag.getId }) }}">{{ 'link.flag.update' | trans({}, 'CCDNForumModeratorBundle') }}</a>
 			</div>
 		</div>
 	</div>

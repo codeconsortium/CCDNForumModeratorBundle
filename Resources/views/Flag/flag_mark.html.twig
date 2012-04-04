@@ -20,7 +20,7 @@
 
 	<div class="common_box_5 bg_header_smoke">
 		<div class="common_box_header"><span class="heading_glow">{{ 'sidebar.header.tools' | trans({}, 'CCDNForumModeratorBundle') }}</span></div>
-		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_show_all_flagged_posts', {}) }}">{{ 'sidebar.link.show_all_flagged_posts' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>	
+		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_flagged_show_all', {}) }}">{{ 'sidebar.link.show_all_flagged_posts' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>	
 		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_show_all_locked_posts', {}) }}">{{ 'sidebar.link.show_all_locked_posts' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>
 		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_show_all_closed_topics', {}) }}">{{ 'sidebar.link.show_all_closed_topics' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>
 	</div>
@@ -39,7 +39,7 @@
 	</div>
 	<div class="common_box_panel">
 		{% form_theme form param('ccdn_forum_moderator.template.theme') %}
-		<form action="{{ path('cc_moderator_forum_mark_flag', { 'flag_id': flag.getId } ) }}" method="post" {{ form_enctype(form) }}>
+		<form action="{{ path('cc_moderator_forum_flag_mark', { 'flag_id': flag.getId } ) }}" method="post" {{ form_enctype(form) }}>
 			{{ form_row(form._token) }}
 			<div class="errors">{{ form_errors(form) }}</div>
 			<table class="common_list">
