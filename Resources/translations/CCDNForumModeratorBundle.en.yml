@@ -28,6 +28,8 @@ link.topic.close: 'Close'
 link.topic.reopen: 'Re-Open'
 link.topic.restore: 'Restore'
 link.topic.delete: 'Delete'
+link.post.lock: 'Lock'
+link.post.unlock: 'Unlock'
 
 flash.flag.update.success: 'Flag: #%flag_id% updated.'
 flash.post.lock.success: 'Post: #%post_id% locked.'
@@ -53,6 +55,9 @@ flag.posted_on_board: Posted on
 actioned.at: ' at '
 
 flag.description: 'Description: '
+
+posts.locked.table.empty: 'No locked posts found.'
+topics.closed.table.empty: 'No closed topics found.'
 
 form.label.flag.status: 'Status: '
 form.label.flag.moderators_note: 'Case Notes: '

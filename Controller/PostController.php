@@ -156,6 +156,79 @@ class PostController extends ContainerAware
 	}
 	
 	
+	
+	/**
+	 *
+	 * @access public
+	 * @return RedirectResponse
+	 */
+	public function bulkAction()
+	{
+		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR'))
+		{
+			throw new AccessDeniedException('You do not have access to this section.');
+		}
+
+		//
+		// Get all the checked item id's.
+		//
+		$itemIds = array();
+		$ids = $_POST;
+		foreach ($ids as $itemKey => $itemId)
+		{
+			if (substr($itemKey, 0, 6) == 'check_')
+			{
+				//
+				// Cast the key values to int upon extraction. 
+				//
+				$id = (int) substr($itemKey, 6, (strlen($itemKey) - 6));
+
+				if (is_int($id) == true)
+				{
+					$itemIds[] = $id;
+				}
+			}
+		}
+
+		//
+		// Don't bother if there are no flags to process.
+		//
+		if (count($itemIds) < 1)
+		{
+			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_locked_posts'));
+		}
+
+		$user = $this->container->get('security.context')->getToken()->getUser();
+
+		$posts = $this->container->get('ccdn_forum_forum.post.repository')->findThesePostsByIdForModeration($itemIds);
+
+		if ( ! $posts || empty($posts))
+		{
+			throw new NotFoundHttpException('No posts found!');
+		}
+
+		if (isset($_POST['submit_lock']))
+		{
+			$this->container->get('ccdn_forum_forum.post.manager')->bulkLock($posts)->flushNow();
+		}
+		if (isset($_POST['submit_unlock']))
+		{
+			$this->container->get('ccdn_forum_forum.post.manager')->bulkUnlock($posts)->flushNow();
+		}
+		if (isset($_POST['submit_restore']))
+		{
+			$this->container->get('ccdn_forum_forum.post.manager')->bulkRestore($posts)->flushNow();
+		}
+		if (isset($_POST['submit_delete']))
+		{
+			$this->container->get('ccdn_forum_forum.post.manager')->bulkSoftDelete($posts)->flushNow();
+		}
+
+		return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_locked_posts'));
+	}
+	
+	
+	
 	/**
 	 *
 	 * @access protected

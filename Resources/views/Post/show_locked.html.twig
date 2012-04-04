@@ -5,6 +5,11 @@
 	<link href="{{ asset('bundles/ccdncomponentcrumbtrail/css/crumbs.css') }}" rel="stylesheet" type="text/css">
 {% endblock %}
 
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('bundles/ccdncomponentcommon/js/jquery.checkboxes.js') }}" type="text/javascript"></script>
+{% endblock %}
+
 {% block title %}{{ 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') }}{% endblock %}
 
 {% block sidebar %}
@@ -37,19 +42,95 @@
 	<div class="common_box_header">
 		<span class="heading_glow">{{ 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') }}</span>
 	</div>
+	<form method="POST" action="{{ path('cc_moderator_forum_posts_bulk_action') }}">
+	<div class="common_tool_strip">
+		<input type="submit" class="widget_submit" value="{{ 'link.post.lock' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_lock">
+		<input type="submit" class="widget_submit" value="{{ 'link.post.unlock' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_unlock">
+		<input type="submit" class="widget_submit" value="{{ 'link.topic.restore' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_restore">
+		<input type="submit" class="widget_submit" value="{{ 'link.topic.delete' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_delete">
+	</div>
 	{% if pager.haveToPaginate %}
 	<div class="pagerfanta">
 		{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_locked_posts_paginated', 'routeParams':{}} ) }}
 	</div>
 	{% endif %}
-	{% for key, post in posts %}
-		{% include "CCDNForumForumBundle:Post:item_post.html.twig" %}
-	{% endfor %}
+	<div class="common_box_panel">
+		<table class="common_list">
+			<thead>
+				<tr>
+					<th style="width: 18px; vertical-align: middle; text-align: center;"><input type="checkbox" id="check_all" name="check_all"></th>
+					<th style="width: 18px; vertical-align: middle; text-align: center;"><img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_locked.png') }}" alt="icon"></th>
+					<th style="width: 18px; vertical-align: middle; text-align: center;"><img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_trash.png') }}" alt="icon"></th>
+					<th>{{ 'board.table.head.topic_title' | trans({}, 'CCDNForumForumBundle') }}</th>
+					<th>{{ 'board.table.head.post_number' | trans({}, 'CCDNForumForumBundle') }}</th>
+					<th>{{ 'board.table.head.created_by' | trans({}, 'CCDNForumForumBundle') }}</th>
+					<th>{{ 'board.table.head.created_on' | trans({}, 'CCDNForumForumBundle') }}</th>
+					<th>{{ 'board.table.head.locked_by' | trans({}, 'CCDNForumForumBundle') }}</th>
+					<th>{{ 'board.table.head.locked_on' | trans({}, 'CCDNForumForumBundle') }}</th>
+					<th>{{ 'board.table.head.deleted_by' | trans({}, 'CCDNForumForumBundle') }}</th>
+					<th>{{ 'board.table.head.deleted_on' | trans({}, 'CCDNForumForumBundle') }}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for row, post in posts %}
+					<tr class="{{ cycle(['row_odd', 'row_even'], row) }}">
+						<td class"h_align_centre v_align_middle">
+							<input type="checkbox" id="post_{{ post.id }}" name="check_{{ post.id }}">
+						</td>
+						<td class"h_align_centre v_align_top">
+							{% if post.getLockedBy %}
+							<img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_locked.png') }}" alt="icon">
+							{% endif %}
+						</td>
+						<td class"h_align_centre v_align_top">
+							{% if post.getDeletedBy %}
+							<img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_trash.png') }}" alt="icon">
+							{% endif %}
+						</td>
+						<td class="h_align_left v_align_top">
+							<a href="{{ path('cc_forum_topic_show', {'topic_id': post.getTopic.getId }) }}"><img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_chat.png') }}" alt="icon">&nbsp;{{ post.getTopic.getTitle }}</a>
+						</td>
+						<td class"h_align_left v_align_top">
+							<a href="{{ path('cc_forum_post_show', {'post_id': post.getId }) }}"><img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_chat.png') }}" alt="icon">&nbsp;#{{ post.getId }}</a>
+						</td>
+
+						<td class="padding_5 h_align_left v_align_top">
+							{% if post.getCreatedBy %}<a href="{{ path(user_profile_route, {'user_id': post.getDeletedBy }) }}">{{ post.getCreatedBy.getUsername }}</a>{% endif %}
+						</td>
+						<td class="padding_5 h_align_left v_align_top">
+							{% if post.getCreatedDate %}{{ post.getCreatedDate |date("d/m/Y - H:i:s") }}{% endif %}
+						</td>
+						
+						<td class="padding_5 h_align_left v_align_top">
+							{% if post.getLockedBy %}<a href="{{ path(user_profile_route, {'user_id': post.getDeletedBy }) }}">{{ post.getLockedBy.getUsername }}</a>{% endif %}
+						</td>
+						<td class="padding_5 h_align_left v_align_top">
+							{% if post.getLockedDate %}{{ post.getLockedDate |date("d/m/Y - H:i:s") }}{% endif %}
+						</td>
+						
+						<td class="padding_5 h_align_left v_align_top">
+							{% if post.getDeletedBy %}<a href="{{ path(user_profile_route, {'user_id': post.getDeletedBy }) }}">{{ post.getDeletedBy.getUsername }}</a>{% endif %}
+						</td>
+						<td class="padding_5 h_align_left v_align_top">
+							{% if post.getDeletedDate %}{{ post.getDeletedDate |date("d/m/Y - H:i:s") }}{% endif %}
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td class="h_align_centre v_align_middle" colspan="11" width="100%">
+							{{ 'posts.locked.table.empty' | trans({}, 'CCDNForumModeratorBundle') }}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 	{% if pager.haveToPaginate %}
 	<div class="pagerfanta">
 		{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_locked_posts_paginated', 'routeParams':{}} ) }}
 	</div>
 	{% endif %}
+	</form>
 </div>
 
 {% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
