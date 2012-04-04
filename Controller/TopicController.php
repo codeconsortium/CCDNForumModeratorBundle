@@ -281,9 +281,7 @@ class TopicController extends ContainerAware
 		// forward user
 		return new RedirectResponse($this->container->get('router')->generate('cc_forum_board_show', array('board_id' => $topic->getBoard()->getId()) ));	
 	}
-		
-	
-	
+
 
 
 	/**
