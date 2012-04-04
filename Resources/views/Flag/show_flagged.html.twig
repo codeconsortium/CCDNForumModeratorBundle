@@ -48,12 +48,6 @@
 	<div class="common_box_header">
 		<span class="heading_glow">{{ 'title.flag.show.all' | trans({}, 'CCDNForumModeratorBundle') }}</span>
 	</div>
-	{% if pager.haveToPaginate %}
-	<div class="pagerfanta">
-		{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_flagged_posts_status_paginated', 'routeParams':{}} ) }}
-	</div>
-	{% endif %}
-	
 	<form method="POST" action="{{ path('cc_moderate_forum_flag_action_bulk') }}">
 	<div class="common_tool_strip">
 		<input type="submit" class="widget_submit" value="{{ 'link.flag.delete' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_delete">
@@ -64,6 +58,11 @@
 		</select>
 		<input type="submit" class="widget_submit" value="{{ 'link.flag.mark_as' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_mark_as">
 	</div>
+	{% if pager.haveToPaginate %}
+	<div class="pagerfanta">
+		{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_flagged_posts_status_paginated', 'routeParams':{}} ) }}
+	</div>
+	{% endif %}
 	<div class="common_box_panel">
 		<table class="common_list">
 			<thead>
