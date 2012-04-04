@@ -64,7 +64,10 @@
 					<th>{{ 'board.table.head.topic_title' | trans({}, 'CCDNForumForumBundle') }}</th>
 					<th>{{ 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') }}</th>
 					<th>{{ 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') }}</th>
-					<th>{{ 'board.table.head.last_post' | trans({}, 'CCDNForumForumBundle') }}</th>
+					<th>{{ 'board.table.head.closed_by' | trans({}, 'CCDNForumForumBundle') }}</th>
+					<th>{{ 'board.table.head.closed_on' | trans({}, 'CCDNForumForumBundle') }}</th>
+					<th>{{ 'board.table.head.deleted_by' | trans({}, 'CCDNForumForumBundle') }}</th>
+					<th>{{ 'board.table.head.deleted_on' | trans({}, 'CCDNForumForumBundle') }}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -108,24 +111,23 @@
 						<td class="h_align_left v_align_middle">
 							<span class="stat_label">{{ 'board.table.body.view_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;<span class="stat">{{ topic.getViewCount }}</span>
 						</td>
-						<td class="h_align_left v_align_middle">
-							<span class="last_post padding_5">				
-							{% if topic.getLastPost %}
-								{{ 'post.posted_by' | trans({}, 'CCDNForumForumBundle') }}
-								{% if topic.getLastPost.getCreatedBy %}
-									<a class="username_medium" href="{{ path(user_profile_route, {'user_id': topic.getLastPost.getCreatedBy.getId } ) }}">{{ topic.getLastPost.getCreatedBy }}</a>
-								{% else %}
-									Guest
-								{% endif %}
-								{% set page = divCeil((topic.getReplyCount + 1), posts_per_page) %}
-								{{ 'actioned.at' | trans({}, 'CCDNForumForumBundle') }} <a class="last_post_date" href="{{ path('cc_forum_topic_show_paginated', {'topic_id': topic.getId, 'page':page } ) }}#{{ topic.getLastPost.getId }}">{{ topic.getLastPost.getCreatedDate|date("d/m/Y - H:i:s") }}</a>
-							{% endif %}
-							</span>
+						<td class="padding_5 h_align_left v_align_top">
+							{% if topic.getClosedBy %}<a href="{{ path(user_profile_route, {'user_id': topic.getClosedBy.getId }) }}">{{ topic.getClosedBy.getUsername }}</a>{% endif %}
+						</td>
+						<td class="padding_5 h_align_left v_align_top">
+							{% if topic.getClosedDate %}{{ topic.getClosedDate |date("d/m/Y - H:i:s") }}{% endif %}
+						</td>
+
+						<td class="padding_5 h_align_left v_align_top">
+							{% if topic.getDeletedBy %}<a href="{{ path(user_profile_route, {'user_id': topic.getDeletedBy.getId }) }}">{{ topic.getDeletedBy.getUsername }}</a>{% endif %}
+						</td>
+						<td class="padding_5 h_align_left v_align_top">
+							{% if topic.getDeletedDate %}{{ topic.getDeletedDate |date("d/m/Y - H:i:s") }}{% endif %}
 						</td>
 					</tr>
 				{% else %}
 					<tr>
-						<td class="h_align_centre v_align_middle" colspan="8">
+						<td class="h_align_centre v_align_middle" colspan="11">
 							{{ 'topics.closed.table.empty' | trans({}, 'CCDNForumModeratorBundle') }}
 						</td>
 					</tr>
