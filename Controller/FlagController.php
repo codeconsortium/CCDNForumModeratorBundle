@@ -225,7 +225,7 @@ class FlagController extends ContainerAware
 
 		$user = $this->container->get('security.context')->getToken()->getUser();
 
-		$flags = $this->container->get('ccdn_forum_forum.flag.repository')->findTheseFlagsById($flagIds);
+		$flags = $this->container->get('ccdn_forum_forum.flag.repository')->findTheseFlagsByIdForModeration($flagIds);
 
 		if ( ! $flags || empty($flags))
 		{
