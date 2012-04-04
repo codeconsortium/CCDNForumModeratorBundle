@@ -32,19 +32,19 @@ cc_moderator_forum_posts_bulk_action:
 #  
 # Topic Moderation.
 #
-cc_moderator_forum_show_all_closed_topics:
+cc_moderator_forum_topics_closed_show_all:
     pattern: /{_locale}/moderate/forum/topic/show/closed
     defaults: { _controller: CCDNForumModeratorBundle:Topic:showClosed, _locale: en, page: 1 }
 
-cc_moderator_forum_show_all_closed_topics_paginated:
+cc_moderator_forum_topics_closed_show_all_paginated:
     pattern: /{_locale}/moderate/forum/topic/show/closed/page/{page}
     defaults: { _controller: CCDNForumModeratorBundle:Topic:showClosed, _locale: en, page: 1 }
                         
-cc_moderator_forum_close_topic:
+cc_moderator_forum_topic_close:
     pattern: /{_locale}/moderate/forum/topic/{topic_id}/close
     defaults: { _controller: CCDNForumModeratorBundle:Topic:close, _locale: en }
 
-cc_moderator_forum_reopen_topic:
+cc_moderator_forum_topic_reopen:
     pattern: /{_locale}/moderate/forum/topic/{topic_id}/reopen
     defaults: { _controller: CCDNForumModeratorBundle:Topic:reopen, _locale: en }
 
@@ -64,7 +64,7 @@ cc_moderator_forum_topic_change_board:
     pattern: /{_locale}/moderate/forum/topic/{topic_id}/change/board
     defaults: { _controller: CCDNForumModeratorBundle:Topic:move, _locale: en }
 
-cc_moderator_forum_closed_topics_bulk_action:
+cc_moderator_forum_topics_closed_bulk_action:
     pattern: /{_locale}/moderate/forum/topic/closed/action/checked
     defaults: { _controller: CCDNForumModeratorBundle:Topic:bulk, _locale: en }
                          

@@ -55,7 +55,7 @@ class TopicController extends ContainerAware
 		
 		// setup crumb trail.
 		$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
-			->add($this->container->get('translator')->trans('crumbs.topic.closed.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_show_all_closed_topics'), "home");
+			->add($this->container->get('translator')->trans('crumbs.topic.closed.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_topics_closed_show_all'), "home");
 		
 		return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Topic:show_closed.html.' . $this->getEngine(), array(
 			'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
@@ -322,7 +322,7 @@ class TopicController extends ContainerAware
 		//
 		if (count($itemIds) < 1)
 		{
-			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_closed_topics'));
+			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_topics_closed_show_all'));
 		}
 
 		$user = $this->container->get('security.context')->getToken()->getUser();
@@ -333,7 +333,7 @@ class TopicController extends ContainerAware
 		{
 			$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.no_topics_found', array(), 'CCDNForumModeratorBundle'));
 			
-			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_closed_topics'));
+			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_topics_closed_show_all'));
 		}
 
 		if (isset($_POST['submit_close']))
@@ -353,7 +353,7 @@ class TopicController extends ContainerAware
 			$this->container->get('ccdn_forum_forum.topic.manager')->bulkSoftDelete($topics)->flushNow();
 		}
 
-		return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_closed_topics'));
+		return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_topics_closed_show_all'));
 	}
 	
 	

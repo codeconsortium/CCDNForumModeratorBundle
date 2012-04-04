@@ -27,7 +27,7 @@
 		<div class="common_box_header"><span class="heading_glow">{{ 'sidebar.header.tools' | trans({}, 'CCDNForumModeratorBundle') }}</span></div>
 		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_flagged_show_all', {}) }}">{{ 'sidebar.link.show_all_flagged_posts' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>	
 		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_show_all_locked_posts', {}) }}">{{ 'sidebar.link.show_all_locked_posts' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>
-		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_show_all_closed_topics', {}) }}">{{ 'sidebar.link.show_all_closed_topics' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>
+		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_topics_closed_show_all', {}) }}">{{ 'sidebar.link.show_all_closed_topics' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>
 	</div>
 {% endblock %}
 
@@ -41,7 +41,7 @@
 	<div class="common_box_header">
 		<span class="heading_glow">{{ 'title.topic.closed' | trans({}, 'CCDNForumModeratorBundle') }}</span>
 	</div>
-	<form method="POST" action="{{ path('cc_moderator_forum_closed_topics_bulk_action') }}">
+	<form method="POST" action="{{ path('cc_moderator_forum_topics_closed_bulk_action') }}">
 	<div class="common_tool_strip">
 		<input type="submit" class="widget_submit" value="{{ 'link.topic.close' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_close">
 		<input type="submit" class="widget_submit" value="{{ 'link.topic.reopen' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_reopen">
@@ -50,7 +50,7 @@
 	</div>
 	{% if pager.haveToPaginate %}
 	<div class="pagerfanta">
-		{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_closed_topics_paginated', 'routeParams':{}} ) }}
+		{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_topics_closed_show_all_paginated', 'routeParams':{}} ) }}
 	</div>
 	{% endif %}
 	<div class="common_box_panel">
@@ -135,7 +135,7 @@
 	</div>
 	{% if pager.haveToPaginate %}
 	<div class="pagerfanta">
-	    {{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_show_all_closed_topics_paginated', 'routeParams':{}} ) }}
+	    {{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_topics_closed_show_all_paginated', 'routeParams':{}} ) }}
 	</div>
 	{% endif %}
 	</form>
