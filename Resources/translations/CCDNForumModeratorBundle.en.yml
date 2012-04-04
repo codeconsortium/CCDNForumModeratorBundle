@@ -42,6 +42,10 @@ flash.topic.move.success: 'Topic: "%topic_title%" moved.'
 flash.topic.restore.success: 'Topic: "%topic_title%" restored.'
 flash.topic.delete.success: 'Topic: "%topic_title%" deleted.'
 flash.flag.bad_status: 'Bad flag status.'
+flash.flag.no_flags_found: 'The flags you were looking for were not found!'
+flash.post.no_posts_found: 'The posts you were looking for were not found!'
+flash.topic.no_topics_found: 'The topics you were looking for were not found!'
+
 
 flag.table.head.topic: Topic
 flag.table.head.board: Board

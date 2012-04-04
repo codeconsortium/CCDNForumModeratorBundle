@@ -51,10 +51,6 @@ class PostController extends ContainerAware
 		$posts_per_page = $this->container->getParameter('ccdn_forum_moderator.post.posts_per_page');
 		$posts_paginated->setMaxPerPage($posts_per_page);
 		$posts_paginated->setCurrentPage($page, false, true);
-				
-		if (!$posts_paginated) {
-			throw new NotFoundHttpException('No locked posts exist!');
-		}
 		
 		// setup crumb trail.
 		$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
@@ -204,7 +200,9 @@ class PostController extends ContainerAware
 
 		if ( ! $posts || empty($posts))
 		{
-			throw new NotFoundHttpException('No posts found!');
+			$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.no_posts_found', array(), 'CCDNForumModeratorBundle'));
+			
+			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_locked_posts'));
 		}
 
 		if (isset($_POST['submit_lock']))

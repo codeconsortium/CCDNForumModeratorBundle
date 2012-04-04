@@ -50,10 +50,6 @@ class TopicController extends ContainerAware
 		$topics_per_page = $this->container->getParameter('ccdn_forum_moderator.topic.topics_per_page');
 		$topics_paginated->setMaxPerPage($topics_per_page);
 		$topics_paginated->setCurrentPage($page, false, true);
-				
-		if ( ! $topics_paginated) {
-			throw new NotFoundHttpException('no closed topics exist!');
-		}
 		
 		$posts_per_page = $this->container->getParameter('ccdn_forum_moderator.topic.posts_per_page');
 		
@@ -335,7 +331,9 @@ class TopicController extends ContainerAware
 
 		if ( ! $topics || empty($topics))
 		{
-			throw new NotFoundHttpException('No topics found!');
+			$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.no_topics_found', array(), 'CCDNForumModeratorBundle'));
+			
+			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_closed_topics'));
 		}
 
 		if (isset($_POST['submit_close']))

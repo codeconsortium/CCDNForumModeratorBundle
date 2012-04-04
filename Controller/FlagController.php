@@ -49,9 +49,11 @@ class FlagController extends ContainerAware
 		
 		$status_codes = $this->container->get('ccdn_forum_forum.flag.form.default_choices')->getStatusCodes();
 		
-		if (!array_key_exists($status, $status_codes))
+		if ( ! array_key_exists($status, $status_codes))
 		{
-			throw new NotFoundHttpException('The status code you are looking up does not exist!');
+			$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.flag.no_flags_found', array(), 'CCDNForumModeratorBundle'));
+			
+			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_flagged_posts'));
 		}
 
 		$flags_paginated = $this->container->get('ccdn_forum_forum.flag.repository')->findForModeratorsByStatusPaginated($status);
@@ -100,7 +102,9 @@ class FlagController extends ContainerAware
 		$flag = $this->container->get('ccdn_forum_forum.flag.repository')->find($flag_id);
 		
 		if ( ! $flag) {
-			throw new NotFoundHttpException('No such flag exists!');
+			$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.flag.no_flags_found', array(), 'CCDNForumModeratorBundle'));
+			
+			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_flagged_posts'));
 		}
 		
 		// setup crumb trail.
@@ -141,7 +145,9 @@ class FlagController extends ContainerAware
 		$flag = $this->container->get('ccdn_forum_forum.flag.repository')->find($flag_id);
 		
 		if ( ! $flag) {
-			throw new NotFoundHttpException('No such flag exists!');
+			$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.flag.no_flags_found', array(), 'CCDNForumModeratorBundle'));
+			
+			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_flagged_posts'));
 		}
 			
 		$formHandler = $this->container->get('ccdn_forum_moderator.flag.form.update.handler')->setDefaultValues(array('flag' => $flag, 'user' => $user));
@@ -229,7 +235,9 @@ class FlagController extends ContainerAware
 
 		if ( ! $flags || empty($flags))
 		{
-			throw new NotFoundHttpException('No flags found!');
+			$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.flag.no_flags_found', array(), 'CCDNForumModeratorBundle'));
+			
+			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_flagged_posts'));
 		}
 
 		$statusCodes = $this->container->get('ccdn_forum_forum.flag.form.default_choices')->getStatusCodes();
