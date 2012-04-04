@@ -59,6 +59,10 @@ cc_moderator_forum_unlock_post:
         _locale: en
 
 # closed topic moderation
+cc_moderator_forum_closed_topics_bulk_action:
+    pattern: /{_locale}/moderate/forum/topic/closed/bulk/action
+    defaults: { _controller: CCDNForumModeratorBundle:Topic:bulk, _locale: en }
+    
 cc_moderator_forum_show_all_closed_topics:
     pattern: /{_locale}/moderate/forum/topic/show/closed
     defaults: { _controller: CCDNForumModeratorBundle:Topic:showClosed, _locale: en, page: 1 }

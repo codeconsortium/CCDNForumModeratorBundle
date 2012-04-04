@@ -285,6 +285,81 @@ class TopicController extends ContainerAware
 	}
 		
 	
+	
+
+
+	/**
+	 *
+	 * @access public
+	 * @return RedirectResponse
+	 */
+	public function bulkAction()
+	{
+		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR'))
+		{
+			throw new AccessDeniedException('You do not have access to this section.');
+		}
+
+		//
+		// Get all the checked item id's.
+		//
+		$itemIds = array();
+		$ids = $_POST;
+		foreach ($ids as $itemKey => $itemId)
+		{
+			if (substr($itemKey, 0, 6) == 'check_')
+			{
+				//
+				// Cast the key values to int upon extraction. 
+				//
+				$id = (int) substr($itemKey, 6, (strlen($itemKey) - 6));
+
+				if (is_int($id) == true)
+				{
+					$itemIds[] = $id;
+				}
+			}
+		}
+
+		//
+		// Don't bother if there are no flags to process.
+		//
+		if (count($itemIds) < 1)
+		{
+			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_closed_topics'));
+		}
+
+		$user = $this->container->get('security.context')->getToken()->getUser();
+
+		$topics = $this->container->get('ccdn_forum_forum.topic.repository')->findTheseTopicsByIdForModeration($itemIds);
+
+		if ( ! $topics || empty($topics))
+		{
+			throw new NotFoundHttpException('No topics found!');
+		}
+
+		if (isset($_POST['submit_close']))
+		{
+			$this->container->get('ccdn_forum_forum.topic.manager')->bulkClose($topics)->flushNow();
+		}
+		if (isset($_POST['submit_reopen']))
+		{
+			$this->container->get('ccdn_forum_forum.topic.manager')->bulkReopen($topics)->flushNow();
+		}
+		if (isset($_POST['submit_restore']))
+		{
+			$this->container->get('ccdn_forum_forum.topic.manager')->bulkRestore($topics)->flushNow();
+		}
+		if (isset($_POST['submit_delete']))
+		{
+			$this->container->get('ccdn_forum_forum.topic.manager')->bulkSoftDelete($topics)->flushNow();
+		}
+
+		return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_show_all_closed_topics'));
+	}
+	
+	
+	
 	/**
 	 *
 	 * @access protected

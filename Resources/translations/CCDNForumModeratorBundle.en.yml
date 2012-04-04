@@ -24,6 +24,11 @@ link.flag.update: Change Status
 link.topic.change_board: Change Board
 link.flag.delete: Delete Flag
 link.flag.mark_as: Change Status
+link.topic.close: 'Close'
+link.topic.reopen: 'Re-Open'
+link.topic.restore: 'Restore'
+link.topic.delete: 'Delete'
+
 flash.flag.update.success: 'Flag: #%flag_id% updated.'
 flash.post.lock.success: 'Post: #%post_id% locked.'
 flash.post.unlock.success: 'Post: #%post_id% unlocked.'
