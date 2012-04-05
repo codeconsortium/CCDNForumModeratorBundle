@@ -6,6 +6,9 @@ sidebar.link.show_all_closed_topics: Closed Topics
 sidebar.header.flags_by_reason: Flags by Reason
 sidebar.header.flags_by_status: Flags by Status
 
+crumbs.dashboard: 'Dashboard'
+crumbs.dashboard.moderator: 'Moderator Panel'
+
 crumbs.flag.index: Flag Index
 crumbs.flag.show: Flag %flag_id%
 crumbs.flag.mark: Update Flag

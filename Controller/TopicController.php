@@ -17,7 +17,6 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-//use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -55,8 +54,8 @@ class TopicController extends ContainerAware
 		
 		// setup crumb trail.
 		$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
-			->add('Dashboard', $this->container->get('router')->generate('cc_dashboard_index'), 'sitemap')
-			->add('Moderator', $this->container->get('router')->generate('cc_dashboard_show', array('category' => 'moderator')), 'sitemap')
+			->add($this->container->get('translator')->trans('crumbs.dashboard', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_dashboard_index'), "sitemap")
+			->add($this->container->get('translator')->trans('crumbs.dashboard.moderator', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_dashboard_show', array('category' => 'moderator')), "sitemap")
 			->add($this->container->get('translator')->trans('crumbs.topic.closed.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_topics_closed_show_all'), "home");
 		
 		return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Topic:show_closed.html.' . $this->getEngine(), array(
