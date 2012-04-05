@@ -1,25 +1,38 @@
 parameters:
-    ccdn_forum_moderator.flag.form.update.handler.class:          CCDNForum\ModeratorBundle\Form\Handler\FlagUpdateFormHandler
+
     ccdn_forum_moderator.flag.form.update.type.class:             CCDNForum\ModeratorBundle\Form\Type\FlagUpdateType
-    ccdn_forum_moderator.topic.form.change_board.handler.class:   CCDNForum\ModeratorBundle\Form\Handler\TopicChangeBoardFormHandler
+    ccdn_forum_moderator.flag.form.update.handler.class:          CCDNForum\ModeratorBundle\Form\Handler\FlagUpdateFormHandler
+
     ccdn_forum_moderator.topic.form.change_board.type.class:      CCDNForum\ModeratorBundle\Form\Type\TopicChangeBoardType
+    ccdn_forum_moderator.topic.form.change_board.handler.class:   CCDNForum\ModeratorBundle\Form\Handler\TopicChangeBoardFormHandler
 
     ccdn_forum_moderator.dashboard.integrator.class:              CCDNForum\ModeratorBundle\Component\Dashboard\DashboardIntegrator
 
 services:
+    
+    #
+    # Flag Forms.
+    #
+    ccdn_forum_moderator.flag.form.update.type:
+        class:  %ccdn_forum_moderator.flag.form.update.type.class%
+        arguments:  [@doctrine]
     ccdn_forum_moderator.flag.form.update.handler:
         class:  %ccdn_forum_moderator.flag.form.update.handler.class%
         arguments:  [@form.factory, @service_container, @ccdn_forum_forum.flag.manager]
-    ccdn_forum_moderator.flag.form.update.type:
-        class:  %ccdn_forum_moderator.flag.form.update.type.class%
+
+    #
+    # Topic Forms.
+    #
+    ccdn_forum_moderator.topic.form.change_board.type:
+        class:  %ccdn_forum_moderator.topic.form.change_board.type.class%
         arguments:  [@doctrine]
     ccdn_forum_moderator.topic.form.change_board.handler:
         class:  %ccdn_forum_moderator.topic.form.change_board.handler.class%
         arguments:  [@form.factory, @service_container, @ccdn_forum_forum.topic.manager]
-    ccdn_forum_moderator.topic.form.change_board.type:
-        class:  %ccdn_forum_moderator.topic.form.change_board.type.class%
-        arguments:  [@doctrine]
 
+    #
+    # Dashboard Integrator.
+    #
     ccdn_forum_moderator.dashboard.integrator:
         class: %ccdn_forum_moderator.dashboard.integrator.class%
         arguments: [@service_container]

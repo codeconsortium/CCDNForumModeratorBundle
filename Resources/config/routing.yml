@@ -69,7 +69,7 @@ cc_moderator_forum_topics_closed_bulk_action:
     defaults: { _controller: CCDNForumModeratorBundle:Topic:bulk, _locale: en }
                          
 #
-# flagged posts moderation.
+# Flagged posts moderation.
 #
 cc_moderator_forum_flagged_show_all:
     pattern: /{_locale}/moderate/forum/flagged/show
