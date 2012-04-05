@@ -43,9 +43,9 @@ class DashboardIntegrator extends BaseIntegrator implements IntegratorInterface
 		$resources = array(
 			'moderator' => array(
 				'Forum Moderation' => array(
-					'cc_moderator_forum_flagged_show_all' => array('auth' => 'ROLE_MODERATOR', 'url' => $this->baseUrl . '/' . $this->locale . '/moderate/forum/flagged/show', 'name' => 'Flagged Posts', 'icon' => $this->basePath . '/bundles/ccdncomponentcommon/images/icons/Black/32x32/32x32_flag.png'),
-					'cc_moderator_forum_topics_closed_show_all' => array('auth' => 'ROLE_MODERATOR', 'url' => $this->baseUrl . '/' . $this->locale . '/moderate/forum/topic/show/closed', 'name' => 'Closed Topics', 'icon' => $this->basePath . '/bundles/ccdncomponentcommon/images/icons/Black/32x32/32x32_lock.png'),
-					'cc_moderator_forum_posts_show_all_locked' => array('auth' => 'ROLE_MODERATOR', 'url' => $this->baseUrl . '/' . $this->locale . '/moderate/forum/post/show/locked', 'name' => 'Locked Posts', 'icon' => $this->basePath . '/bundles/ccdncomponentcommon/images/icons/Black/32x32/32x32_lock.png'),
+					'cc_moderator_forum_flagged_show_all' => array('auth' => 'ROLE_MODERATOR', 'name' => 'Flagged Posts', 'icon' => $this->basePath . '/bundles/ccdncomponentcommon/images/icons/Black/32x32/32x32_flag.png'),
+					'cc_moderator_forum_topics_closed_show_all' => array('auth' => 'ROLE_MODERATOR', 'name' => 'Closed Topics', 'icon' => $this->basePath . '/bundles/ccdncomponentcommon/images/icons/Black/32x32/32x32_lock.png'),
+					'cc_moderator_forum_posts_show_all_locked' => array('auth' => 'ROLE_MODERATOR', 'name' => 'Locked Posts', 'icon' => $this->basePath . '/bundles/ccdncomponentcommon/images/icons/Black/32x32/32x32_lock.png'),
 				),
 			),
 
