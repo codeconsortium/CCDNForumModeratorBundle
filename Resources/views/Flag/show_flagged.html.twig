@@ -63,7 +63,7 @@
 		{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_flagged_show_all_status_paginated', 'routeParams':{}} ) }}
 	</div>
 	{% endif %}
-	<div class="common_box_panel">
+	<div class="common_table_panel">
 		<table class="common_list">
 			<thead>
 				<tr>
@@ -96,8 +96,8 @@
 				<tr class="{{ cycler(['row_odd', 'row_even'], 'posts') }}">
 					<td></td>
 					<td class="padding_0" colspan="2">
-						<div class="common_box_panel margin_0">
-							<table class="common_list">
+						<div class="common_table_panel margin_0">
+							<table class="common_list" style="border-top: none !important; border-left: 1px solid #eee !important;">
 								<thead>
 									<tr>
 										<th style="width: 18px; vertical-align: middle; text-align: center;"><input type="checkbox" id="check_all" name="check_all_for_{{ post.getId }}"></th>

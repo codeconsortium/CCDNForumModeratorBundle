@@ -30,7 +30,7 @@
 	<div class="common_box_header">
 		<span class="heading_glow">{{ 'title.topic.change_board' | trans({'%topic_title%': topic.getTitle }, 'CCDNForumModeratorBundle') }}</span>
 	</div>
-	<div class="common_box_panel">
+	<div class="common_table_panel">
 		{% form_theme form param('ccdn_forum_moderator.template.theme') %}
 		<form action="{{ path('cc_moderator_forum_topic_change_board', { 'topic_id': topic.getId, 'board_id': topic.getBoard.getId } ) }}" method="post" {{ form_enctype(form) }}>
 			{{ form_row(form._token) }}
