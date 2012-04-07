@@ -14,20 +14,20 @@
 
 {% block sidebar %}
 	{% if is_granted('ROLE_MODERATOR') %}
-	<div class="common_box_5 bg_header_smoke">
-		<div class="common_box_header"><span class="heading_glow">{{ 'sidebar.header.special' | trans({}, 'CCDNComponentCommonBundle') }}</span></div>
-		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_cp') }}">{{ 'general.view.link_moderate' | trans({}, 'CCDNComponentCommonBundle') }}</a></div>
+	<div class="sidebar">
+		<div class="sidebar_header"><span class="sidebar_header">{{ 'sidebar.header.special' | trans({}, 'CCDNComponentCommonBundle') }}</span></div>
+		<div class="sidebar_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_cp') }}">{{ 'general.view.link_moderate' | trans({}, 'CCDNComponentCommonBundle') }}</a></div>
 		{% if is_granted('ROLE_ADMIN') %}
-		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_admin_forum_cp') }}">{{ 'general.view.link_administrate' | trans({}, 'CCDNComponentCommonBundle') }}</a></div>
+		<div class="sidebar_panel"><a class="sidebar" href="{{ path('cc_admin_forum_cp') }}">{{ 'general.view.link_administrate' | trans({}, 'CCDNComponentCommonBundle') }}</a></div>
 		{% endif %}
 	</div>
 	{% endif %}
 
-	<div class="common_box_5 bg_header_smoke">
-		<div class="common_box_header"><span class="heading_glow">{{ 'sidebar.header.tools' | trans({}, 'CCDNForumModeratorBundle') }}</span></div>
-		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_flagged_show_all', {}) }}">{{ 'sidebar.link.show_all_flagged_posts' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>	
-		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_posts_show_all_locked', {}) }}">{{ 'sidebar.link.show_all_locked_posts' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>
-		<div class="common_box_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_topics_closed_show_all', {}) }}">{{ 'sidebar.link.show_all_closed_topics' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>
+	<div class="sidebar">
+		<div class="sidebar_header"><span class="sidebar_header">{{ 'sidebar.header.tools' | trans({}, 'CCDNForumModeratorBundle') }}</span></div>
+		<div class="sidebar_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_flagged_show_all', {}) }}">{{ 'sidebar.link.show_all_flagged_posts' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>	
+		<div class="sidebar_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_posts_show_all_locked', {}) }}">{{ 'sidebar.link.show_all_locked_posts' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>
+		<div class="sidebar_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_topics_closed_show_all', {}) }}">{{ 'sidebar.link.show_all_closed_topics' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>
 	</div>
 {% endblock %}
 
@@ -37,12 +37,13 @@
 
 {% include 'CCDNComponentCommonBundle:Flashes:flashes.html.twig' %}
 
-<div class="common_box_5 bg_header_smoke">
-	<div class="common_box_header">
-		<span class="heading_glow">{{ 'title.topic.closed' | trans({}, 'CCDNForumModeratorBundle') }}</span>
+<div class="section_wrap_square">
+	<div class="section_header">
+		<h2>{{ 'title.topic.closed' | trans({}, 'CCDNForumModeratorBundle') }}</h2>
 	</div>
+	
 	<form method="POST" action="{{ path('cc_moderator_forum_topics_closed_bulk_action') }}">
-	<div class="common_tool_strip">
+	<div class="section_tool_strip">
 		<input type="submit" class="widget_submit" value="{{ 'link.topic.close' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_close">
 		<input type="submit" class="widget_submit" value="{{ 'link.topic.reopen' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_reopen">
 		<input type="submit" class="widget_submit" value="{{ 'link.topic.restore' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_restore">
@@ -53,45 +54,45 @@
 		{{ pagerfanta(pager, 'default', {'routeName':'cc_moderator_forum_topics_closed_show_all_paginated', 'routeParams':{}} ) }}
 	</div>
 	{% endif %}
-	<div class="common_table_panel">
+	<div class="section_table_panel">
 		<table class="common_list">
 			<thead>
 				<tr>
-					<th style="width: 18px; vertical-align: middle; text-align: center;"><input type="checkbox" id="check_all" name="check_all"></th>
-					<th></th>
-					<th style="width: 18px; vertical-align: middle; text-align: center;"><img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_locked.png') }}" alt="icon"></th>
-					<th style="width: 18px; vertical-align: middle; text-align: center;"><img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_trash.png') }}" alt="icon"></th>
-					<th>{{ 'board.table.head.topic_title' | trans({}, 'CCDNForumForumBundle') }}</th>
-					<th>{{ 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') }}</th>
-					<th>{{ 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') }}</th>
-					<th>{{ 'board.table.head.closed_by' | trans({}, 'CCDNForumForumBundle') }}</th>
-					<th>{{ 'board.table.head.closed_on' | trans({}, 'CCDNForumForumBundle') }}</th>
-					<th>{{ 'board.table.head.deleted_by' | trans({}, 'CCDNForumForumBundle') }}</th>
-					<th>{{ 'board.table.head.deleted_on' | trans({}, 'CCDNForumForumBundle') }}</th>
+					<th class="icon"><input type="checkbox" id="check_all" name="check_all"></th>
+					<th class="icon"></th>
+					<th class="icon"><img class="icon16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_locked.png') }}" alt="icon"></th>
+					<th class="icon"><img class="icon16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_trash.png') }}" alt="icon"></th>
+					<th class="left"><span class="table_header">{{ 'board.table.head.topic_title' | trans({}, 'CCDNForumForumBundle') }}</span></th>
+					<th class="center"><span class="table_header">{{ 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') }}</span></th>
+					<th class="center"><span class="table_header">{{ 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') }}</span></th>
+					<th class="center"><span class="table_header">{{ 'board.table.head.closed_by' | trans({}, 'CCDNForumForumBundle') }}</span></th>
+					<th class="center"><span class="table_header">{{ 'board.table.head.closed_on' | trans({}, 'CCDNForumForumBundle') }}</span></th>
+					<th class="center"><span class="table_header">{{ 'board.table.head.deleted_by' | trans({}, 'CCDNForumForumBundle') }}</span></th>
+					<th class="center"><span class="table_header">{{ 'board.table.head.deleted_on' | trans({}, 'CCDNForumForumBundle') }}</span></th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for row, topic in topics %}
 					<tr class="{{ cycle(['row_odd', 'row_even'], row) }}">
-						<td class"h_align_centre v_align_middle">
+						<td class="icon16">
 							<input type="checkbox" id="topic_{{ topic.id }}" name="check_{{ topic.id }}">
 						</td>
-						<td class="h_align_centre v_align_middle">
-							<a href="{{ path('cc_forum_topic_show', {'topic_id': topic.getId }) }}"><img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_communication.png') }}" alt="icon"></a>
+						<td class="icon16">
+							<a href="{{ path('cc_forum_topic_show', {'topic_id': topic.getId }) }}"><img class="icon16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_communication.png') }}" alt="icon"></a>
 						</td>
-						<td class"h_align_centre v_align_middle">
+						<td class="icon16">
 							{% if topic.getClosedBy %}
-							<img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_locked.png') }}" alt="icon">
+							<img class="icon16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_locked.png') }}" alt="icon">
 							{% endif %}
 						</td>
-						<td class"h_align_centre v_align_middle">
+						<td class="icon16">
 							{% if topic.getDeletedBy %}
-							<img class="icon_16x16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_trash.png') }}" alt="icon">
+							<img class="icon16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_trash.png') }}" alt="icon">
 							{% endif %}
 						</td>
-						<td class="padding_5 h_align_left v_align_top">
+						<td class="left">
+							<span class="table_data">
 							<a class="topic_link" href="{{ path('cc_forum_topic_show', {'topic_id': topic.getId }) }}">{{ topic.getTitle }}</a><br>
-							<span class="first_post">
 							{{ 'post.posted_by' | trans({}, 'CCDNForumForumBundle') }}
 							{% if topic.getFirstPost %}
 								{% if topic.getFirstPost.getCreatedBy %}
@@ -103,32 +104,40 @@
 									{{ 'actioned.at' | trans({'%date%': topic.getFirstPost.getCreatedDate|date("d/m/Y - H:i:s")}, 'CCDNForumForumBundle') }}
 								{% endif %}
 							{% endif %}
-							</span>&nbsp;&nbsp;
+							</span>
 						</td>
-						<td class="h_align_left v_align_middle">
-							<span class="stat_label">{{ 'board.table.body.reply_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;<span class="stat">{{ topic.getReplyCount }}</span><br>
+						<td class="center">
+							<span class="table_data">{{ topic.getReplyCount }}</span>
 						</td>
-						<td class="h_align_left v_align_middle">
-							<span class="stat_label">{{ 'board.table.body.view_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;<span class="stat">{{ topic.getViewCount }}</span>
+						<td class="center">
+							<span class="table_data">{{ topic.getViewCount }}</span>
 						</td>
-						<td class="padding_5 h_align_left v_align_top">
+						<td class="center">
+							<span class="table_data">
 							{% if topic.getClosedBy %}<a href="{{ path(user_profile_route, {'user_id': topic.getClosedBy.getId }) }}">{{ topic.getClosedBy.getUsername }}</a>{% endif %}
+							</span>
 						</td>
-						<td class="padding_5 h_align_left v_align_top">
+						<td class="center">
+							<span class="table_data">
 							{% if topic.getClosedDate %}{{ topic.getClosedDate |date("d/m/Y - H:i:s") }}{% endif %}
+							</span>
 						</td>
 
-						<td class="padding_5 h_align_left v_align_top">
+						<td class="center">
+							<span class="table_data">
 							{% if topic.getDeletedBy %}<a href="{{ path(user_profile_route, {'user_id': topic.getDeletedBy.getId }) }}">{{ topic.getDeletedBy.getUsername }}</a>{% endif %}
+							</span>
 						</td>
-						<td class="padding_5 h_align_left v_align_top">
+						<td class="center">
+							<span class="table_data">
 							{% if topic.getDeletedDate %}{{ topic.getDeletedDate |date("d/m/Y - H:i:s") }}{% endif %}
+							</span>
 						</td>
 					</tr>
 				{% else %}
 					<tr>
-						<td class="h_align_centre v_align_middle" colspan="11">
-							{{ 'topics.closed.table.empty' | trans({}, 'CCDNForumModeratorBundle') }}
+						<td class="center" colspan="11">
+							<span class="table_empty">{{ 'topics.closed.table.empty' | trans({}, 'CCDNForumModeratorBundle') }}</span>
 						</td>
 					</tr>
 				{% endfor %}

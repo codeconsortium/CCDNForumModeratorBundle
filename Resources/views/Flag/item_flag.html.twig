@@ -1,53 +1,66 @@
-<div class="common_box_panel">
-	<div class="row padding_5">
-		<div class="column">{{ flag.getFlaggedDate|date("d/m/Y - H:i:s") }}</div>
-		<div class="column">&nbsp;<a class="post_link" name="{{ flag.getPost.getId }}" href="#{{ flag.getPost.getId }}">#{{ flag.getId }}</a>&nbsp;</div>
-	</div>
+<div class="section_table_panel">
+	<table class="common_list">
+		<thead>
+			<tr>
+				<th class="center"><span class="table_header"></span></th>
+				<th class="center"><span class="table_header"></span></th>
+				<th class="center"><span class="table_header"></span></th>
+				<th class="center"><span class="table_header"></span></th>
+				<th class="center"><span class="table_header"></span></th>
+				<th class="center"><span class="table_header"></span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="center"><span class="table_data"><a class="post_link" name="{{ flag.getPost.getId }}" href="#{{ flag.getPost.getId }}">#{{ flag.getId }}</a></span></td>
+				<td class="center"><span class="table_data">{{ reason_codes[flag.getReason] }}</span></td>
+				<td class="center"><span class="table_data">{{ flag.getFlaggedDate|date("d/m/Y - H:i:s") }}</span></td>
+				<td class="center"><span class="table_data">{% if flag.getFlaggedBy %}<a class="username_medium" href="{{ path(user_profile_route, {'user_id': flag.getFlaggedBy.getId } ) }}">{{ flag.getFlaggedBy.getUsername }}</a>{% else %}Guest{% endif %}</span></td>
+				<td class="center"><span class="table_data">{{ 'post.user.post_count' | trans({'%post_count%': '50'}, 'CCDNForumForumBundle') }}</span></td>
+				<td class="center"><span class="table_data"><a href="{{ path('cc_moderator_forum_flag_mark', {'flag_id': flag.getId }) }}">{{ 'link.flag.update' | trans({}, 'CCDNForumModeratorBundle') }}</a></span></td>
+			</tr>
+			<tr>
+				<td class="left" colspan="6">
+					<div class="round_box">
+						<span class="common_body">
+						{{ 'flag.description' | trans({}, 'CCDNForumModeratorBundle') }}<br>
+						{{ flag.getDescription }}
+						</span>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
-<div class="common_box_panel bg_item_light">
-	<div class="row padding_10">
-		<div class="column v_align_middle"><img class="avatar" width="100" height="100" src="{{ asset('bundles/ccdncomponentcommon/images/profile/anonymous_avatar.gif') }}" alt="avatar"></div>
-		<div class="column v_align_top">
-			<div class="row h_align_centre padding_5">
-				{% if flag.getFlaggedBy %}
-				<a class="username_medium" href="{{ path(user_profile_route, {'user_id': flag.getFlaggedBy.getId } ) }}">{{ flag.getFlaggedBy }}</a>
-				{% else %}Guest{% endif %}
-			</div>
-			<div class="row h_align_centre padding_5">
-				<img class="star_rating" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" alt="icon" 
-				><img class="star_rating" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" alt="icon" 
-				><img class="star_rating" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" alt="icon" 
-				><img class="star_rating" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" alt="icon" 
-				><img class="star_rating" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_star.png') }}" alt="icon">
-			</div>
-			<div class="row h_align_centre padding_5">{{ 'post.user.post_count' | trans({'%post_count%': '50'}, 'CCDNForumForumBundle') }}</div>
-		</div>
 
-
-	</div>
-	
-	<div class="row">
-		<div class="padding_10">
-			<div class="text_bubble_header" style="text-align: left !important; padding-left: 10px;">
-				{{ reason_codes[flag.getReason] }}
-			</div>
-			<div class="text_bubble_body">
-				{{ 'flag.description' | trans({}, 'CCDNForumModeratorBundle') }}<br>
-				{{ flag.getDescription }}
-			</div>
-			{% if flag.getModeratedBy %}
-			<div class="text_bubble_body">
-				{{ 'flag.moderated_by' | trans({}, 'CCDNForumModeratorBundle') }}
-				{% if flag.getModeratedBy %}<a class="username_medium" href="{{ path(user_profile_route, {'user_id': flag.getModeratedBy.getId } ) }}">{{ flag.getModeratedBy }}</a>
-				{% else %}Guest{% endif %}
-				{{ 'actioned.at' | trans({'%date%': flag.getModeratedDate|date("d/m/Y - H:i:s")}, 'CCDNForumModeratorBundle') }}
-				<br><br>
-				{{ flag.getModeratorsNote }}
-			</div>
-			{% endif %}
-			<div class="text_bubble_footer">
-				{{ status_codes[flag.getStatus] }}&nbsp;&#45;&nbsp;<a href="{{ path('cc_moderator_forum_flag_mark', {'flag_id': flag.getId }) }}">{{ 'link.flag.update' | trans({}, 'CCDNForumModeratorBundle') }}</a>
-			</div>
-		</div>
-	</div>
+{% if flag.getModeratedBy %}
+<div class="section_table">
+	<table class="common_list">
+		<thead>
+			<tr>
+				<th class="center"><span class="table_header">{{ 'flag.moderated_by' | trans({}, 'CCDNForumModeratorBundle') }}</span></th>
+				<th class="center"><span class="table_header"></span></th>
+				<th class="center"><span class="table_header"></span></th>
+				<th class="center"><span class="table_header"></span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="center"><span class="table_data">{% if flag.getModeratedBy %}<a class="username_medium" href="{{ path(user_profile_route, {'user_id': flag.getModeratedBy.getId } ) }}">{{ flag.getModeratedBy }}</a>{% else %}Guest{% endif %}</span></td>
+				<td class="center"><span class="table_data">{{ 'actioned.at' | trans({'%date%': flag.getModeratedDate|date("d/m/Y - H:i:s")}, 'CCDNForumModeratorBundle') }}</span></td>
+				<td class="center"><span class="table_data">{{ status_codes[flag.getStatus] }}</span></td>
+			</tr>
+			<tr>
+				<td class="left" colspan="4">
+					<div class="round_box">
+						<span class="common_body">
+						{{ flag.getModeratorsNote }}
+						</span>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
+{% endif %}
+

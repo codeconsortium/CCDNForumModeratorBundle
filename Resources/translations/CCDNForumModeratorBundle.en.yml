@@ -16,12 +16,12 @@ crumbs.post.locked.index: Show Locked Posts
 crumbs.topic.closed.index: Show Closed Topics
 crumbs.topic.change_board: Change Board
 
-title.flag.show.all: Flagged Posts
-title.flag.show: 'Flag: "#%flag_id%" on post: "#%post_id%", of topic: "%topic%"'
-title.flag.update: 'Update flag: "#%flag_id%"'
-title.post.locked: 'Locked Posts'
-title.topic.closed: 'Closed Topics'
-title.topic.change_board: 'Change board for topic: "%topic_title%"'
+title.flag.show.all: 'Flagged Posts.'
+title.flag.show: 'Flag: "#%flag_id%" on post: "#%post_id%", of topic: "%topic%".'
+title.flag.update: 'Update flag: "#%flag_id%".'
+title.post.locked: 'Locked Posts.'
+title.topic.closed: 'Closed Topics.'
+title.topic.change_board: 'Change board for topic: "%topic_title%".'
 
 link.flag.update: Change Status
 link.topic.change_board: Change Board
@@ -54,7 +54,7 @@ flag.table.head.topic: Topic
 flag.table.head.board: Board
 flag.table.head.reason: Reason
 flag.table.head.status: Status
-flag.table.none: There are no current flags.
+flag.table.empty: 'There are no current flags.'
 
 flag.flagged_by: Flagged by 
 flag.moderated_by: Moderated by
