@@ -97,7 +97,7 @@
 							{% if topic.getFirstPost %}
 								{% if topic.getFirstPost.getCreatedBy %}
 									{% if topic.getFirstPost %}
-									<a class="username_medium" href="{{ path(user_profile_route, {'user_id': topic.getFirstPost.getCreatedBy.getId } ) }}">{{ topic.getFirstPost.getCreatedBy }}</a>
+									<a href="{{ path(user_profile_route, {'user_id': topic.getFirstPost.getCreatedBy.getId } ) }}">{{ topic.getFirstPost.getCreatedBy }}</a>
 									{% else %}
 									Guest
 									{% endif %}

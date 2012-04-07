@@ -15,7 +15,7 @@
 				<td class="center"><span class="table_data"><a class="post_link" name="{{ flag.getPost.getId }}" href="#{{ flag.getPost.getId }}">#{{ flag.getId }}</a></span></td>
 				<td class="center"><span class="table_data">{{ reason_codes[flag.getReason] }}</span></td>
 				<td class="center"><span class="table_data">{{ flag.getFlaggedDate|date("d/m/Y - H:i:s") }}</span></td>
-				<td class="center"><span class="table_data">{% if flag.getFlaggedBy %}<a class="username_medium" href="{{ path(user_profile_route, {'user_id': flag.getFlaggedBy.getId } ) }}">{{ flag.getFlaggedBy.getUsername }}</a>{% else %}Guest{% endif %}</span></td>
+				<td class="center"><span class="table_data">{% if flag.getFlaggedBy %}<a href="{{ path(user_profile_route, {'user_id': flag.getFlaggedBy.getId } ) }}">{{ flag.getFlaggedBy.getUsername }}</a>{% else %}Guest{% endif %}</span></td>
 				<td class="center"><span class="table_data">{{ 'post.user.post_count' | trans({'%post_count%': '50'}, 'CCDNForumForumBundle') }}</span></td>
 				<td class="center"><span class="table_data"><a href="{{ path('cc_moderator_forum_flag_mark', {'flag_id': flag.getId }) }}">{{ 'link.flag.update' | trans({}, 'CCDNForumModeratorBundle') }}</a></span></td>
 			</tr>
@@ -34,24 +34,23 @@
 </div>
 
 {% if flag.getModeratedBy %}
-<div class="section_table">
+<div class="section_table_panel">
 	<table class="common_list">
 		<thead>
 			<tr>
 				<th class="center"><span class="table_header">{{ 'flag.moderated_by' | trans({}, 'CCDNForumModeratorBundle') }}</span></th>
 				<th class="center"><span class="table_header"></span></th>
 				<th class="center"><span class="table_header"></span></th>
-				<th class="center"><span class="table_header"></span></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td class="center"><span class="table_data">{% if flag.getModeratedBy %}<a class="username_medium" href="{{ path(user_profile_route, {'user_id': flag.getModeratedBy.getId } ) }}">{{ flag.getModeratedBy }}</a>{% else %}Guest{% endif %}</span></td>
-				<td class="center"><span class="table_data">{{ 'actioned.at' | trans({'%date%': flag.getModeratedDate|date("d/m/Y - H:i:s")}, 'CCDNForumModeratorBundle') }}</span></td>
+				<td class="center"><span class="table_data">{% if flag.getModeratedBy %}<a href="{{ path(user_profile_route, {'user_id': flag.getModeratedBy.getId } ) }}">{{ flag.getModeratedBy }}</a>{% else %}Guest{% endif %}</span></td>
+				<td class="center"><span class="table_data">{{ flag.getModeratedDate |date("d/m/Y - H:i:s") }}</span></td>
 				<td class="center"><span class="table_data">{{ status_codes[flag.getStatus] }}</span></td>
 			</tr>
 			<tr>
-				<td class="left" colspan="4">
+				<td class="left" colspan="3">
 					<div class="round_box">
 						<span class="common_body">
 						{{ flag.getModeratorsNote }}
