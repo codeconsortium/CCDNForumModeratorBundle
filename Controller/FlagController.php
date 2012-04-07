@@ -159,7 +159,7 @@ class FlagController extends ContainerAware
 		{
 			$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.flag.update.success', array('%flag_id%' => $flag_id), 'CCDNForumModeratorBundle'));
 			
-			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_flagged_show_all', array() ));
+			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_flag_show', array('flag_id' => $flag_id) ));
 		}
 		else
 		{
