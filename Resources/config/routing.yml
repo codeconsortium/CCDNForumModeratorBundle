@@ -48,6 +48,14 @@ cc_moderator_forum_topic_reopen:
     pattern: /{_locale}/moderate/forum/topic/{topic_id}/reopen
     defaults: { _controller: CCDNForumModeratorBundle:Topic:reopen, _locale: en }
 
+cc_moderator_forum_topic_sticky:
+    pattern: /{_locale}/moderate/forum/topic/{topic_id}/sticky
+    defaults: { _controller: CCDNForumModeratorBundle:Topic:sticky, _locale: en }
+    
+cc_moderator_forum_topic_unsticky:
+    pattern: /{_locale}/moderate/forum/topic/{topic_id}/unsticky
+    defaults: { _controller: CCDNForumModeratorBundle:Topic:unsticky, _locale: en }
+    
 cc_moderator_forum_topic_delete:
     pattern: /{_locale}/moderate/forum/topic/{topic_id}/delete
     defaults: { _controller: CCDNForumModeratorBundle:Topic:delete, _locale: en }

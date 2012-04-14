@@ -359,6 +359,61 @@ class TopicController extends ContainerAware
 	
 	/**
 	 *
+	 * @access public
+	 * @param int $topic_id
+	 * @return RedirectResponse|RenderResponse
+	 */
+	public function stickyAction($topic_id)
+	{
+		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR'))
+		{
+			throw new AccessDeniedException('You do not have access to this section.');
+		}
+
+		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
+
+		if ( ! $topic) {
+			throw new NotFoundHttpException('No such topic exists!');
+		}
+		
+		$this->container->get('ccdn_forum_forum.topic.manager')->sticky($topic)->flushNow();
+		
+		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.sticky.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
+			
+		return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $topic->getId()) ));
+	}
+	
+	
+	/**
+	 *
+	 * @access public
+	 * @param int $topic_id
+	 * @return RedirectResponse|RenderResponse
+	 */
+	public function unstickyAction($topic_id)
+	{
+		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR'))
+		{
+			throw new AccessDeniedException('You do not have access to this section.');
+		}
+		
+		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
+
+		if ( ! $topic) {
+			throw new NotFoundHttpException('No such topic exists!');
+		}
+		
+		$this->container->get('ccdn_forum_forum.topic.manager')->unsticky($topic)->flushNow();
+		
+		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.unsticky.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
+		
+		return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $topic->getId()) ));
+	}
+	
+	
+	
+	/**
+	 *
 	 * @access protected
 	 * @return string
 	 */
