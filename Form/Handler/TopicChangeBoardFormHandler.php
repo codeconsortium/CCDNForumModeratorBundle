@@ -152,9 +152,11 @@ class TopicChangeBoardFormHandler
 	 * @param $entity
 	 * @return TopicManager
 	 */
-	protected function onSuccess($entity)
+	protected function onSuccess($topic)
     {
-		$this->manager->update($entity)->flushNow();
+		$this->manager->update($topic)->flushNow();
+		
+		$this->container->get('ccdn_forum_forum.board.manager')->updateBoardStats($topic->getBoard())->flushNow();
     }
 
 }
