@@ -33,7 +33,7 @@
 	
 	<div class="section_table_panel">
 		{% form_theme form param('ccdn_forum_moderator.template.theme') %}
-		<form action="{{ path('cc_moderator_forum_topic_change_board', { 'topic_id': topic.getId, 'board_id': topic.getBoard.getId } ) }}" method="post" {{ form_enctype(form) }}>
+		<form action="{{ path('cc_moderator_forum_topic_change_board', { 'topic_id': topic.getId} ) }}" method="post" {{ form_enctype(form) }}>
 			{{ form_row(form._token) }}
 			<table class="common_list">
 				<tbody>
