@@ -20,4 +20,4 @@ For more information about translations, check [Symfony documentation](http://sy
 
 ## Installation Documentation:
 
-- [Installing CCDNForum ModeratorBundle for Symfony 2.0.11](http://github.com/codeconsortium/CCDNForumModeratorBundle/blob/master/Resources/doc/Installation/Install_1_0.md)
+- [Installing CCDNForum ModeratorBundle for Symfony 2.0.11](http://github.com/codeconsortium/CCDNForumModeratorBundle/blob/master/Resources/doc/Install.md)
