@@ -53,7 +53,7 @@ class TopicController extends ContainerAware
 		$posts_per_page = $this->container->getParameter('ccdn_forum_moderator.topic.posts_per_page');
 		
 		// setup crumb trail.
-		$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
+		$crumb_trail = $this->container->get('ccdn_component_crumb.trail')
 			->add($this->container->get('translator')->trans('crumbs.dashboard', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_dashboard_index'), "sitemap")
 			->add($this->container->get('translator')->trans('crumbs.dashboard.moderator', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_dashboard_show', array('category' => 'moderator')), "sitemap")
 			->add($this->container->get('translator')->trans('crumbs.topic.closed.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_topics_closed_show_all'), "home");
@@ -162,7 +162,7 @@ class TopicController extends ContainerAware
 			$category = $board->getCategory();
 			
 			// setup crumb trail.
-			$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
+			$crumb_trail = $this->container->get('ccdn_component_crumb.trail')
 				->add($this->container->get('translator')->trans('crumbs.forum_index', array(), 'CCDNForumForumBundle'), $this->container->get('router')->generate('cc_forum_category_index'), "home")
 				->add($category->getName(), $this->container->get('router')->generate('cc_forum_category_show', array('category_id' => $category->getId())), "category")
 				->add($board->getName(), $this->container->get('router')->generate('cc_forum_board_show', array('board_id' => $board->getId())), "board")
@@ -234,7 +234,7 @@ class TopicController extends ContainerAware
 //		$pageTitle = $this->container->get('translator')->trans('title.topic.delete', array('%topic_title%' => $topic->getTitle()), 'CCDNForumForumBundle');
 		
 		// setup crumb trail.
-		$crumb_trail = $this->container->get('ccdn_component_crumb_trail.crumb_trail')
+		$crumb_trail = $this->container->get('ccdn_component_crumb.trail')
 			->add($this->container->get('translator')->trans('crumbs.forum_index', array(), 'CCDNForumForumBundle'), $this->container->get('router')->generate('cc_forum_category_index'), "home")
 			->add($category->getName(),	$this->container->get('router')->generate('cc_forum_category_show', array('category_id' => $category->getId())), "category")
 			->add($board->getName(), $this->container->get('router')->generate('cc_forum_board_show', array('board_id' => $board->getId())), "board")
