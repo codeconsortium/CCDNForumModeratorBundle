@@ -49,7 +49,7 @@ ModeratorBundle Provides the following features:
 	4. Batch soft-delete locked Posts.
 	5. Batch restore soft-deleted Posts.
 
-Before installation of this bundle, you can download the [Sandbox](https://github.com/codeconsortium/CCDNForumSandBox) for testing/development and feature review, or alternatively see the product in use at [CodeConsortium](http://www.codeconsortium.com).
+Before installation of this bundle, you can download the [Sandbox](https://github.com/codeconsortium/CCDNSandBox) for testing/development and feature review, or alternatively see the product in use at [CodeConsortium](http://www.codeconsortium.com).
 
 ## Documentation.
 
