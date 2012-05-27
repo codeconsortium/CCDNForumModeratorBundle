@@ -33,16 +33,16 @@
 
 {% block body %}
 
-{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
-
-
 {% include 'CCDNComponentCommonBundle:Flashes:flashes.html.twig' %}
 
-<div class="section_wrap_square">
-	<div class="section_header">
-		<h2>{{ 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') }}</h2>
-	</div>
-	
+<div class="section_wrap_top">
+	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+</div>
+<div class="section_wrap_bottom">
+	<h2>{{ 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') }}</h2>
+</div>
+
+<div class="section_wrap_standalone">	
 	<form method="POST" action="{{ path('cc_moderator_forum_posts_bulk_action') }}">
 	<div class="section_tool_strip">
 		<input type="submit" class="widget_submit" value="{{ 'link.post.lock' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_lock">
@@ -150,6 +150,8 @@
 	</form>
 </div>
 
-{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+<div class="section_wrap_standalone">
+	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+</div>
 
 {% endblock %}

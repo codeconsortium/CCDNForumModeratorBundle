@@ -28,16 +28,16 @@
 
 {% block body %}
 
-{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
-
 {% include 'CCDNComponentCommonBundle:Flashes:flashes.html.twig' %}
 
+<div class="section_wrap_top">
+	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+</div>
+<div class="section_wrap_bottom">
+	<h2>{{ 'title.flag.update' | trans({'%flag_id%': flag.getId }, 'CCDNForumModeratorBundle' )}}</h2>
+</div>
 
-<div class="section_wrap_square">
-	<div class="section_header">
-		<h2>{{ 'title.flag.update' | trans({'%flag_id%': flag.getId }, 'CCDNForumModeratorBundle' )}}</h2>
-	</div>
-	
+<div class="section_wrap_top">	
 	<div class="section_table_panel">
 		{% form_theme form param('ccdn_forum_moderator.template.theme') %}
 		<form action="{{ path('cc_moderator_forum_flag_mark', { 'flag_id': flag.getId } ) }}" method="post" {{ form_enctype(form) }}>
@@ -70,14 +70,15 @@
 	</div>
 </div>
 
-<div class="section_wrap_square">
-	<div class="section_header">
-		<h2>{{ 'title.flag.show' | trans({'%flag_id%': flag.getId, '%topic%': flag.getPost.getTopic.getTitle, '%post_id%': flag.getPost.getId }, 'CCDNForumModeratorBundle') }}</h2>
-	</div>
-	
+<div class="section_wrap_middle">
+	<h2>{{ 'title.flag.show' | trans({'%flag_id%': flag.getId, '%topic%': flag.getPost.getTopic.getTitle, '%post_id%': flag.getPost.getId }, 'CCDNForumModeratorBundle') }}</h2>
+</div>
+<div class="section_wrap_bottom">	
 	{% include "CCDNForumModeratorBundle:Flag:item_flag.html.twig" %}
 </div>
 
-{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+<div class="section_wrap_standalone">
+	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+</div>
 
 {% endblock %}

@@ -35,26 +35,34 @@
 
 {% block body %}
 
-{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
-
 {% include 'CCDNComponentCommonBundle:Flashes:flashes.html.twig' %}
 
+<div class="section_wrap_top">
+	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+</div>
+
+<div class="section_wrap_bottom">
+	<h2>#{{ flag.getId}}</h2>
+</div>
+
+<div class="section_wrap_top">
 {% set post = flag.getPost %}
-<div class="section_wrap_square">
-	<div class="section_header">
-		<h2>#{{ flag.getId}}</h2>
-	</div>
-	
 	<div class="section_panel">
 		<h2>
 			<img class="icon16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_flag.png') }}" alt="icon">
 			<a href="">{{ 'title.flag.show' | trans({'%flag_id%': flag.getId, '%topic%': flag.getPost.getTopic.getTitle, '%post_id%': flag.getPost.getId }, 'CCDNForumModeratorBundle') }}</a><br>
 		</h2>
 	</div>
+</div>
+<div class="section_wrap_middle">
 	{% include "CCDNForumModeratorBundle:Flag:item_flag.html.twig" %}
+</div>
+<div class="section_wrap_bottom">
 	{% include "CCDNForumForumBundle:Post:item_post.html.twig" %}
 </div>
 
-{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+<div class="section_wrap_standalone">
+	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+</div>
 
 {% endblock %}

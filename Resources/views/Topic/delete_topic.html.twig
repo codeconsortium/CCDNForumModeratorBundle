@@ -21,26 +21,31 @@
 
 {% block body %}
 
-{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
-
 {% include 'CCDNComponentCommonBundle:Flashes:flashes.html.twig' %}
 
-<div class="section_wrap_square">
-	<div class="section_header">
-		<h2>{{ 'title.topic.delete' |trans({'%topic_title%': topic.getTitle }, 'CCDNForumForumBundle') }}</h2>
-	</div>
-	
+<div class="section_wrap_top">
+	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+</div>
+<div class="section_wrap_bottom">
+	<h2>{{ 'title.topic.delete' |trans({'%topic_title%': topic.getTitle }, 'CCDNForumForumBundle') }}</h2>
+</div>
+
+<div class="section_wrap_standalone">	
 	<div class="section_panel h_align_centre v_align_middle">
 		<div class="">
+			<br>
 			{{ 'topic.delete_topic_question' | trans({}, 'CCDNForumForumBundle') }}
-			<br><br>
-			<a class="button_link" href="{{ path('cc_moderator_forum_topic_delete_confirmed', {'topic_id': topic.id })}}">{{ 'post.delete.confirm_yes' | trans({}, 'CCDNForumForumBundle') }}</a>
+			<br><br><br>
+			<a class="button_red" href="{{ path('cc_moderator_forum_topic_delete_confirmed', {'topic_id': topic.id })}}">{{ 'post.delete.confirm_yes' | trans({}, 'CCDNForumForumBundle') }}</a>
 			&nbsp;&nbsp;&nbsp;
-			<a class="button_link" href="{{ path('cc_forum_topic_show', {'topic_id': topic.id })}}">{{ 'post.delete.confirm_no' | trans({}, 'CCDNForumForumBundle') }}</a>
+			<a class="button_red" href="{{ path('cc_forum_topic_show', {'topic_id': topic.id })}}">{{ 'post.delete.confirm_no' | trans({}, 'CCDNForumForumBundle') }}</a>
+			<br>
 		</div>
 	</div>
 </div>
 
-{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+<div class="section_wrap_standalone">
+	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+</div>
 
 {% endblock %}
