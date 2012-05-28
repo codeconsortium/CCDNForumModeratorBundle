@@ -39,16 +39,18 @@
 	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
 </div>
 <div class="section_wrap_bottom">
-	<h2>{{ 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') }}</h2>
+	<div class="section_header">
+		<h2>{{ 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') }}</h2>
+	</div>
 </div>
 
 <div class="section_wrap_standalone">	
 	<form method="POST" action="{{ path('cc_moderator_forum_posts_bulk_action') }}">
 	<div class="section_tool_strip">
-		<input type="submit" class="widget_submit" value="{{ 'link.post.lock' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_lock">
-		<input type="submit" class="widget_submit" value="{{ 'link.post.unlock' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_unlock">
-		<input type="submit" class="widget_submit" value="{{ 'link.topic.restore' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_restore">
-		<input type="submit" class="widget_submit" value="{{ 'link.topic.delete' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_delete">
+		<input type="submit" class="button_blue" value="{{ 'link.post.lock' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_lock">
+		<input type="submit" class="button_blue" value="{{ 'link.post.unlock' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_unlock">
+		<input type="submit" class="button_blue" value="{{ 'link.topic.restore' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_restore">
+		<input type="submit" class="button_red" value="{{ 'link.topic.delete' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_delete">
 	</div>
 	{% if pager.haveToPaginate %}
 	<div class="pagerfanta">

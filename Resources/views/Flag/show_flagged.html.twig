@@ -46,19 +46,21 @@
 	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
 </div>
 <div class="section_wrap_bottom">
-	<h2>{{ 'title.flag.show.all' | trans({}, 'CCDNForumModeratorBundle') }}</h2>
+	<div class="section_header">
+		<h2>{{ 'title.flag.show.all' | trans({}, 'CCDNForumModeratorBundle') }}</h2>
+	</div>
 </div>
 	
 <div class="section_wrap_standalone">
 	<form method="POST" action="{{ path('cc_moderate_forum_flag_action_bulk') }}">
 	<div class="section_tool_strip">
-		<input type="submit" class="widget_submit" value="{{ 'link.flag.delete' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_delete">
+		<input type="submit" class="button_red" value="{{ 'link.flag.delete' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_delete">
 		<select name="select_mark_as" class="widget_select">
 			{% for status_key, status in status_codes %}
 				<option class="widget_select" value="{{ status_key }}">{{ status }}</option>
 			{% endfor %}
 		</select>
-		<input type="submit" class="widget_submit" value="{{ 'link.flag.mark_as' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_mark_as">
+		<input type="submit" class="button_blue" value="{{ 'link.flag.mark_as' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_mark_as">
 	</div>
 	{% if pager.haveToPaginate %}
 	<div class="pagerfanta">
