@@ -26,47 +26,63 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class TopicController extends ContainerAware
 {
-
+	
+	
+	
 	/**
 	 *
-	 * Displays a list of closed topics (locked from posting new posts)
-	 *
 	 * @access public
-	 * @param int $page
+	 * @param int $topic_id
 	 * @return RedirectResponse|RenderResponse
 	 */
-	public function showClosedAction($page)
+	public function stickyAction($topic_id)
 	{
 		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR'))
 		{
 			throw new AccessDeniedException('You do not have access to this section.');
 		}
 
-		$user = $this->container->get('security.context')->getToken()->getUser();
+		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
 
-		$topics_paginated = $this->container->get('ccdn_forum_forum.topic.repository')->findClosedTopicsForModeratorsPaginated();
+		if ( ! $topic) {
+			throw new NotFoundHttpException('No such topic exists!');
+		}
+		
+		$this->container->get('ccdn_forum_moderator.topic.manager')->sticky($topic)->flushNow();
+		
+		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.sticky.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 			
-		$topics_per_page = $this->container->getParameter('ccdn_forum_moderator.topic.topics_per_page');
-		$topics_paginated->setMaxPerPage($topics_per_page);
-		$topics_paginated->setCurrentPage($page, false, true);
-		
-		$posts_per_page = $this->container->getParameter('ccdn_forum_moderator.topic.posts_per_page');
-		
-		// setup crumb trail.
-		$crumb_trail = $this->container->get('ccdn_component_crumb.trail')
-			->add($this->container->get('translator')->trans('crumbs.dashboard', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_dashboard_index'), "sitemap")
-			->add($this->container->get('translator')->trans('crumbs.dashboard.moderator', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_dashboard_show', array('category' => 'moderator')), "sitemap")
-			->add($this->container->get('translator')->trans('crumbs.topic.closed.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_topics_closed_show_all'), "home");
-		
-		return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Topic:show_closed.html.' . $this->getEngine(), array(
-			'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
-			'user' => $user,
-			'topics' => $topics_paginated,
-			'crumbs' => $crumb_trail,
-			'pager' => $topics_paginated,
-			'posts_per_page' => $posts_per_page,
-		));
+		return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $topic->getId()) ));
 	}
+	
+	
+	
+	/**
+	 *
+	 * @access public
+	 * @param int $topic_id
+	 * @return RedirectResponse|RenderResponse
+	 */
+	public function unstickyAction($topic_id)
+	{
+		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR'))
+		{
+			throw new AccessDeniedException('You do not have access to this section.');
+		}
+		
+		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
+
+		if ( ! $topic) {
+			throw new NotFoundHttpException('No such topic exists!');
+		}
+		
+		$this->container->get('ccdn_forum_moderator.topic.manager')->unsticky($topic)->flushNow();
+		
+		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.unsticky.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
+		
+		return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $topic->getId()) ));
+	}
+	
 	
 	
 	/**
@@ -92,12 +108,13 @@ class TopicController extends ContainerAware
 			throw new NotFoundHttpException('No such topic exists!');
 		}
 		
-		$this->container->get('ccdn_forum_forum.topic.manager')->close($topic, $user)->flushNow();
+		$this->container->get('ccdn_forum_moderator.topic.manager')->close($topic, $user)->flushNow();
 		
 		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.close.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 			
 		return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $topic->getId()) ));
 	}
+	
 	
 	
 	/**
@@ -121,13 +138,121 @@ class TopicController extends ContainerAware
 			throw new NotFoundHttpException('No such topic exists!');
 		}
 		
-		$this->container->get('ccdn_forum_forum.topic.manager')->reopen($topic)->flushNow();
+		$this->container->get('ccdn_forum_moderator.topic.manager')->reopen($topic)->flushNow();
 		
 		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.reopen.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 		
 		return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $topic->getId()) ));
 	}
+
 	
+	
+	/**
+	 *
+	 * @access public
+	 * @param int $topic_id
+	 * @return RedirectResponse|RenderResponse
+	 */
+	public function restoreAction($topic_id)
+	{
+		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR')) {
+			throw new AccessDeniedException('You do not have permission to use this resource!');
+		}
+
+		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
+
+		if ( ! $topic) {
+			throw new NotFoundHttpException('No such topic exists!');
+		}
+
+		$this->container->get('ccdn_forum_moderator.topic.manager')->restore($topic)->flushNow();
+
+		// set flash message
+		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.restore.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
+
+		// forward user
+		return new RedirectResponse($this->container->get('router')->generate('cc_forum_board_show', array('board_id' => $topic->getBoard()->getId()) ));		
+	}
+		
+	
+	
+	/**
+	 *
+	 * @access public
+	 * @param int $topic_id
+	 * @return RedirectResponse|RenderResponse
+	 */
+	public function deleteAction($topic_id)
+	{
+		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR')) {
+			throw new AccessDeniedException('You do not have permission to use this resource!');
+		}
+
+		$user = $this->container->get('security.context')->getToken()->getUser();
+			
+		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
+	
+		if ( ! $topic) {
+			throw new NotFoundHttpException('No such post exists!');
+		}
+		
+		$board = $topic->getBoard();
+		$category = $board->getCategory();
+		
+//		$confirmationMessage = 'topic.delete.question';
+		$crumbDelete = $this->container->get('translator')->trans('crumbs.topic.delete', array(), 'CCDNForumForumBundle');
+//		$pageTitle = $this->container->get('translator')->trans('title.topic.delete', array('%topic_title%' => $topic->getTitle()), 'CCDNForumForumBundle');
+		
+		// setup crumb trail.
+		$crumb_trail = $this->container->get('ccdn_component_crumb.trail')
+			->add($this->container->get('translator')->trans('crumbs.forum_index', array(), 'CCDNForumForumBundle'), $this->container->get('router')->generate('cc_forum_category_index'), "home")
+			->add($category->getName(),	$this->container->get('router')->generate('cc_forum_category_show', array('category_id' => $category->getId())), "category")
+			->add($board->getName(), $this->container->get('router')->generate('cc_forum_board_show', array('board_id' => $board->getId())), "board")
+			->add($topic->getTitle(), $this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $topic->getId())), "communication")
+			->add($crumbDelete, $this->container->get('router')->generate('cc_forum_topic_reply', array('topic_id' => $topic->getId())), "trash");
+	
+		return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Topic:delete_topic.html.' . $this->getEngine(), array(
+			'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
+//			'page_title' => $pageTitle,
+//			'confirmation_message' => $confirmationMessage,
+			'topic' => $topic,
+			'crumbs' => $crumb_trail,
+		));
+	}
+	
+	
+	
+	/**
+	 *
+	 * @access public
+	 * @param int $topic_id
+	 * @return RedirectResponse|RenderResponse
+	 */
+	public function deleteConfirmedAction($topic_id)
+	{
+		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR'))
+		{
+			throw new AccessDeniedException('You do not have permission to use this resource!');
+		}
+
+		$user = $this->container->get('security.context')->getToken()->getUser();
+
+		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
+
+		if ( ! $topic) {
+			throw new NotFoundHttpException('No such topic exists!');
+		}
+
+		$this->container->get('ccdn_forum_moderator.topic.manager')->softDelete($topic, $user)->flushNow();
+
+		// set flash message
+		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.delete.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
+
+		// forward user
+		return new RedirectResponse($this->container->get('router')->generate('cc_forum_board_show', array('board_id' => $topic->getBoard()->getId()) ));	
+	}
+
+
 	
 	/**
 	 *
@@ -178,107 +303,46 @@ class TopicController extends ContainerAware
 	}
 	
 	
-	/**
-	 *
-	 * @access public
-	 * @param int $topic_id
-	 * @return RedirectResponse|RenderResponse
-	 */
-	public function restoreAction($topic_id)
-	{
-		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR')) {
-			throw new AccessDeniedException('You do not have permission to use this resource!');
-		}
-
-		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
-
-		if ( ! $topic) {
-			throw new NotFoundHttpException('No such topic exists!');
-		}
-
-		$this->container->get('ccdn_forum_forum.topic.manager')->restore($topic)->flushNow();
-
-		// set flash message
-		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.restore.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
-
-		// forward user
-		return new RedirectResponse($this->container->get('router')->generate('cc_forum_board_show', array('board_id' => $topic->getBoard()->getId()) ));		
-	}
-		
 	
 	/**
 	 *
-	 * @access public
-	 * @param int $topic_id
-	 * @return RedirectResponse|RenderResponse
-	 */
-	public function deleteAction($topic_id)
-	{
-		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR')) {
-			throw new AccessDeniedException('You do not have permission to use this resource!');
-		}
-
-		$user = $this->container->get('security.context')->getToken()->getUser();
-			
-		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
-	
-		if ( ! $topic) {
-			throw new NotFoundHttpException('No such post exists!');
-		}
-		
-		$board = $topic->getBoard();
-		$category = $board->getCategory();
-		
-//		$confirmationMessage = 'topic.delete.question';
-		$crumbDelete = $this->container->get('translator')->trans('crumbs.topic.delete', array(), 'CCDNForumForumBundle');
-//		$pageTitle = $this->container->get('translator')->trans('title.topic.delete', array('%topic_title%' => $topic->getTitle()), 'CCDNForumForumBundle');
-		
-		// setup crumb trail.
-		$crumb_trail = $this->container->get('ccdn_component_crumb.trail')
-			->add($this->container->get('translator')->trans('crumbs.forum_index', array(), 'CCDNForumForumBundle'), $this->container->get('router')->generate('cc_forum_category_index'), "home")
-			->add($category->getName(),	$this->container->get('router')->generate('cc_forum_category_show', array('category_id' => $category->getId())), "category")
-			->add($board->getName(), $this->container->get('router')->generate('cc_forum_board_show', array('board_id' => $board->getId())), "board")
-			->add($topic->getTitle(), $this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $topic->getId())), "communication")
-			->add($crumbDelete, $this->container->get('router')->generate('cc_forum_topic_reply', array('topic_id' => $topic->getId())), "trash");
-	
-		return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Topic:delete_topic.html.' . $this->getEngine(), array(
-			'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
-//			'page_title' => $pageTitle,
-//			'confirmation_message' => $confirmationMessage,
-			'topic' => $topic,
-			'crumbs' => $crumb_trail,
-		));
-	}
-	
-	
-	/**
+	 * Displays a list of closed topics (locked from posting new posts)
 	 *
 	 * @access public
-	 * @param int $topic_id
+	 * @param int $page
 	 * @return RedirectResponse|RenderResponse
 	 */
-	public function deleteConfirmedAction($topic_id)
+	public function showClosedAction($page)
 	{
 		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR'))
 		{
-			throw new AccessDeniedException('You do not have permission to use this resource!');
+			throw new AccessDeniedException('You do not have access to this section.');
 		}
 
 		$user = $this->container->get('security.context')->getToken()->getUser();
 
-		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
-
-		if ( ! $topic) {
-			throw new NotFoundHttpException('No such topic exists!');
-		}
-
-		$this->container->get('ccdn_forum_forum.topic.manager')->softDelete($topic, $user)->flushNow();
-
-		// set flash message
-		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.delete.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
-
-		// forward user
-		return new RedirectResponse($this->container->get('router')->generate('cc_forum_board_show', array('board_id' => $topic->getBoard()->getId()) ));	
+		$topics_paginated = $this->container->get('ccdn_forum_forum.topic.repository')->findClosedTopicsForModeratorsPaginated();
+			
+		$topics_per_page = $this->container->getParameter('ccdn_forum_moderator.topic.topics_per_page');
+		$topics_paginated->setMaxPerPage($topics_per_page);
+		$topics_paginated->setCurrentPage($page, false, true);
+		
+		$posts_per_page = $this->container->getParameter('ccdn_forum_moderator.topic.posts_per_page');
+		
+		// setup crumb trail.
+		$crumb_trail = $this->container->get('ccdn_component_crumb.trail')
+			->add($this->container->get('translator')->trans('crumbs.dashboard', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_dashboard_index'), "sitemap")
+			->add($this->container->get('translator')->trans('crumbs.dashboard.moderator', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_dashboard_show', array('category' => 'moderator')), "sitemap")
+			->add($this->container->get('translator')->trans('crumbs.topic.closed.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_topics_closed_show_all'), "home");
+		
+		return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Topic:show_closed.html.' . $this->getEngine(), array(
+			'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
+			'user' => $user,
+			'topics' => $topics_paginated,
+			'crumbs' => $crumb_trail,
+			'pager' => $topics_paginated,
+			'posts_per_page' => $posts_per_page,
+		));
 	}
 
 
@@ -337,77 +401,22 @@ class TopicController extends ContainerAware
 
 		if (isset($_POST['submit_close']))
 		{
-			$this->container->get('ccdn_forum_forum.topic.manager')->bulkClose($topics)->flushNow();
+			$this->container->get('ccdn_forum_moderator.topic.manager')->bulkClose($topics)->flushNow();
 		}
 		if (isset($_POST['submit_reopen']))
 		{
-			$this->container->get('ccdn_forum_forum.topic.manager')->bulkReopen($topics)->flushNow();
+			$this->container->get('ccdn_forum_moderator.topic.manager')->bulkReopen($topics)->flushNow();
 		}
 		if (isset($_POST['submit_restore']))
 		{
-			$this->container->get('ccdn_forum_forum.topic.manager')->bulkRestore($topics)->flushNow();
+			$this->container->get('ccdn_forum_moderator.topic.manager')->bulkRestore($topics)->flushNow();
 		}
 		if (isset($_POST['submit_delete']))
 		{
-			$this->container->get('ccdn_forum_forum.topic.manager')->bulkSoftDelete($topics)->flushNow();
+			$this->container->get('ccdn_forum_moderator.topic.manager')->bulkSoftDelete($topics)->flushNow();
 		}
 
 		return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_topics_closed_show_all'));
-	}
-	
-	
-	
-	/**
-	 *
-	 * @access public
-	 * @param int $topic_id
-	 * @return RedirectResponse|RenderResponse
-	 */
-	public function stickyAction($topic_id)
-	{
-		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR'))
-		{
-			throw new AccessDeniedException('You do not have access to this section.');
-		}
-
-		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
-
-		if ( ! $topic) {
-			throw new NotFoundHttpException('No such topic exists!');
-		}
-		
-		$this->container->get('ccdn_forum_forum.topic.manager')->sticky($topic)->flushNow();
-		
-		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.sticky.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
-			
-		return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $topic->getId()) ));
-	}
-	
-	
-	/**
-	 *
-	 * @access public
-	 * @param int $topic_id
-	 * @return RedirectResponse|RenderResponse
-	 */
-	public function unstickyAction($topic_id)
-	{
-		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR'))
-		{
-			throw new AccessDeniedException('You do not have access to this section.');
-		}
-		
-		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
-
-		if ( ! $topic) {
-			throw new NotFoundHttpException('No such topic exists!');
-		}
-		
-		$this->container->get('ccdn_forum_forum.topic.manager')->unsticky($topic)->flushNow();
-		
-		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.unsticky.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
-		
-		return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $topic->getId()) ));
 	}
 	
 	
