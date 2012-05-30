@@ -401,7 +401,7 @@ class TopicController extends ContainerAware
 
 		if (isset($_POST['submit_close']))
 		{
-			$this->container->get('ccdn_forum_moderator.topic.manager')->bulkClose($topics)->flushNow();
+			$this->container->get('ccdn_forum_moderator.topic.manager')->bulkClose($topics, $user)->flushNow();
 		}
 		if (isset($_POST['submit_reopen']))
 		{
@@ -411,9 +411,9 @@ class TopicController extends ContainerAware
 		{
 			$this->container->get('ccdn_forum_moderator.topic.manager')->bulkRestore($topics)->flushNow();
 		}
-		if (isset($_POST['submit_delete']))
+		if (isset($_POST['submit_soft_delete']))
 		{
-			$this->container->get('ccdn_forum_moderator.topic.manager')->bulkSoftDelete($topics)->flushNow();
+			$this->container->get('ccdn_forum_moderator.topic.manager')->bulkSoftDelete($topics, $user)->flushNow();
 		}
 
 		return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_topics_closed_show_all'));

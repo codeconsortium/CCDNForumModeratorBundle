@@ -24,42 +24,6 @@ use CCDNForum\ForumBundle;
 class TopicManager extends ForumBundle\Manager\TopicManager implements ManagerInterface
 {
 	
-
-	
-	/**
-	 *
-	 * @access public
-	 * @param $topic, $user
-	 * @return $this
-	 */
-	public function close($topic, $user)
-	{
-		$topic->setClosedBy($user);
-		$topic->setClosedDate(new \DateTime());
-		
-		$this->persist($topic);
-		
-		return $this;
-	}
-	
-
-	
-	/**
-	 *
-	 * @access public
-	 * @param $topic
-	 * @return $this
-	 */
-	public function reopen($topic)
-	{
-		$topic->setClosedBy(null);
-		$topic->setClosedDate(null);
-		
-		$this->persist($topic);
-		
-		return $this;
-	}
-	
 	
 	
 	/**
@@ -93,7 +57,47 @@ class TopicManager extends ForumBundle\Manager\TopicManager implements ManagerIn
 		
 		return $this;
 	}
+
+
 	
+	/**
+	 *
+	 * @access public
+	 * @param $topic, $user
+	 * @return $this
+	 */
+	public function close($topic, $user)
+	{
+		// Don't overwite previous users accountability.
+		if ( ! $topic->getClosedBy() && ! $topic->getClosedDate())
+		{
+			$topic->setClosedBy($user);
+			$topic->setClosedDate(new \DateTime());
+		
+			$this->persist($topic);
+		}
+		
+		return $this;
+	}
+	
+
+	
+	/**
+	 *
+	 * @access public
+	 * @param $topic
+	 * @return $this
+	 */
+	public function reopen($topic)
+	{
+		$topic->setClosedBy(null);
+		$topic->setClosedDate(null);
+		
+		$this->persist($topic);
+		
+		return $this;
+	}
+
 	
 	
 	/**
@@ -102,14 +106,18 @@ class TopicManager extends ForumBundle\Manager\TopicManager implements ManagerIn
 	 * @param $topics 
 	 * @return $this
 	 */
-	public function bulkClose($topics)
+	public function bulkClose($topics, $user)
 	{
 		foreach($topics as $topic)
 		{
-			$topic->setClosedBy($this->container->get('security.context')->getToken()->getUser());
-			$topic->setClosedDate(new \DateTime());
+			// Don't overwite previous users accountability.
+			if ( ! $topic->getClosedBy() && ! $topic->getClosedDate())
+			{
+				$topic->setClosedBy($user);
+				$topic->setClosedDate(new \DateTime());
 			
-			$this->persist($topic);
+				$this->persist($topic);
+			}
 		}
 		
 		return $this;
@@ -135,6 +143,47 @@ class TopicManager extends ForumBundle\Manager\TopicManager implements ManagerIn
 		
 		return $this;
 	}
+
+	
+	
+	/**
+	 *
+	 * @access public
+	 * @param $topics
+	 * @return $this
+	 */
+	public function bulkSoftDelete($topics, $user)
+	{
+		$boards_to_update = array();
+		
+		foreach($topics as $topic)
+		{
+			// Don't overwite previous users accountability.
+			if ( ! $topic->getDeletedBy() && ! $topic->getDeletedDate())
+			{
+				// Add the board of the topic to be updated.
+				if ($topic->getBoard())
+				{
+					if ( ! array_key_exists($topic->getBoard()->getId(), $boards_to_update))
+					{
+						$boards_to_update[$topic->getBoard()->getId()] = $topic->getBoard();
+					}
+				}
+				
+				$topic->setDeletedBy($user);
+				$topic->setDeletedDate(new \DateTime());
+			
+				$this->persist($topic);			
+			}
+		}
+		
+		$this->flushNow();
+		
+		// Update all affected board stats.
+		$this->container->get('ccdn_forum_forum.board.manager')->bulkUpdateStats($boards_to_update)->flushNow();
+		
+		return $this;
+	}
 	
 	
 	
@@ -146,56 +195,29 @@ class TopicManager extends ForumBundle\Manager\TopicManager implements ManagerIn
 	 */
 	public function bulkRestore($topics)
 	{
-		foreach($topics as $topic)
-		{
-			$topic->setDeletedBy(null);
-			$topic->setDeletedDate(null);
-			
-			$this->persist($topic);
-		}
-		
-		return $this;
-	}
-	
-	
-	
-	/**
-	 *
-	 * @access public
-	 * @param $topics
-	 * @return $this
-	 */
-	public function bulkSoftDelete($topics)
-	{
-		
-		$boardsToUpdate = array();
+		$boards_to_update = array();
 		
 		foreach($topics as $topic)
 		{
-			$topic->setDeletedBy($this->container->get('security.context')->getToken()->getUser());
-			$topic->setDeletedDate(new \DateTime());
-			
-			$this->persist($topic);
-			
+			// Add the board of the topic to be updated.
 			if ($topic->getBoard())
 			{
-				if ( ! array_key_exists($topic->getBoard()->getId(), $boardsToUpdate))
+				if ( ! array_key_exists($topic->getBoard()->getId(), $boards_to_update))
 				{
-					$boardsToUpdate[$topic->getBoard()->getId()] = $topic->getBoard();
+					$boards_to_update[$topic->getBoard()->getId()] = $topic->getBoard();
 				}
 			}
-		}
+			
+			$topic->setDeletedBy(null);
+			$topic->setDeletedDate(null);
 		
+			$this->persist($topic);
+		}
+
 		$this->flushNow();
 		
-		$boardManager = $this->container->get('ccdn_forum_forum.board.manager');
-		
-		foreach($boardsToUpdate as $board)
-		{
-			$boardManager->updateBoardStats($board);
-		}
-				
-		$boardManager->flushNow();
+		// Update all affected board stats.
+		$this->container->get('ccdn_forum_forum.board.manager')->bulkUpdateStats($boards_to_update)->flushNow();
 		
 		return $this;
 	}

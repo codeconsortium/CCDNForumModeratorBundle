@@ -33,11 +33,15 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
 	 * @return $this
 	 */
 	public function lock($post, $user)
-	{		
-		$post->setLockedBy($user);
-		$post->setLockedDate(new \DateTime());
+	{
+		// Don't overwite previous users accountability.
+		if ( ! $post->getLockedBy() && ! $post->getLockedDate())
+		{
+			$post->setLockedBy($user);
+			$post->setLockedDate(new \DateTime());
 		
-		$this->persist($post);
+			$this->persist($post);
+		}
 		
 		return $this;
 	}
@@ -68,13 +72,17 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
 	 * @param $posts 
 	 * @return $this
 	 */
-	public function bulkLock($posts)
+	public function bulkLock($posts, $user)
 	{
 		foreach($posts as $post)
 		{
-			$post->setLockedBy($this->container->get('security.context')->getToken()->getUser());
-			$post->setLockedDate(new \DateTime());
-						
+			// Don't overwite previous users accountability.
+			if ( ! $post->getLockedBy() && ! $post->getLockedDate())
+			{
+				$post->setLockedBy($user);
+				$post->setLockedDate(new \DateTime());
+			}
+			
 			$this->persist($post);
 		}
 		
@@ -101,7 +109,7 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
 		
 		return $this;
 	}
-	
+
 	
 	
 	/**
@@ -110,16 +118,54 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
 	 * @param $posts 
 	 * @return $this
 	 */
-	public function bulkRestore($posts)
-	{
+	public function bulkSoftDelete($posts, $user)
+	{	
+		$boards_to_update = array();
+		$topic_to_delete = array();
+		
 		foreach($posts as $post)
 		{
-			$post->setDeletedBy(null);
-			$post->setDeletedDate(null);
-			
-			$this->persist($post);
+			// Don't overwite previous users accountability.
+			if ( ! $post->getDeletedBy() && ! $post->getDeletedDate())
+			{
+				// Add the board of the topic to be updated.
+				if ($post->getTopic())
+				{			
+					$topic = $post->getTopic();
+					
+					if ($topic->getBoard())
+					{
+						if ( ! array_key_exists($topic->getBoard()->getId(), $boards_to_update))
+						{
+							$boards_to_update[$topic->getBoard()->getId()] = $topic->getBoard();
+						}
+					}
+					
+					if ($topic->getReplyCount() < 1 && $topic->getFirstPost()->getId() == $post->getId())
+					{
+						$topic->setDeletedBy($user);
+						$topic->setDeletedDate(new \DateTime());
+						
+						$this->persist($topic);
+					}
+				}
+				
+				$post->setDeletedBy($user);
+				$post->setDeletedDate(new \DateTime());
+
+				// Because the bulkSoftDelete is only used by moderators
+				$post->setLockedBy($user);
+				$post->setLockedDate(new \DateTime());
+
+				$this->persist($post);
+			}		
 		}
 		
+		$this->flushNow();
+		
+		// Update all affected board stats.
+		$this->container->get('ccdn_forum_forum.board.manager')->bulkUpdateStats($boards_to_update)->flushNow();
+				
 		return $this;
 	}
 	
@@ -131,44 +177,46 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
 	 * @param $posts 
 	 * @return $this
 	 */
-	public function bulkSoftDelete($posts)
+	public function bulkRestore($posts)
 	{
-		
-		$boardsToUpdate = array();
+		$boards_to_update = array();
 		
 		foreach($posts as $post)
 		{
-			$post->setDeletedBy($this->container->get('security.context')->getToken()->getUser());
-			$post->setDeletedDate(new \DateTime());
-			
-			$this->persist($post);
-			
+			// Add the board of the topic to be updated.
 			if ($post->getTopic())
 			{
 				$topic = $post->getTopic();
-				
+						
 				if ($topic->getBoard())
 				{
-					if ( ! array_key_exists($topic->getBoard()->getId(), $boardsToUpdate))
+					if ( ! array_key_exists($topic->getBoard()->getId(), $boards_to_update))
 					{
-						$boardsToUpdate[$topic->getBoard()->getId()] = $topic->getBoard();
+						$boards_to_update[$topic->getBoard()->getId()] = $topic->getBoard();
 					}
 				}
+				
+				if ($topic->getReplyCount() < 1 && $topic->getFirstPost()->getId() == $post->getId())
+				{
+					$topic->setDeletedBy(null);
+					$topic->setDeletedDate(null);
+					
+					$this->persist($topic);
+				}
 			}
+
+			$post->setDeletedBy(null);
+			$post->setDeletedDate(null);
+		
+			$this->persist($post);
 		}
 		
 		$this->flushNow();
 		
-		$boardManager = $this->container->get('ccdn_forum_forum.board.manager');
-		
-		foreach($boardsToUpdate as $board)
-		{
-			$boardManager->updateBoardStats($board);
-		}
+		// Update all affected board stats.
+		$this->container->get('ccdn_forum_forum.board.manager')->bulkUpdateStats($boards_to_update)->flushNow();
 				
-		$boardManager->flushNow();
-				
-		return $this;
+		return $this;		
 	}
 	
 }

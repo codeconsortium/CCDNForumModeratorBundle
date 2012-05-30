@@ -212,7 +212,7 @@ class PostController extends ContainerAware
 
 		if (isset($_POST['submit_lock']))
 		{
-			$this->container->get('ccdn_forum_moderator.post.manager')->bulkLock($posts)->flushNow();
+			$this->container->get('ccdn_forum_moderator.post.manager')->bulkLock($posts, $user)->flushNow();
 		}
 		if (isset($_POST['submit_unlock']))
 		{
@@ -222,9 +222,9 @@ class PostController extends ContainerAware
 		{
 			$this->container->get('ccdn_forum_moderator.post.manager')->bulkRestore($posts)->flushNow();
 		}
-		if (isset($_POST['submit_delete']))
+		if (isset($_POST['submit_soft_delete']))
 		{
-			$this->container->get('ccdn_forum_moderator.post.manager')->bulkSoftDelete($posts)->flushNow();
+			$this->container->get('ccdn_forum_moderator.post.manager')->bulkSoftDelete($posts, $user)->flushNow();
 		}
 
 		return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_posts_show_all_locked'));
