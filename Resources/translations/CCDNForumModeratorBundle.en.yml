@@ -17,11 +17,11 @@ crumbs.topic.closed.index: Show Closed Topics
 crumbs.topic.change_board: Change Board
 
 title.flag.show.all: 'Flagged Posts.'
-title.flag.show: 'Flag: "#%flag_id%" on post: "#%post_id%", of topic: "%topic%".'
-title.flag.update: 'Update flag: "#%flag_id%".'
+title.flag.show: 'Flag #%flag_id% on post #%post_id%, of topic: %topic%.'
+title.flag.update: 'Update flag: #%flag_id%.'
 title.post.locked: 'Locked Posts.'
 title.topic.closed: 'Closed Topics.'
-title.topic.change_board: 'Change board for topic: "%topic_title%".'
+title.topic.change_board: 'Change board for topic: %topic_title%.'
 
 link.flag.update: Change Status
 link.topic.change_board: Change Board
@@ -41,13 +41,13 @@ flash.post.lock.success: 'Post: #%post_id% locked.'
 flash.post.unlock.success: 'Post: #%post_id% unlocked.'
 flash.post.restore.success: 'Post: #%post_id% restored.'
 
-flash.topic.close.success: 'Topic "%topic_title%" closed.'
-flash.topic.reopen.success: 'Topic: "%topic_title%" reopened.'
-flash.topic.move.success: 'Topic: "%topic_title%" moved.'
-flash.topic.restore.success: 'Topic: "%topic_title%" restored.'
-flash.topic.delete.success: 'Topic: "%topic_title%" deleted.'
-flash.topic.sticky.success: 'Topic: "%topic_title%" made sticky.'
-flash.topic.unsticky.success: 'Topic: "%topic_title%" is no longer sticky.'
+flash.topic.close.success: 'Topic %topic_title% closed.'
+flash.topic.reopen.success: 'Topic: %topic_title% reopened.'
+flash.topic.move.success: 'Topic: %topic_title% moved.'
+flash.topic.restore.success: 'Topic: %topic_title% restored.'
+flash.topic.delete.success: 'Topic: %topic_title% deleted.'
+flash.topic.sticky.success: 'Topic: %topic_title% made sticky.'
+flash.topic.unsticky.success: 'Topic: %topic_title% is no longer sticky.'
 flash.flag.bad_status: 'Bad flag status.'
 flash.flag.no_flags_found: 'The flags you were looking for were not found!'
 flash.post.no_posts_found: 'The posts you were looking for were not found!'
