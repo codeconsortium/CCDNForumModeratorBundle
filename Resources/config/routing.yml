@@ -1,7 +1,3 @@
-cc_moderator_forum_cp:
-    pattern: /{_locale}/dashboard/moderator
-    defaults: { _controller: CCDNComponentDashboardBundle:Dashboard:show, _locale: en }
-
 #
 # Post Moderation.
 #
