@@ -104,6 +104,7 @@ ccdn_forum_moderator:
         theme: CCDNForumModeratorBundle:Form:fields.html.twig
     flag:
         flags_per_page: 40
+        truncate_topic_title: 50
         layout_templates:
             flag_mark: CCDNComponentCommonBundle:Layout:layout_body_left.html.twig
             show_flag: CCDNComponentCommonBundle:Layout:layout_body_left.html.twig
@@ -111,12 +112,14 @@ ccdn_forum_moderator:
     topic:
         topics_per_page: 40
         posts_per_page: 20
+        truncate_topic_title: 20
         layout_templates:
             change_board: CCDNComponentCommonBundle:Layout:layout_body_left.html.twig
             show_closed: CCDNComponentCommonBundle:Layout:layout_body_left.html.twig
             delete_topic: CCDNComponentCommonBundle:Layout:layout_body_left.html.twig
     post:
         posts_per_page: 40
+        truncate_topic_title: 20
         layout_templates:
             show_locked: CCDNComponentCommonBundle:Layout:layout_body_left.html.twig
 

@@ -87,7 +87,7 @@
 						</td>
 						<td class="left">
 							<span class="table_data">
-							<a class="topic_link" href="{{ path('cc_forum_topic_show', {'topic_id': topic.getId }) }}">{{ topic.getTitle }}</a><br>
+							<a class="topic_link" href="{{ path('cc_forum_topic_show', {'topic_id': topic.getId }) }}" title="{{ topic.getTitle }}">{{ truncDot(topic.getTitle, param('ccdn_forum_moderator.topic.truncate_topic_title')) }}</a><br>
 							{{ 'post.posted_by' | trans({}, 'CCDNForumForumBundle') }}
 							{% if topic.getFirstPost %}
 								{% if topic.getFirstPost.getCreatedBy %}
@@ -108,25 +108,33 @@
 							<span class="table_data">{{ topic.getViewCount }}</span>
 						</td>
 						<td class="center">
+							{% if topic.getClosedBy %}
 							<span class="table_data">
-							{% if topic.getClosedBy %}<a href="{{ path(user_profile_route, {'user_id': topic.getClosedBy.getId }) }}">{{ topic.getClosedBy.getUsername }}</a>{% endif %}
+								<a href="{{ path(user_profile_route, {'user_id': topic.getClosedBy.getId }) }}">{{ topic.getClosedBy.getUsername }}</a>
 							</span>
+							{% endif %}
 						</td>
 						<td class="center">
+							{% if topic.getClosedDate %}
 							<span class="table_data">
-							{% if topic.getClosedDate %}{{ topic.getClosedDate |date("d/m/Y - H:i:s") }}{% endif %}
+								{{ topic.getClosedDate |date("d/m/Y - H:i:s") }}
 							</span>
+							{% endif %}
 						</td>
 
 						<td class="center">
+							{% if topic.getDeletedBy %}
 							<span class="table_data">
-							{% if topic.getDeletedBy %}<a href="{{ path(user_profile_route, {'user_id': topic.getDeletedBy.getId }) }}">{{ topic.getDeletedBy.getUsername }}</a>{% endif %}
+								<a href="{{ path(user_profile_route, {'user_id': topic.getDeletedBy.getId }) }}">{{ topic.getDeletedBy.getUsername }}</a>
 							</span>
+							{% endif %}
 						</td>
 						<td class="center">
+							{% if topic.getDeletedDate %}
 							<span class="table_data">
-							{% if topic.getDeletedDate %}{{ topic.getDeletedDate |date("d/m/Y - H:i:s") }}{% endif %}
+								{{ topic.getDeletedDate |date("d/m/Y - H:i:s") }}
 							</span>
+							{% endif %}
 						</td>
 					</tr>
 				{% else %}

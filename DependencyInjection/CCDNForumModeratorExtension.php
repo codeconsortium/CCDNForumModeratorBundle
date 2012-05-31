@@ -72,6 +72,7 @@ class CCDNForumModeratorExtension extends Extension
 	private function getFlagSection($container, $config)
 	{
 		$container->setParameter('ccdn_forum_moderator.flag.flags_per_page', $config['flag']['flags_per_page']);
+		$container->setParameter('ccdn_forum_moderator.flag.truncate_topic_title', $config['flag']['truncate_topic_title']);
 		
 		$container->setParameter('ccdn_forum_moderator.flag.layout_templates.flag_mark', $config['flag']['layout_templates']['flag_mark']);
 		$container->setParameter('ccdn_forum_moderator.flag.layout_templates.show_flag', $config['flag']['layout_templates']['show_flag']);
@@ -89,6 +90,7 @@ class CCDNForumModeratorExtension extends Extension
 	{
 		$container->setParameter('ccdn_forum_moderator.topic.topics_per_page', $config['topic']['topics_per_page']);
 		$container->setParameter('ccdn_forum_moderator.topic.posts_per_page', $config['topic']['posts_per_page']);
+		$container->setParameter('ccdn_forum_moderator.topic.truncate_topic_title', $config['topic']['truncate_topic_title']);
 		
 		$container->setParameter('ccdn_forum_moderator.topic.layout_templates.change_board', $config['topic']['layout_templates']['change_board']);
 		$container->setParameter('ccdn_forum_moderator.topic.layout_templates.delete_topic', $config['topic']['layout_templates']['delete_topic']);
@@ -105,6 +107,7 @@ class CCDNForumModeratorExtension extends Extension
 	private function getPostSection($container, $config)
 	{
 		$container->setParameter('ccdn_forum_moderator.post.posts_per_page', $config['post']['posts_per_page']);
+		$container->setParameter('ccdn_forum_moderator.post.truncate_topic_title', $config['post']['truncate_topic_title']);
 		
 		$container->setParameter('ccdn_forum_moderator.post.layout_templates.show_locked', $config['post']['layout_templates']['show_locked']);
 		

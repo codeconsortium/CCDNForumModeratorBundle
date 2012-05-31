@@ -83,47 +83,61 @@
 							{% endif %}
 						</td>
 						<td class="left">
+							{% if post.getTopic %}
 							<span class="table_data">
-							<a href="{{ path('cc_forum_topic_show', {'topic_id': post.getTopic.getId }) }}">{{ post.getTopic.getTitle }}</a>
+								<a href="{{ path('cc_forum_topic_show', {'topic_id': post.getTopic.getId }) }}" title="{{ post.getTopic.getTitle }}">{{ truncDot(post.getTopic.getTitle, param('ccdn_forum_moderator.post.truncate_topic_title')) }}</a>
 							</span>
+							{% endif %}
 						</td>
 						<td class="center">
 							<span class="table_data">
-							<a href="{{ path('cc_forum_post_show', {'post_id': post.getId }) }}">#{{ post.getId }}</a>
+								<a href="{{ path('cc_forum_post_show', {'post_id': post.getId }) }}">#{{ post.getId }}</a>
 							</span>
 						</td>
 
 						<td class="center">
+							{% if post.getCreatedBy %}
 							<span class="table_data">
-							{% if post.getCreatedBy %}<a href="{{ path(user_profile_route, {'user_id': post.getDeletedBy }) }}">{{ post.getCreatedBy.getUsername }}</a>{% endif %}
+								<a href="{{ path(user_profile_route, {'user_id': post.getDeletedBy }) }}">{{ post.getCreatedBy.getUsername }}</a>
 							</span>
+							{% endif %}
 						</td>
 						<td class="center">
+							{% if post.getCreatedDate %}
 							<span class="table_data">
-							{% if post.getCreatedDate %}{{ post.getCreatedDate |date("d/m/Y - H:i:s") }}{% endif %}
+								{{ post.getCreatedDate |date("d/m/Y - H:i:s") }}
 							</span>
-						</td>
-						
-						<td class="center">
-							<span class="table_data">
-							{% if post.getLockedBy %}<a href="{{ path(user_profile_route, {'user_id': post.getDeletedBy }) }}">{{ post.getLockedBy.getUsername }}</a>{% endif %}
-							</span>
-						</td>
-						<td class="center">
-							<span class="table_data">
-							{% if post.getLockedDate %}{{ post.getLockedDate |date("d/m/Y - H:i:s") }}{% endif %}
-							</span>
+							{% endif %}
 						</td>
 						
 						<td class="center">
+							{% if post.getLockedBy %}
 							<span class="table_data">
-							{% if post.getDeletedBy %}<a href="{{ path(user_profile_route, {'user_id': post.getDeletedBy }) }}">{{ post.getDeletedBy.getUsername }}</a>{% endif %}
+								<a href="{{ path(user_profile_route, {'user_id': post.getDeletedBy }) }}">{{ post.getLockedBy.getUsername }}</a>
 							</span>
+							{% endif %}
 						</td>
 						<td class="center">
+							{% if post.getLockedDate %}
 							<span class="table_data">
-							{% if post.getDeletedDate %}{{ post.getDeletedDate |date("d/m/Y - H:i:s") }}{% endif %}
+								{{ post.getLockedDate |date("d/m/Y - H:i:s") }}
 							</span>
+							{% endif %}
+						</td>
+						
+						<td class="center">
+							{% if post.getDeletedBy %}
+							<span class="table_data">
+								<a href="{{ path(user_profile_route, {'user_id': post.getDeletedBy }) }}">{{ post.getDeletedBy.getUsername }}</a>
+							</span>
+							{% endif %}
+						</td>
+						<td class="center">
+							{% if post.getDeletedDate %}
+							<span class="table_data">
+								{{ post.getDeletedDate |date("d/m/Y - H:i:s") }}
+							</span>
+							{% endif %}
 						</td>
 					</tr>
 				{% else %}
