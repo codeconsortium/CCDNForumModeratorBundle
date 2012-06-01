@@ -17,7 +17,7 @@
 				<td class="center"><span class="table_data">{{ flag.getFlaggedDate|date("d/m/Y - H:i:s") }}</span></td>
 				<td class="center"><span class="table_data">{% if flag.getFlaggedBy %}<a href="{{ path(user_profile_route, {'user_id': flag.getFlaggedBy.getId } ) }}">{{ flag.getFlaggedBy.getUsername }}</a>{% else %}Guest{% endif %}</span></td>
 				<td class="center"><span class="table_data">{{ 'post.user.post_count' | trans({'%post_count%': '50'}, 'CCDNForumForumBundle') }}</span></td>
-				<td class="center"><span class="table_data"><a href="{{ path('cc_moderator_forum_flag_mark', {'flag_id': flag.getId }) }}">{{ 'link.flag.update' | trans({}, 'CCDNForumModeratorBundle') }}</a></span></td>
+				<td class="center"><span class="table_data"><a href="{{ path('cc_moderator_forum_update_flag', {'flag_id': flag.getId }) }}">{{ 'link.flag.update' | trans({}, 'CCDNForumModeratorBundle') }}</a></span></td>
 			</tr>
 			<tr>
 				<td class="left" colspan="6">

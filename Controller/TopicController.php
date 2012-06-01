@@ -323,12 +323,10 @@ class TopicController extends ContainerAware
 
 		$topics_paginated = $this->container->get('ccdn_forum_forum.topic.repository')->findClosedTopicsForModeratorsPaginated();
 			
-		$topics_per_page = $this->container->getParameter('ccdn_forum_moderator.topic.topics_per_page');
+		$topics_per_page = $this->container->getParameter('ccdn_forum_moderator.topic.show_closed.topics_per_page');
 		$topics_paginated->setMaxPerPage($topics_per_page);
 		$topics_paginated->setCurrentPage($page, false, true);
-		
-		$posts_per_page = $this->container->getParameter('ccdn_forum_moderator.topic.posts_per_page');
-		
+			
 		// setup crumb trail.
 		$crumb_trail = $this->container->get('ccdn_component_crumb.trail')
 			->add($this->container->get('translator')->trans('crumbs.dashboard', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_dashboard_index'), "sitemap")
@@ -341,7 +339,6 @@ class TopicController extends ContainerAware
 			'topics' => $topics_paginated,
 			'crumbs' => $crumb_trail,
 			'pager' => $topics_paginated,
-			'posts_per_page' => $posts_per_page,
 		));
 	}
 

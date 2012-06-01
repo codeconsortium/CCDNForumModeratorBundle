@@ -1,4 +1,4 @@
-{% extends param('ccdn_forum_moderator.flag.layout_templates.show_flagged') %}
+{% extends param('ccdn_forum_moderator.flag.show_flagged.layout_template') %}
 
 {% block stylesheets %}
 	{{ parent() }}
@@ -75,7 +75,7 @@
 					<td class="left">
 						<span class="table_data">
 							{% if post.getTopic %}
-								<a href="{{ path('cc_forum_topic_show', {'topic_id': post.getTopic.getId }) }}" title="{{ post.getTopic.getTitle }}">#{{post.getId}}&nbsp;{{ truncDot(post.getTopic.getTitle, param('ccdn_forum_moderator.flag.truncate_topic_title')) }}</a>
+								<a href="{{ path('cc_forum_topic_show', {'topic_id': post.getTopic.getId }) }}" title="{{ post.getTopic.getTitle }}">#{{post.getId}}&nbsp;{{ truncDot(post.getTopic.getTitle, param('ccdn_forum_moderator.flag.show_flagged.topic_title_truncate')) }}</a>
 							{% endif %}
 							<br>
 							{{ 'post.posted_by' | trans({}, 'CCDNForumForumBundle') }}

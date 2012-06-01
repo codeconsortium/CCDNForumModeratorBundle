@@ -1,4 +1,4 @@
-{% extends param('ccdn_forum_moderator.post.layout_templates.show_locked') %}
+{% extends param('ccdn_forum_moderator.post.show_locked.layout_template') %}
 
 {% block stylesheets %}
 	{{ parent() }}
@@ -85,7 +85,7 @@
 						<td class="left">
 							{% if post.getTopic %}
 							<span class="table_data">
-								<a href="{{ path('cc_forum_topic_show', {'topic_id': post.getTopic.getId }) }}" title="{{ post.getTopic.getTitle }}">{{ truncDot(post.getTopic.getTitle, param('ccdn_forum_moderator.post.truncate_topic_title')) }}</a>
+								<a href="{{ path('cc_forum_topic_show', {'topic_id': post.getTopic.getId }) }}" title="{{ post.getTopic.getTitle }}">{{ truncDot(post.getTopic.getTitle, param('ccdn_forum_moderator.post.show_locked.topic_title_truncate')) }}</a>
 							</span>
 							{% endif %}
 						</td>

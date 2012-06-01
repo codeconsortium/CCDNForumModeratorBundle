@@ -71,13 +71,13 @@ class CCDNForumModeratorExtension extends Extension
 	 */
 	private function getFlagSection($container, $config)
 	{
-		$container->setParameter('ccdn_forum_moderator.flag.flags_per_page', $config['flag']['flags_per_page']);
-		$container->setParameter('ccdn_forum_moderator.flag.truncate_topic_title', $config['flag']['truncate_topic_title']);
+		$container->setParameter('ccdn_forum_moderator.flag.show_flagged.layout_template', $config['flag']['show_flagged']['layout_template']);
+		$container->setParameter('ccdn_forum_moderator.flag.show_flagged.topic_title_truncate', $config['flag']['show_flagged']['topic_title_truncate']);
+		$container->setParameter('ccdn_forum_moderator.flag.show_flagged.flags_per_page', $config['flag']['show_flagged']['flags_per_page']);
+
+		$container->setParameter('ccdn_forum_moderator.flag.update_flag.layout_template', $config['flag']['update_flag']['layout_template']);
 		
-		$container->setParameter('ccdn_forum_moderator.flag.layout_templates.flag_mark', $config['flag']['layout_templates']['flag_mark']);
-		$container->setParameter('ccdn_forum_moderator.flag.layout_templates.show_flag', $config['flag']['layout_templates']['show_flag']);
-		$container->setParameter('ccdn_forum_moderator.flag.layout_templates.show_flagged', $config['flag']['layout_templates']['show_flagged']);
-		
+		$container->setParameter('ccdn_forum_moderator.flag.show_flag.layout_template', $config['flag']['show_flag']['layout_template']);	
 	}
 	
 
@@ -88,14 +88,13 @@ class CCDNForumModeratorExtension extends Extension
 	 */
 	private function getTopicSection($container, $config)
 	{
-		$container->setParameter('ccdn_forum_moderator.topic.topics_per_page', $config['topic']['topics_per_page']);
-		$container->setParameter('ccdn_forum_moderator.topic.posts_per_page', $config['topic']['posts_per_page']);
-		$container->setParameter('ccdn_forum_moderator.topic.truncate_topic_title', $config['topic']['truncate_topic_title']);
+		$container->setParameter('ccdn_forum_moderator.topic.show_closed.layout_template', $config['topic']['show_closed']['layout_template']);
+		$container->setParameter('ccdn_forum_moderator.topic.show_closed.topics_per_page', $config['topic']['show_closed']['topics_per_page']);
+		$container->setParameter('ccdn_forum_moderator.topic.show_closed.topic_title_truncate', $config['topic']['show_closed']['topic_title_truncate']);
+
+		$container->setParameter('ccdn_forum_moderator.topic.delete_topic.layout_template', $config['topic']['delete_topic']['layout_template']);	
 		
-		$container->setParameter('ccdn_forum_moderator.topic.layout_templates.change_board', $config['topic']['layout_templates']['change_board']);
-		$container->setParameter('ccdn_forum_moderator.topic.layout_templates.delete_topic', $config['topic']['layout_templates']['delete_topic']);
-		$container->setParameter('ccdn_forum_moderator.topic.layout_templates.show_closed', $config['topic']['layout_templates']['show_closed']);
-		
+		$container->setParameter('ccdn_forum_moderator.topic.change_board.layout_template', $config['topic']['change_board']['layout_template']);	
 	}
 	
 
@@ -106,11 +105,11 @@ class CCDNForumModeratorExtension extends Extension
 	 */
 	private function getPostSection($container, $config)
 	{
-		$container->setParameter('ccdn_forum_moderator.post.posts_per_page', $config['post']['posts_per_page']);
-		$container->setParameter('ccdn_forum_moderator.post.truncate_topic_title', $config['post']['truncate_topic_title']);
+		$container->setParameter('ccdn_forum_moderator.post.show_locked.layout_template', $config['post']['show_locked']['layout_template']);
 		
-		$container->setParameter('ccdn_forum_moderator.post.layout_templates.show_locked', $config['post']['layout_templates']['show_locked']);
+		$container->setParameter('ccdn_forum_moderator.post.show_locked.posts_per_page', $config['post']['show_locked']['posts_per_page']);
 		
+		$container->setParameter('ccdn_forum_moderator.post.show_locked.topic_title_truncate', $config['post']['show_locked']['topic_title_truncate']);
 	}
 	
 

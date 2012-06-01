@@ -91,9 +91,9 @@ cc_moderator_forum_flagged_show_all_status_paginated:
     pattern: /{_locale}/moderate/forum/flagged/show/with/status/{status}/page/{page}
     defaults: { _controller: CCDNForumModeratorBundle:Flag:showFlaggedPosts, _locale: en, page: 1, status: 0 }
 
-cc_moderator_forum_flag_mark:
-    pattern: /{_locale}/moderate/forum/flag/{flag_id}/mark
-    defaults: { _controller: CCDNForumModeratorBundle:Flag:markFlag, _locale: en }
+cc_moderator_forum_update_flag:
+    pattern: /{_locale}/moderate/forum/flag/{flag_id}/update
+    defaults: { _controller: CCDNForumModeratorBundle:Flag:updateFlag, _locale: en }
 
 cc_moderator_forum_flag_show:
     pattern: /{_locale}/moderate/forum/flag/{flag_id}/show

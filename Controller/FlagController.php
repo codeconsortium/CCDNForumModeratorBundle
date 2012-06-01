@@ -57,7 +57,7 @@ class FlagController extends ContainerAware
 
 		$flags_paginated = $this->container->get('ccdn_forum_forum.flag.repository')->findForModeratorsByStatusPaginated($status);
 			
-		$flags_per_page = $this->container->getParameter('ccdn_forum_moderator.flag.flags_per_page');
+		$flags_per_page = $this->container->getParameter('ccdn_forum_moderator.flag.show_flagged.flags_per_page');
 		$flags_paginated->setMaxPerPage($flags_per_page);
 		$flags_paginated->setCurrentPage($page, false, true);
 				
@@ -136,7 +136,7 @@ class FlagController extends ContainerAware
 	 * @param int $flag_id
 	 * @return RedirectResponse|RenderResponse
 	 */
-	public function markFlagAction($flag_id)
+	public function updateFlagAction($flag_id)
 	{		
 		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR'))
 		{
@@ -169,9 +169,9 @@ class FlagController extends ContainerAware
 				->add($this->container->get('translator')->trans('crumbs.dashboard.moderator', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_dashboard_show', array('category' => 'moderator')), "sitemap")
 				->add($this->container->get('translator')->trans('crumbs.flag.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_flagged_show_all'), "home")
 				->add($this->container->get('translator')->trans('crumbs.flag.show', array('%flag_id%' => '#' . $flag->getId()), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_flag_show', array('flag_id' => $flag->getId())), "flag")
-				->add($this->container->get('translator')->trans('crumbs.flag.mark', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_flag_mark', array('flag_id' => $flag->getId())), "edit");
+				->add($this->container->get('translator')->trans('crumbs.flag.mark', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_update_flag', array('flag_id' => $flag->getId())), "edit");
 			
-			return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Flag:flag_mark.html.' . $this->getEngine(), array(
+			return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Flag:update_flag.html.' . $this->getEngine(), array(
 				'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
 				'user' => $user,
 				'flag' => $flag,
