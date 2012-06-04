@@ -104,8 +104,8 @@
 						</td>
 						<td class="center">
 							{% if post.getCreatedDate %}
-							<span class="table_data">
-								{{ post.getCreatedDate |date("d/m/Y - H:i:s") }}
+							<span class="table_timestamp">
+								{{ post.getCreatedDate |date(param('ccdn_forum_moderator.post.show_locked.post_created_datetime_format')) }}
 							</span>
 							{% endif %}
 						</td>
@@ -119,8 +119,8 @@
 						</td>
 						<td class="center">
 							{% if post.getLockedDate %}
-							<span class="table_data">
-								{{ post.getLockedDate |date("d/m/Y - H:i:s") }}
+							<span class="table_timestamp">
+								{{ post.getLockedDate |date(param('ccdn_forum_moderator.post.show_locked.post_locked_datetime_format')) }}
 							</span>
 							{% endif %}
 						</td>
@@ -134,8 +134,8 @@
 						</td>
 						<td class="center">
 							{% if post.getDeletedDate %}
-							<span class="table_data">
-								{{ post.getDeletedDate |date("d/m/Y - H:i:s") }}
+							<span class="table_timestamp">
+								{{ post.getDeletedDate |date(param('ccdn_forum_moderator.post.show_locked.post_deleted_datetime_format')) }}
 							</span>
 							{% endif %}
 						</td>

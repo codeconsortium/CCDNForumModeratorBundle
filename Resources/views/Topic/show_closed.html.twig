@@ -96,7 +96,7 @@
 									{% else %}
 									Guest
 									{% endif %}
-									{{ 'actioned.at' | trans({'%date%': topic.getFirstPost.getCreatedDate|date("d/m/Y - H:i:s")}, 'CCDNForumForumBundle') }}
+									{{ 'actioned.at' | trans({'%date%': topic.getFirstPost.getCreatedDate |date(param('ccdn_forum_moderator.topic.show_closed.post_created_datetime_format')) }, 'CCDNForumForumBundle') }}
 								{% endif %}
 							{% endif %}
 							</span>
@@ -116,8 +116,8 @@
 						</td>
 						<td class="center">
 							{% if topic.getClosedDate %}
-							<span class="table_data">
-								{{ topic.getClosedDate |date("d/m/Y - H:i:s") }}
+							<span class="table_timestamp">
+								{{ topic.getClosedDate |date(param('ccdn_forum_moderator.topic.show_closed.topic_closed_datetime_format')) }}
 							</span>
 							{% endif %}
 						</td>
@@ -131,8 +131,8 @@
 						</td>
 						<td class="center">
 							{% if topic.getDeletedDate %}
-							<span class="table_data">
-								{{ topic.getDeletedDate |date("d/m/Y - H:i:s") }}
+							<span class="table_timestamp">
+								{{ topic.getDeletedDate |date(param('ccdn_forum_moderator.topic.show_closed.topic_deleted_datetime_format')) }}
 							</span>
 							{% endif %}
 						</td>

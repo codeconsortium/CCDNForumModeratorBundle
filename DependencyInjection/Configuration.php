@@ -51,18 +51,18 @@ class Configuration implements ConfigurationInterface
 				->arrayNode('template')
 					->children()
 						->scalarNode('engine')->defaultValue('twig')->end()
-						->scalarNode('theme')->defaultValue('CCDNForumModeratorBundle:Form:fields.html.twig')->end()
 					->end()
 				->end()
 			->end();
 			
 		$this->addFlagSection($rootNode);
+		$this->addItemFlagSection($rootNode);
 		$this->addTopicSection($rootNode);
 		$this->addPostSection($rootNode);
-		$this->addTrashSection($rootNode);
 		
         return $treeBuilder;
     }
+
 
 
 	/**
@@ -75,28 +75,59 @@ class Configuration implements ConfigurationInterface
 		$node
 			->children()
 				->arrayNode('flag')
+					->addDefaultsIfNotSet()
+					->canBeUnset()
 					->children()
 						->arrayNode('show_flagged')
+							->addDefaultsIfNotSet()
 							->children()
 								->scalarNode('layout_template')->defaultValue('CCDNComponentCommonBundle:Layout:layout_body_left.html.twig')->end()
 								->scalarNode('flags_per_page')->defaultValue('40')->end()
 								->scalarNode('topic_title_truncate')->defaultValue('50')->end()
+								->scalarNode('flag_created_datetime_format')->defaultValue('d-m-Y - H:i')->end()
+								->scalarNode('post_created_datetime_format')->defaultValue('d-m-Y - H:i')->end()
 							->end()
 						->end()
 						->arrayNode('show_flag')
+							->addDefaultsIfNotSet()
 							->children()
 								->scalarNode('layout_template')->defaultValue('CCDNComponentCommonBundle:Layout:layout_body_left.html.twig')->end()
 							->end()
 						->end()
 						->arrayNode('update_flag')
+							->addDefaultsIfNotSet()
 							->children()
 								->scalarNode('layout_template')->defaultValue('CCDNComponentCommonBundle:Layout:layout_body_left.html.twig')->end()
+								->scalarNode('form_theme')->defaultValue('CCDNForumModeratorBundle:Form:fields.html.twig')->end()
 							->end()
 						->end()
 					->end()
 				->end()
 			->end();
 	}
+	
+
+
+	/**
+	 *
+	 * @access private
+	 * @param ArrayNodeDefinition $node
+	 */
+	private function addItemFlagSection(ArrayNodeDefinition $node)
+	{
+		$node
+			->children()
+				->arrayNode('item_flag')
+					->addDefaultsIfNotSet()
+					->canBeUnset()
+					->children()
+						->scalarNode('flag_created_datetime_format')->defaultValue('d-m-Y - H:i')->end()
+						->scalarNode('moderated_datetime_format')->defaultValue('d-m-Y - H:i')->end()
+					->end()
+				->end()
+			->end();
+	}
+	
 	
 
 	/**
@@ -109,28 +140,38 @@ class Configuration implements ConfigurationInterface
 		$node
 			->children()
 				->arrayNode('topic')
+					->addDefaultsIfNotSet()
+					->canBeUnset()
 					->children()						
 						->arrayNode('change_board')
+							->addDefaultsIfNotSet()
 							->children()
 								->scalarNode('layout_template')->defaultValue('CCDNComponentCommonBundle:Layout:layout_body_left.html.twig')->end()
+								->scalarNode('form_theme')->defaultValue('CCDNForumModeratorBundle:Form:fields.html.twig')->end()
 							->end()
 						->end()
 						->arrayNode('delete_topic')
+							->addDefaultsIfNotSet()
 							->children()
 								->scalarNode('layout_template')->defaultValue('CCDNComponentCommonBundle:Layout:layout_body_left.html.twig')->end()
 							->end()
 						->end()
 						->arrayNode('show_closed')
+							->addDefaultsIfNotSet()
 							->children()
 								->scalarNode('layout_template')->defaultValue('CCDNComponentCommonBundle:Layout:layout_body_left.html.twig')->end()
 								->scalarNode('topics_per_page')->defaultValue('40')->end()
 								->scalarNode('topic_title_truncate')->defaultValue('20')->end()
+								->scalarNode('post_created_datetime_format')->defaultValue('d-m-Y - H:i')->end()
+								->scalarNode('topic_closed_datetime_format')->defaultValue('d-m-Y - H:i')->end()
+								->scalarNode('topic_deleted_datetime_format')->defaultValue('d-m-Y - H:i')->end()
 							->end()
 						->end()
 					->end()
 				->end()
 			->end();
 	}
+	
 	
 
 	/**
@@ -143,29 +184,22 @@ class Configuration implements ConfigurationInterface
 		$node
 			->children()
 				->arrayNode('post')
+					->addDefaultsIfNotSet()
+					->canBeUnset()
 					->children()
 						->arrayNode('show_locked')
+							->addDefaultsIfNotSet()
 							->children()
 								->scalarNode('posts_per_page')->defaultValue('20')->end()
 								->scalarNode('topic_title_truncate')->defaultValue('20')->end()
 								->scalarNode('layout_template')->defaultValue('CCDNComponentCommonBundle:Layout:layout_body_left.html.twig')->end()
+								->scalarNode('post_created_datetime_format')->defaultValue('d-m-Y - H:i')->end()
+								->scalarNode('post_locked_datetime_format')->defaultValue('d-m-Y - H:i')->end()
+								->scalarNode('post_deleted_datetime_format')->defaultValue('d-m-Y - H:i')->end()
 							->end()
 						->end()
 					->end()
 				->end()
-			->end();
-	}
-	
-
-	/**
-	 *
-	 * @access private
-	 * @param ArrayNodeDefinition $node
-	 */
-	private function addTrashSection(ArrayNodeDefinition $node)
-	{
-		$node
-			->children()
 			->end();
 	}
 	

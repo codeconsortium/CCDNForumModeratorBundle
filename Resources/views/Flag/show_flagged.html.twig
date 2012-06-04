@@ -49,7 +49,7 @@
 		<input type="submit" class="button_red" value="{{ 'link.flag.delete' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_delete">
 		<select name="select_mark_as" class="widget_select">
 			{% for status_key, status in status_codes %}
-				<option class="widget_select" value="{{ status_key }}">{{ status }}</option>
+			<option class="widget_select" value="{{ status_key }}">{{ status }}</option>
 			{% endfor %}
 		</select>
 		<input type="submit" class="button_blue" value="{{ 'link.flag.mark_as' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_mark_as">
@@ -84,7 +84,7 @@
 							{% else %}
 								Guest
 							{% endif %}
-							{{ 'actioned.at' | trans({'%date%': post.getCreatedDate|date("d/m/Y - H:i:s")}, 'CCDNForumForumBundle') }}
+							{{ 'actioned.at' | trans({'%date%': post.getCreatedDate |date(param('ccdn_forum_moderator.flag.show_flagged.post_created_datetime_format'))}, 'CCDNForumForumBundle') }}
 						</span>
 					</td>
 					<td class="left">
@@ -132,8 +132,8 @@
 											</span>
 										</td>
 										<td class="center" style="width: 150px;">
-											<span class="table_data">
-											{{ flag.getFlaggedDate|date("d/m/Y - H:i:s") }}
+											<span class="table_timestamp">
+											{{ flag.getFlaggedDate |date(param('ccdn_forum_moderator.flag.show_flagged.flag_created_datetime_format')) }}
 											</span>
 										</td>
 										<td class="center" style="width: 100px;">

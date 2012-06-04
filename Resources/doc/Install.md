@@ -101,27 +101,6 @@ ccdn_forum_moderator:
         profile_route: cc_profile_show_by_id
     template:
         engine: twig
-        theme: CCDNForumModeratorBundle:Form:fields.html.twig
-    flag:
-        flags_per_page: 40
-        topic_title_truncate: 50
-        layout_templates:
-            update_flag: CCDNComponentCommonBundle:Layout:layout_body_left.html.twig
-            show_flag: CCDNComponentCommonBundle:Layout:layout_body_left.html.twig
-            show_flagged: CCDNComponentCommonBundle:Layout:layout_body_left.html.twig
-    topic:
-        topics_per_page: 40
-        posts_per_page: 20
-        topic_title_truncate: 20
-        layout_templates:
-            change_board: CCDNComponentCommonBundle:Layout:layout_body_left.html.twig
-            show_closed: CCDNComponentCommonBundle:Layout:layout_body_left.html.twig
-            delete_topic: CCDNComponentCommonBundle:Layout:layout_body_left.html.twig
-    post:
-        posts_per_page: 40
-        topic_title_truncate: 20
-        layout_templates:
-            show_locked: CCDNComponentCommonBundle:Layout:layout_body_left.html.twig
 
 ```
 
@@ -168,4 +147,5 @@ Installation should now be complete!
 
 If you need further help/support, have suggestions or want to contribute please join the community at [Code Consortium](http://www.codeconsortium.com)
 
-[Return back to the docs index](http://github.com/codeconsortium/CCDNForumModeratorBundle/blob/master/Resources/doc/index.md).
+- [Return back to the docs index](index.md).
+- [Configuration Reference](configuration_reference.md).

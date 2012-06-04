@@ -33,7 +33,7 @@
 
 <div class="section_wrap_top">	
 	<div class="section_table_panel">
-		{% form_theme form param('ccdn_forum_moderator.template.theme') %}
+		{% form_theme form param('ccdn_forum_moderator.flag.update_flag.form_theme') %}
 		<form action="{{ path('cc_moderator_forum_update_flag', { 'flag_id': flag.getId } ) }}" method="post" {{ form_enctype(form) }}>
 			{{ form_row(form._token) }}
 			<div class="errors">{{ form_errors(form) }}</div>

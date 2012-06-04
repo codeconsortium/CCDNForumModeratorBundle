@@ -43,13 +43,12 @@ class CCDNForumModeratorExtension extends Extension
 
 
 		$container->setParameter('ccdn_forum_moderator.template.engine', $config['template']['engine']);
-		$container->setParameter('ccdn_forum_moderator.template.theme', $config['template']['theme']);
 		$container->setParameter('ccdn_forum_moderator.user.profile_route', $config['user']['profile_route']);
 		
 		$this->getFlagSection($container, $config);
+		$this->getItemFlagSection($container, $config);
 		$this->getTopicSection($container, $config);
 		$this->getPostSection($container, $config);
-		$this->getTrashSection($container, $config);
 		
     }
 	
@@ -74,11 +73,29 @@ class CCDNForumModeratorExtension extends Extension
 		$container->setParameter('ccdn_forum_moderator.flag.show_flagged.layout_template', $config['flag']['show_flagged']['layout_template']);
 		$container->setParameter('ccdn_forum_moderator.flag.show_flagged.topic_title_truncate', $config['flag']['show_flagged']['topic_title_truncate']);
 		$container->setParameter('ccdn_forum_moderator.flag.show_flagged.flags_per_page', $config['flag']['show_flagged']['flags_per_page']);
+		$container->setParameter('ccdn_forum_moderator.flag.show_flagged.flag_created_datetime_format', $config['flag']['show_flagged']['flag_created_datetime_format']);
+		$container->setParameter('ccdn_forum_moderator.flag.show_flagged.post_created_datetime_format', $config['flag']['show_flagged']['post_created_datetime_format']);
+
+		$container->setParameter('ccdn_forum_moderator.flag.show_flag.layout_template', $config['flag']['show_flag']['layout_template']);	
 
 		$container->setParameter('ccdn_forum_moderator.flag.update_flag.layout_template', $config['flag']['update_flag']['layout_template']);
+		$container->setParameter('ccdn_forum_moderator.flag.update_flag.form_theme', $config['flag']['update_flag']['form_theme']);
 		
-		$container->setParameter('ccdn_forum_moderator.flag.show_flag.layout_template', $config['flag']['show_flag']['layout_template']);	
 	}
+
+
+
+	/**
+	 *
+	 * @access private
+	 * @param $container, $config
+	 */
+	private function getItemFlagSection($container, $config)
+	{
+		$container->setParameter('ccdn_forum_moderator.item_flag.flag_created_datetime_format', $config['item_flag']['flag_created_datetime_format']);
+		$container->setParameter('ccdn_forum_moderator.item_flag.moderated_datetime_format', $config['item_flag']['moderated_datetime_format']);
+	}
+
 	
 
 	/**
@@ -91,10 +108,15 @@ class CCDNForumModeratorExtension extends Extension
 		$container->setParameter('ccdn_forum_moderator.topic.show_closed.layout_template', $config['topic']['show_closed']['layout_template']);
 		$container->setParameter('ccdn_forum_moderator.topic.show_closed.topics_per_page', $config['topic']['show_closed']['topics_per_page']);
 		$container->setParameter('ccdn_forum_moderator.topic.show_closed.topic_title_truncate', $config['topic']['show_closed']['topic_title_truncate']);
+		$container->setParameter('ccdn_forum_moderator.topic.show_closed.post_created_datetime_format', $config['topic']['show_closed']['post_created_datetime_format']);
+		$container->setParameter('ccdn_forum_moderator.topic.show_closed.topic_closed_datetime_format', $config['topic']['show_closed']['topic_closed_datetime_format']);
+		$container->setParameter('ccdn_forum_moderator.topic.show_closed.topic_deleted_datetime_format', $config['topic']['show_closed']['topic_deleted_datetime_format']);
 
 		$container->setParameter('ccdn_forum_moderator.topic.delete_topic.layout_template', $config['topic']['delete_topic']['layout_template']);	
 		
 		$container->setParameter('ccdn_forum_moderator.topic.change_board.layout_template', $config['topic']['change_board']['layout_template']);	
+		$container->setParameter('ccdn_forum_moderator.topic.change_board.form_theme', $config['topic']['change_board']['form_theme']);	
+		
 	}
 	
 
@@ -106,20 +128,11 @@ class CCDNForumModeratorExtension extends Extension
 	private function getPostSection($container, $config)
 	{
 		$container->setParameter('ccdn_forum_moderator.post.show_locked.layout_template', $config['post']['show_locked']['layout_template']);
-		
 		$container->setParameter('ccdn_forum_moderator.post.show_locked.posts_per_page', $config['post']['show_locked']['posts_per_page']);
-		
 		$container->setParameter('ccdn_forum_moderator.post.show_locked.topic_title_truncate', $config['post']['show_locked']['topic_title_truncate']);
-	}
-	
-
-	/**
-	 *
-	 * @access private
-	 * @param $container, $config
-	 */
-	private function getTrashSection($container, $config)
-	{
+		$container->setParameter('ccdn_forum_moderator.post.show_locked.post_created_datetime_format', $config['post']['show_locked']['post_created_datetime_format']);
+		$container->setParameter('ccdn_forum_moderator.post.show_locked.post_locked_datetime_format', $config['post']['show_locked']['post_locked_datetime_format']);
+		$container->setParameter('ccdn_forum_moderator.post.show_locked.post_deleted_datetime_format', $config['post']['show_locked']['post_deleted_datetime_format']);
 		
 	}
 	

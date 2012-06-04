@@ -59,7 +59,7 @@ Documentation can be found in the `Resources/doc/index.md` file in this bundle:
 
 ## Installation.
 
-All the installation instructions are located in [documentation](http://github.com/codeconsortium/CCDNForumModeratorBundle/blob/master/Resources/doc/Install.md).
+All the installation instructions are located in [documentation](http://github.com/codeconsortium/CCDNForumModeratorBundle/blob/master/Resources/doc/install.md).
 
 ## License.
 
@@ -79,4 +79,3 @@ See also the list of [contributors](http://github.com/codeconsortium/CCDNForumMo
 Issues and feature requests are tracked in the [Github issue tracker](http://github.com/codeconsortium/CCDNForumModeratorBundle/issues).
 
 Discussions and debates on the project can be further discussed at [Code Consortium](http://www.codeconsortium.com).
-
