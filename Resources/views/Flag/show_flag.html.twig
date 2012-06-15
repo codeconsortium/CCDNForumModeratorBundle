@@ -3,6 +3,9 @@
 {% block stylesheets %}
 	{{ parent() }}
 	<link href="{{ asset('bundles/ccdncomponentcrumbtrail/css/crumbs.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('bundles/ccdncomponentcommon/css/speech_bubble.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('bundles/ccdncomponentbbcode/css/bbcode.css') }}" rel="stylesheet" type="text/css">
+	
 {% endblock %}
 
 {% block title %}{{ 'title.flag.show' | trans({'%flag_id%': flag.getId, '%topic%': flag.getPost.getTopic.getTitle, '%post_id%': flag.getPost.getId }, 'CCDNForumModeratorBundle') }}{% endblock %}
@@ -10,53 +13,25 @@
 {% block sidebar %}
 	{{ parent() }}
 
-	<div class="sidebar">
-		<div class="sidebar_header"><span class="sidebar_header">{{ 'sidebar.header.tools' | trans({}, 'CCDNForumModeratorBundle') }}</span></div>
-		<div class="sidebar_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_flagged_show_all', {}) }}">{{ 'sidebar.link.show_all_flagged_posts' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>	
-		<div class="sidebar_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_posts_show_all_locked', {}) }}">{{ 'sidebar.link.show_all_locked_posts' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>
-		<div class="sidebar_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_topics_closed_show_all', {}) }}">{{ 'sidebar.link.show_all_closed_topics' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>
-	</div>
+	{% include 'CCDNForumModeratorBundle:Sidebar:sidebar.html.twig' %}
 
-	<div class="sidebar">
-		<div class="sidebar_header"><span class="sidebar_header">{{ 'sidebar.header.flags_by_status' | trans({}, 'CCDNForumModeratorBundle') }}</span></div>
-		{% for status_key, status in status_codes %}
-		<div class="sidebar_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_flagged_show_all_status', {'status':status_key}) }}">{{ status }}</a></div>
-		{% endfor %}
-	</div>
 {% endblock %}
+
 
 {% block body %}
 
-{% include 'CCDNComponentCommonBundle:Flashes:flashes.html.twig' %}
+	{% include 'CCDNComponentCommonBundle:Flashes:flashes.html.twig' %}
 
-<div class="section_wrap_top">
 	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
-</div>
 
-<div class="section_wrap_bottom">
-	<div class="section_header">
-		<h2>#{{ flag.getId}}</h2>
-	</div>
-</div>
+	{% set post = flag.getPost %}
 
-<div class="section_wrap_top">
-{% set post = flag.getPost %}
-	<div class="section_panel">
-		<h2>
-			<img class="icon16" width="16" height="16" src="{{ asset('bundles/ccdncomponentcommon/images/icons/Black/16x16/16x16_flag.png') }}" alt="icon">
-			<a href="">{{ 'title.flag.show' | trans({'%flag_id%': flag.getId, '%topic%': flag.getPost.getTopic.getTitle, '%post_id%': flag.getPost.getId }, 'CCDNForumModeratorBundle') }}</a><br>
-		</h2>
-	</div>
-</div>
-<div class="section_wrap_middle">
+	<h2>{{ 'title.flag.show' | trans({'%flag_id%': flag.getId, '%topic%': flag.getPost.getTopic.getTitle, '%post_id%': flag.getPost.getId }, 'CCDNForumModeratorBundle') }}</h2>
+
 	{% include "CCDNForumModeratorBundle:Flag:item_flag.html.twig" %}
-</div>
-<div class="section_wrap_bottom">
-	{% include "CCDNForumForumBundle:Post:item_post.html.twig" %}
-</div>
 
-<div class="section_wrap_standalone">
+	{% include "CCDNForumForumBundle:Post:item_post.html.twig" %}
+
 	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
-</div>
 
 {% endblock %}

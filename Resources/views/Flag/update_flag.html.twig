@@ -10,69 +10,55 @@
 {% block sidebar %}
 	{{ parent() }}
 
-	<div class="sidebar">
-		<div class="sidebar_header"><span class="sidebar_header">{{ 'sidebar.header.tools' | trans({}, 'CCDNForumModeratorBundle') }}</span></div>
-		<div class="sidebar_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_flagged_show_all', {}) }}">{{ 'sidebar.link.show_all_flagged_posts' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>	
-		<div class="sidebar_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_posts_show_all_locked', {}) }}">{{ 'sidebar.link.show_all_locked_posts' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>
-		<div class="sidebar_panel"><a class="sidebar" href="{{ path('cc_moderator_forum_topics_closed_show_all', {}) }}">{{ 'sidebar.link.show_all_closed_topics' | trans({}, 'CCDNForumModeratorBundle') }}</a></div>
-	</div>
+	{% include 'CCDNForumModeratorBundle:Sidebar:sidebar.html.twig' %}
+	
 {% endblock %}
+
 
 {% block body %}
 
-{% include 'CCDNComponentCommonBundle:Flashes:flashes.html.twig' %}
+	{% include 'CCDNComponentCommonBundle:Flashes:flashes.html.twig' %}
 
-<div class="section_wrap_top">
 	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
-</div>
-<div class="section_wrap_bottom">
-	<div class="section_header">
-		<h2>{{ 'title.flag.update' | trans({'%flag_id%': flag.getId }, 'CCDNForumModeratorBundle' )}}</h2>
-	</div>
-</div>
 
-<div class="section_wrap_top">	
-	<div class="section_table_panel">
+	<h2>{{ 'title.flag.update' | trans({'%flag_id%': flag.getId }, 'CCDNForumModeratorBundle' )}}</h2>
+
+	<div class="well">
 		{% form_theme form param('ccdn_forum_moderator.flag.update_flag.form_theme') %}
-		<form action="{{ path('cc_moderator_forum_update_flag', { 'flag_id': flag.getId } ) }}" method="post" {{ form_enctype(form) }}>
-			{{ form_row(form._token) }}
-			<div class="errors">{{ form_errors(form) }}</div>
-			<table class="common_list">
-				<tbody>
-					<tr class="{{ cycler(['row_odd', 'row_even'], 'cycle') }}">
-						<td class="form_label">{{ form_label(form.status, null, { 'label': 'form.label.flag.status'| trans({}, 'CCDNForumModeratorBundle') }) }}</td>
-						<td class="form_widget">
-							{{ form_errors(form.status) }}
-							{{ form_widget(form.status) }}
-						</td>
-					</tr>
-					<tr class="{{ cycler(['row_odd', 'row_even'], 'cycle') }}">
-						<td class="form_label">{{ form_label(form.moderators_note, null, { 'label': 'form.label.flag.moderators_note'| trans({}, 'CCDNForumModeratorBundle') }) }}</td>
-						<td class="form_widget">
-							{{ form_errors(form.moderators_note) }}
-							{{ form_widget(form.moderators_note) }}
-						</td>
-					</tr>
-					<tr class="{{ cycler(['row_odd', 'row_even'], 'cycle') }}">
-						<td class="form_tool_strip" colspan="2">
-							<input type="submit" class="button_blue" value="{{ 'form.button.flag.update' | trans({}, 'CCDNForumModeratorBundle') }}">
-						</td>
-					</tr>
-				</tbody>
-			</table>
+		
+		<form action="{{ path('cc_moderator_forum_update_flag', { 'flag_id': flag.getId } ) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+			<fieldset>
+				
+				<div class="control-group"><div class="controls row-fluid">{{ form_row(form._token) }}</div></div>
+			
+				<div class="control-group">
+					{{ form_label(form.status, null, { 'label': 'form.label.flag.status'| trans({}, 'CCDNForumModeratorBundle') }) }}
+					<div class="controls row-fluid">
+						{{ form_errors(form.status) }}
+						{{ form_widget(form.status) }}
+					</div>
+				</div>
+			
+				<div class="control-group">
+					{{ form_label(form.moderators_note, null, { 'label': 'form.label.flag.moderators_note'| trans({}, 'CCDNForumModeratorBundle') }) }}
+					<div class="controls row-fluid">
+						{{ form_errors(form.moderators_note) }}
+						{{ form_widget(form.moderators_note) }}
+					</div>
+				</div>
+			
+				<div class="form-actions">
+					<input type="submit" class="btn btn-primary" value="{{ 'form.button.flag.update' | trans({}, 'CCDNForumModeratorBundle') }}">
+				</div>
+				
+			</fieldset>
 		</form>
 	</div>
-</div>
 
-<div class="section_wrap_middle">
 	<h2>{{ 'title.flag.show' | trans({'%flag_id%': flag.getId, '%topic%': flag.getPost.getTopic.getTitle, '%post_id%': flag.getPost.getId }, 'CCDNForumModeratorBundle') }}</h2>
-</div>
-<div class="section_wrap_bottom">	
-	{% include "CCDNForumModeratorBundle:Flag:item_flag.html.twig" %}
-</div>
 
-<div class="section_wrap_standalone">
+	{% include "CCDNForumModeratorBundle:Flag:item_flag.html.twig" %}
+
 	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
-</div>
 
 {% endblock %}
