@@ -52,6 +52,7 @@ ModeratorBundle Provides the following features:
 	3. Batch unlock locked Posts.
 	4. Batch soft-delete locked Posts.
 	5. Batch restore soft-deleted Posts.
+4. Utilises Twitter-Bootstrap interface by default.
 
 Before installation of this bundle, you can download the [Sandbox](https://github.com/codeconsortium/CCDNSandBox) for testing/development and feature review, or alternatively see the product in use at [CodeConsortium](http://www.codeconsortium.com).
 
