@@ -73,7 +73,7 @@
 		{{ pagerfanta(pager, 'twitter_bootstrap', {'routeName':'cc_moderator_forum_flagged_show_all_status_paginated', 'routeParams':{}} ) }}
 	{% endif %}
 	
-	<table class="table table-striped table-bordered">
+	<table class="table">
 		<thead>
 			<tr>
 				<th class="center" style="width:18px;"></th>
@@ -107,44 +107,46 @@
 			<tr class="{{ cycler(['row_odd', 'row_even'], 'posts') }}">
 				<td class="center"></td>
 				<td class="center" colspan="2">
-					<table class="table table-striped table-bordered">
-						<thead>
-							<tr>
-								<th class="center" style="width:18px;"><input type="checkbox" class="hidden" id="check_all" name="check_all_for_{{ post.getId }}" data-compat='interactive-js-compat'></th>
-								<th class="center" style="width:18px;"><i class="icon-flag"></i></th>
-								<th class="left">{{ 'flag.table.head.reason' | trans({}, 'CCDNForumModeratorBundle') }}</th>
-								<th class="center">{{ 'flag.flagged_by' | trans({}, 'CCDNForumModeratorBundle') }}</th>
-								<th class="center">{{ 'actioned.at' | trans({}, 'CCDNForumModeratorBundle') }}</th>
-								<th class="center">{{ 'flag.table.head.status' | trans({}, 'CCDNForumModeratorBundle') }}</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for flag_key, flag in post.flags %}
-							<tr class="{{ cycle(['row_odd', 'row_even'], flag_key) }}">
-								<td class="center">
-									<input type="checkbox" id="flag_{{ flag.id }}" name="check_{{ flag.id }}_for_{{ post.getId }}">
-								</td>
-								<td class="center"><i class="icon-flag"></i></td>
-								<td class="left">
-									<a href="{{ path('cc_moderator_forum_flag_show', {'flag_id': flag.getId }) }}">{{ reason_codes[flag.getReason] }}</a>
-								</td>
-								<td class="center" style="width: 200px;">
-									{% if flag.getFlaggedBy %}
-										<a href="{{ path(user_profile_route, {'user_id': flag.getFlaggedBy.getId } ) }}">{{ flag.getFlaggedBy |capitalize }}</a>
-									{% else %}
-										Guest
-									{% endif %}
-								</td>
-								<td class="center" style="width: 150px;">
-									{{ flag.getFlaggedDate |date(param('ccdn_forum_moderator.flag.show_flagged.flag_created_datetime_format')) }}
-								</td>
-								<td class="center" style="width: 100px;">
-									<a href="{{ path('cc_moderator_forum_flag_show', {'flag_id': flag.getId }) }}">{{ status_codes[flag.getStatus] }}</a>
-								</td>
-							</tr>
-							{% endfor %}
-						</tbody>
-					</table>
+					<div>
+						<table class="table">
+							<thead>
+								<tr>
+									<th class="center" style="width:18px;"><input type="checkbox" class="hidden" id="check_all" name="check_all_for_{{ post.getId }}" class="hidden" data-compat='interactive-js-compat' data-action-toggle="check_all_for_{{ post.getId }}" data-identifier="check_all_for_{{ post.getId }}" data-qualifier="all"></th>
+									<th class="center" style="width:18px;"><i class="icon-flag"></i></th>
+									<th class="left">{{ 'flag.table.head.reason' | trans({}, 'CCDNForumModeratorBundle') }}</th>
+									<th class="center">{{ 'flag.flagged_by' | trans({}, 'CCDNForumModeratorBundle') }}</th>
+									<th class="center">{{ 'actioned.at' | trans({}, 'CCDNForumModeratorBundle') }}</th>
+									<th class="center">{{ 'flag.table.head.status' | trans({}, 'CCDNForumModeratorBundle') }}</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for flag_key, flag in post.flags %}
+								<tr class="{{ cycle(['row_odd', 'row_even'], flag_key) }}">
+									<td class="center">
+										<input type="checkbox" id="flag_{{ flag.id }}" name="check_{{ flag.id }}_for_{{ post.getId }}" data-check-all-responds="true" data-identifier="check_all_for_{{ post.getId }}">
+									</td>
+									<td class="center"><i class="icon-flag"></i></td>
+									<td class="left">
+										<a href="{{ path('cc_moderator_forum_flag_show', {'flag_id': flag.getId }) }}">{{ reason_codes[flag.getReason] }}</a>
+									</td>
+									<td class="center" style="width: 200px;">
+										{% if flag.getFlaggedBy %}
+											<a href="{{ path(user_profile_route, {'user_id': flag.getFlaggedBy.getId } ) }}">{{ flag.getFlaggedBy |capitalize }}</a>
+										{% else %}
+											Guest
+										{% endif %}
+									</td>
+									<td class="center" style="width: 150px;">
+										{{ flag.getFlaggedDate |date(param('ccdn_forum_moderator.flag.show_flagged.flag_created_datetime_format')) }}
+									</td>
+									<td class="center" style="width: 100px;">
+										<a href="{{ path('cc_moderator_forum_flag_show', {'flag_id': flag.getId }) }}">{{ status_codes[flag.getStatus] }}</a>
+									</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
 				</td>
 			</tr>
 		{% else %}
