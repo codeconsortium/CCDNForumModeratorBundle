@@ -73,6 +73,13 @@ class TopicChangeBoardFormHandler
 
 	/**
 	 *
+	 * @access protected
+	 */
+	protected $oldBoard;
+	
+	
+	/**
+	 *
 	 * @access public
 	 * @param FormFactory $factory, ContainerInterface $container, ManagerInterface $manager
 	 */
@@ -137,6 +144,8 @@ class TopicChangeBoardFormHandler
 	{
 		if (!$this->form)
 		{
+			$this->oldBoard = $this->defaults['topic']->getBoard();
+			
 			$topicChangeBoardType = $this->container->get('ccdn_forum_moderator.topic.form.change_board.type');
 			$topicChangeBoardType->setDefaultValues(array('board' => $this->defaults['topic']->getBoard()->getId()));
 			$this->form = $this->factory->create($topicChangeBoardType, $this->defaults['topic']);
@@ -156,7 +165,23 @@ class TopicChangeBoardFormHandler
     {
 		$this->manager->update($topic)->flushNow();
 		
-		$this->container->get('ccdn_forum_forum.board.manager')->updateBoardStats($topic->getBoard())->flushNow();
+		$boardManager = $this->container->get('ccdn_forum_forum.board.manager');
+
+		//
+		// Update stats of the topics old board.
+		//
+		if ($this->oldBoard)
+		{
+			$boardManager->updateStats($this->oldBoard)->flushNow();
+		}
+		
+		//
+		// Setup stats on the topics new board.
+		//
+		if ($topic->getBoard())
+		{
+			$boardManager->updateStats($topic->getBoard())->flushNow();
+		}
     }
 
 }
