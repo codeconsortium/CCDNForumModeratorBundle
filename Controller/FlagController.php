@@ -50,7 +50,7 @@ class FlagController extends ContainerAware
 		
 		if ( ! array_key_exists($status, $status_codes))
 		{
-			$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.flag.no_flags_found', array(), 'CCDNForumModeratorBundle'));
+			$this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('flash.flag.no_flags_found', array(), 'CCDNForumModeratorBundle'));
 			
 			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_flagged_show_all'));
 		}
@@ -102,7 +102,7 @@ class FlagController extends ContainerAware
 		$flag = $this->container->get('ccdn_forum_forum.flag.repository')->find($flag_id);
 		
 		if ( ! $flag) {
-			$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.flag.no_flags_found', array(), 'CCDNForumModeratorBundle'));
+			$this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('flash.flag.no_flags_found', array(), 'CCDNForumModeratorBundle'));
 			
 			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_flagged_show_all'));
 		}
@@ -155,7 +155,7 @@ class FlagController extends ContainerAware
 					
 		if ($formHandler->process())
 		{
-			$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.flag.update.success', array('%flag_id%' => $flag_id), 'CCDNForumModeratorBundle'));
+			$this->container->get('session')->setFlash('success', $this->container->get('translator')->trans('flash.flag.update.success', array('%flag_id%' => $flag_id), 'CCDNForumModeratorBundle'));
 			
 			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_flag_show', array('flag_id' => $flag_id) ));
 		}
@@ -258,7 +258,7 @@ class FlagController extends ContainerAware
 			{
 				$this->container->get('ccdn_forum_forum.flag.manager')->bulkMarkAs($flags, $markAs)->flushNow();
 			} else {
-				$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.flag.bad_status', array(), 'CCDNForumModeratorBundle'));
+				$this->container->get('session')->setFlash('error', $this->container->get('translator')->trans('flash.flag.bad_status', array(), 'CCDNForumModeratorBundle'));
 			}
 		}
 

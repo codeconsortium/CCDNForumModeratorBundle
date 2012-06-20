@@ -204,7 +204,7 @@ class PostController extends ContainerAware
 
 		if ( ! $posts || empty($posts))
 		{
-			$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.no_posts_found', array(), 'CCDNForumModeratorBundle'));
+			$this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('flash.post.no_posts_found', array(), 'CCDNForumModeratorBundle'));
 			
 			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_posts_show_all_locked'));
 		}

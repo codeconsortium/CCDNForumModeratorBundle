@@ -50,7 +50,7 @@ class TopicController extends ContainerAware
 		
 		$this->container->get('ccdn_forum_moderator.topic.manager')->sticky($topic)->flushNow();
 		
-		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.sticky.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
+		$this->container->get('session')->setFlash('success', $this->container->get('translator')->trans('flash.topic.sticky.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 			
 		return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $topic->getId()) ));
 	}
@@ -110,7 +110,7 @@ class TopicController extends ContainerAware
 		
 		$this->container->get('ccdn_forum_moderator.topic.manager')->close($topic, $user)->flushNow();
 		
-		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.close.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
+		$this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('flash.topic.close.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 			
 		return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $topic->getId()) ));
 	}
@@ -140,7 +140,7 @@ class TopicController extends ContainerAware
 		
 		$this->container->get('ccdn_forum_moderator.topic.manager')->reopen($topic)->flushNow();
 		
-		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.reopen.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
+		$this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('flash.topic.reopen.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 		
 		return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $topic->getId()) ));
 	}
@@ -246,7 +246,7 @@ class TopicController extends ContainerAware
 		$this->container->get('ccdn_forum_moderator.topic.manager')->softDelete($topic, $user)->flushNow();
 
 		// set flash message
-		$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.delete.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
+		$this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('flash.topic.delete.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 
 		// forward user
 		return new RedirectResponse($this->container->get('router')->generate('cc_forum_board_show', array('board_id' => $topic->getBoard()->getId()) ));	
@@ -277,7 +277,7 @@ class TopicController extends ContainerAware
 
 		if ($formHandler->process())
 		{
-			$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.move.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
+			$this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('flash.topic.move.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 			
 			return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $topic->getId()) ));
 		}
@@ -390,7 +390,7 @@ class TopicController extends ContainerAware
 
 		if ( ! $topics || empty($topics))
 		{
-			$this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.no_topics_found', array(), 'CCDNForumModeratorBundle'));
+			$this->container->get('session')->setFlash('error', $this->container->get('translator')->trans('flash.topic.no_topics_found', array(), 'CCDNForumModeratorBundle'));
 			
 			return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_topics_closed_show_all'));
 		}
