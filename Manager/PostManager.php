@@ -37,6 +37,7 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
 		// Don't overwite previous users accountability.
 		if ( ! $post->getLockedBy() && ! $post->getLockedDate())
 		{
+			$post->setIsLocked(true);
 			$post->setLockedBy($user);
 			$post->setLockedDate(new \DateTime());
 		
@@ -56,6 +57,7 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
 	 */
 	public function unlock($post)
 	{
+		$post->setIsLocked(false);
 		$post->setLockedBy(null);
 		$post->setLockedDate(null);
 				
@@ -79,6 +81,7 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
 			// Don't overwite previous users accountability.
 			if ( ! $post->getLockedBy() && ! $post->getLockedDate())
 			{
+				$post->setIsLocked(true);
 				$post->setLockedBy($user);
 				$post->setLockedDate(new \DateTime());
 			}
@@ -101,6 +104,7 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
 	{
 		foreach($posts as $post)
 		{
+			$post->setIsLocked(false);
 			$post->setLockedBy(null);
 			$post->setLockedDate(null);
 						
@@ -143,6 +147,7 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
 					
 					if ($topic->getReplyCount() < 1 && $topic->getFirstPost()->getId() == $post->getId())
 					{
+						$topic->setIsDeleted(true);
 						$topic->setDeletedBy($user);
 						$topic->setDeletedDate(new \DateTime());
 						
@@ -150,12 +155,9 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
 					}
 				}
 				
+				$post->setIsDeleted(true);
 				$post->setDeletedBy($user);
 				$post->setDeletedDate(new \DateTime());
-
-				// Because the bulkSoftDelete is only used by moderators
-				$post->setLockedBy($user);
-				$post->setLockedDate(new \DateTime());
 
 				$this->persist($post);
 			}		
@@ -163,9 +165,12 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
 		
 		$this->flushNow();
 		
-		// Update all affected board stats.
-		$this->container->get('ccdn_forum_forum.board.manager')->bulkUpdateStats($boards_to_update)->flushNow();
-				
+		if (count($boards_to_update) > 0)
+		{
+			// Update all affected board stats.
+			$this->container->get('ccdn_forum_forum.board.manager')->bulkUpdateStats($boards_to_update)->flushNow();
+		}
+		
 		return $this;
 	}
 	
@@ -198,6 +203,7 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
 				
 				if ($topic->getReplyCount() < 1 && $topic->getFirstPost()->getId() == $post->getId())
 				{
+					$topic->setIsDeleted(false);
 					$topic->setDeletedBy(null);
 					$topic->setDeletedDate(null);
 					
@@ -205,6 +211,7 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
 				}
 			}
 
+			$post->setIsDeleted(false);
 			$post->setDeletedBy(null);
 			$post->setDeletedDate(null);
 		
@@ -213,9 +220,12 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
 		
 		$this->flushNow();
 		
-		// Update all affected board stats.
-		$this->container->get('ccdn_forum_forum.board.manager')->bulkUpdateStats($boards_to_update)->flushNow();
-				
+		if (count($boards_to_update) > 0)
+		{
+			// Update all affected board stats.
+			$this->container->get('ccdn_forum_forum.board.manager')->bulkUpdateStats($boards_to_update)->flushNow();
+		}
+		
 		return $this;		
 	}
 	

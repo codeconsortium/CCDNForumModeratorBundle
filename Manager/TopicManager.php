@@ -71,6 +71,7 @@ class TopicManager extends ForumBundle\Manager\TopicManager implements ManagerIn
 		// Don't overwite previous users accountability.
 		if ( ! $topic->getClosedBy() && ! $topic->getClosedDate())
 		{
+			$topic->setIsClosed(true);
 			$topic->setClosedBy($user);
 			$topic->setClosedDate(new \DateTime());
 		
@@ -90,6 +91,7 @@ class TopicManager extends ForumBundle\Manager\TopicManager implements ManagerIn
 	 */
 	public function reopen($topic)
 	{
+		$topic->setIsClosed(false);
 		$topic->setClosedBy(null);
 		$topic->setClosedDate(null);
 		
@@ -113,6 +115,7 @@ class TopicManager extends ForumBundle\Manager\TopicManager implements ManagerIn
 			// Don't overwite previous users accountability.
 			if ( ! $topic->getClosedBy() && ! $topic->getClosedDate())
 			{
+				$topic->setIsClosed(true);
 				$topic->setClosedBy($user);
 				$topic->setClosedDate(new \DateTime());
 			
@@ -135,6 +138,7 @@ class TopicManager extends ForumBundle\Manager\TopicManager implements ManagerIn
 	{
 		foreach($topics as $topic)
 		{
+			$topic->setIsClosed(false);
 			$topic->setClosedBy(null);
 			$topic->setClosedDate(null);
 			
@@ -170,17 +174,21 @@ class TopicManager extends ForumBundle\Manager\TopicManager implements ManagerIn
 					}
 				}
 				
+				$topic->setIsDeleted(true);
 				$topic->setDeletedBy($user);
 				$topic->setDeletedDate(new \DateTime());
-			
+						
 				$this->persist($topic);			
 			}
 		}
 		
 		$this->flushNow();
 		
-		// Update all affected board stats.
-		$this->container->get('ccdn_forum_forum.board.manager')->bulkUpdateStats($boards_to_update)->flushNow();
+		if (count($boards_to_update) > 0)
+		{
+			// Update all affected board stats.
+			$this->container->get('ccdn_forum_forum.board.manager')->bulkUpdateStats($boards_to_update)->flushNow();
+		}
 		
 		return $this;
 	}
@@ -208,6 +216,7 @@ class TopicManager extends ForumBundle\Manager\TopicManager implements ManagerIn
 				}
 			}
 			
+			$topic->setIsDeleted(false);
 			$topic->setDeletedBy(null);
 			$topic->setDeletedDate(null);
 		
@@ -216,8 +225,11 @@ class TopicManager extends ForumBundle\Manager\TopicManager implements ManagerIn
 
 		$this->flushNow();
 		
-		// Update all affected board stats.
-		$this->container->get('ccdn_forum_forum.board.manager')->bulkUpdateStats($boards_to_update)->flushNow();
+		if (count($boards_to_update) > 0)
+		{
+			// Update all affected board stats.
+			$this->container->get('ccdn_forum_forum.board.manager')->bulkUpdateStats($boards_to_update)->flushNow();
+		}
 		
 		return $this;
 	}
