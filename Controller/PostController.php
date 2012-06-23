@@ -26,6 +26,45 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class PostController extends ContainerAware
 {
+	
+	
+
+	/**
+	 *
+	 * Display a list of locked posts (locked from editing)
+	 *
+	 * @access public
+	 * @param int $page
+	 * @return RedirectResponse|RenderResponse
+	 */
+	public function showLockedAction($page)
+	{
+		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR'))
+		{
+			throw new AccessDeniedException('You do not have access to this section.');
+		}
+
+		$user = $this->container->get('security.context')->getToken()->getUser();
+
+		$posts_paginated = $this->container->get('ccdn_forum_forum.post.repository')->findLockedPostsForModeratorsPaginated();
+			
+		$posts_per_page = $this->container->getParameter('ccdn_forum_moderator.post.show_locked.posts_per_page');
+		$posts_paginated->setMaxPerPage($posts_per_page);
+		$posts_paginated->setCurrentPage($page, false, true);
+		
+		// setup crumb trail.
+		$crumb_trail = $this->container->get('ccdn_component_crumb.trail')
+			->add($this->container->get('translator')->trans('crumbs.dashboard.moderator', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_dashboard_show', array('category' => 'moderator')), "sitemap")
+			->add($this->container->get('translator')->trans('crumbs.post.locked.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_posts_show_all_locked'), "home");
+				
+		return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Post:show_locked.html.' . $this->getEngine(), array(
+			'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
+			'user' => $user,
+			'crumbs' => $crumb_trail,
+			'posts' => $posts_paginated,
+			'pager' => $posts_paginated,
+		));
+	}
 
 
 
@@ -115,46 +154,7 @@ class PostController extends ContainerAware
 		// forward user
 		return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $post->getTopic()->getId()) ));
 	}
-	
-	
 
-	/**
-	 *
-	 * Display a list of locked posts (locked from editing)
-	 *
-	 * @access public
-	 * @param int $page
-	 * @return RedirectResponse|RenderResponse
-	 */
-	public function showLockedAction($page)
-	{
-		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR'))
-		{
-			throw new AccessDeniedException('You do not have access to this section.');
-		}
-
-		$user = $this->container->get('security.context')->getToken()->getUser();
-
-		$posts_paginated = $this->container->get('ccdn_forum_forum.post.repository')->findLockedPostsForModeratorsPaginated();
-			
-		$posts_per_page = $this->container->getParameter('ccdn_forum_moderator.post.show_locked.posts_per_page');
-		$posts_paginated->setMaxPerPage($posts_per_page);
-		$posts_paginated->setCurrentPage($page, false, true);
-		
-		// setup crumb trail.
-		$crumb_trail = $this->container->get('ccdn_component_crumb.trail')
-			->add($this->container->get('translator')->trans('crumbs.dashboard.moderator', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_dashboard_show', array('category' => 'moderator')), "sitemap")
-			->add($this->container->get('translator')->trans('crumbs.post.locked.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_posts_show_all_locked'), "home");
-				
-		return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Post:show_locked.html.' . $this->getEngine(), array(
-			'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
-			'user' => $user,
-			'crumbs' => $crumb_trail,
-			'posts' => $posts_paginated,
-			'pager' => $posts_paginated,
-		));
-	}
-	
 	
 	
 	/**

@@ -31,6 +31,45 @@ class TopicController extends ContainerAware
 	
 	/**
 	 *
+	 * Displays a list of closed topics (locked from posting new posts)
+	 *
+	 * @access public
+	 * @param int $page
+	 * @return RedirectResponse|RenderResponse
+	 */
+	public function showClosedAction($page)
+	{
+		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR'))
+		{
+			throw new AccessDeniedException('You do not have access to this section.');
+		}
+
+		$user = $this->container->get('security.context')->getToken()->getUser();
+
+		$topics_paginated = $this->container->get('ccdn_forum_forum.topic.repository')->findClosedTopicsForModeratorsPaginated();
+			
+		$topics_per_page = $this->container->getParameter('ccdn_forum_moderator.topic.show_closed.topics_per_page');
+		$topics_paginated->setMaxPerPage($topics_per_page);
+		$topics_paginated->setCurrentPage($page, false, true);
+			
+		// setup crumb trail.
+		$crumb_trail = $this->container->get('ccdn_component_crumb.trail')
+			->add($this->container->get('translator')->trans('crumbs.dashboard.moderator', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_dashboard_show', array('category' => 'moderator')), "sitemap")
+			->add($this->container->get('translator')->trans('crumbs.topic.closed.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_topics_closed_show_all'), "home");
+		
+		return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Topic:show_closed.html.' . $this->getEngine(), array(
+			'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
+			'user' => $user,
+			'topics' => $topics_paginated,
+			'crumbs' => $crumb_trail,
+			'pager' => $topics_paginated,
+		));
+	}
+	
+	
+	
+	/**
+	 *
 	 * @access public
 	 * @param int $topic_id
 	 * @return RedirectResponse|RenderResponse
@@ -300,45 +339,6 @@ class TopicController extends ContainerAware
 				'form' => $formHandler->getForm()->createView(),
 			));
 		}
-	}
-	
-	
-	
-	/**
-	 *
-	 * Displays a list of closed topics (locked from posting new posts)
-	 *
-	 * @access public
-	 * @param int $page
-	 * @return RedirectResponse|RenderResponse
-	 */
-	public function showClosedAction($page)
-	{
-		if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR'))
-		{
-			throw new AccessDeniedException('You do not have access to this section.');
-		}
-
-		$user = $this->container->get('security.context')->getToken()->getUser();
-
-		$topics_paginated = $this->container->get('ccdn_forum_forum.topic.repository')->findClosedTopicsForModeratorsPaginated();
-			
-		$topics_per_page = $this->container->getParameter('ccdn_forum_moderator.topic.show_closed.topics_per_page');
-		$topics_paginated->setMaxPerPage($topics_per_page);
-		$topics_paginated->setCurrentPage($page, false, true);
-			
-		// setup crumb trail.
-		$crumb_trail = $this->container->get('ccdn_component_crumb.trail')
-			->add($this->container->get('translator')->trans('crumbs.dashboard.moderator', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_dashboard_show', array('category' => 'moderator')), "sitemap")
-			->add($this->container->get('translator')->trans('crumbs.topic.closed.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_topics_closed_show_all'), "home");
-		
-		return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Topic:show_closed.html.' . $this->getEngine(), array(
-			'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
-			'user' => $user,
-			'topics' => $topics_paginated,
-			'crumbs' => $crumb_trail,
-			'pager' => $topics_paginated,
-		));
 	}
 
 
