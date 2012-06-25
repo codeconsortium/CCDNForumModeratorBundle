@@ -145,7 +145,7 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
 						}
 					}
 					
-					if ($topic->getReplyCount() < 1 && $topic->getFirstPost()->getId() == $post->getId())
+					if ($topic->getCachedReplyCount() < 1 && $topic->getFirstPost()->getId() == $post->getId())
 					{
 						$topic->setIsDeleted(true);
 						$topic->setDeletedBy($user);
@@ -201,7 +201,7 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
 					}
 				}
 				
-				if ($topic->getReplyCount() < 1 && $topic->getFirstPost()->getId() == $post->getId())
+				if ($topic->getCachedReplyCount() < 1 && $topic->getFirstPost()->getId() == $post->getId())
 				{
 					$topic->setIsDeleted(false);
 					$topic->setDeletedBy(null);

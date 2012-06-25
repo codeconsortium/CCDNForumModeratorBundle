@@ -81,8 +81,8 @@
 					
 						<td class="left">
 							{% if post.getTopic %}
-								<span class="label label-info">{{ post.getTopic.getReplyCount }}&nbsp;{{ 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;
-								<span class="label label-info">{{ post.getTopic.getViewCount }}&nbsp;{{ 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;				
+								<span class="label label-info">{{ post.getTopic.getCachedReplyCount }}&nbsp;{{ 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;
+								<span class="label label-info">{{ post.getTopic.getCachedViewCount }}&nbsp;{{ 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;				
 								<a href="{{ path('cc_forum_topic_show', {'topic_id': post.getTopic.getId }) }}" title="{{ post.getTopic.getTitle }}">{{ truncDot(post.getTopic.getTitle |capitalize, param('ccdn_forum_moderator.post.show_locked.topic_title_truncate')) }}</a>
 							{% endif %}
 						</td>

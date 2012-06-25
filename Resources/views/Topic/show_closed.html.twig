@@ -75,8 +75,8 @@
 						</td>
 					
 						<td class="left">
-							<span class="label label-info">{{ topic.getReplyCount }}&nbsp;{{ 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;
-							<span class="label label-info">{{ topic.getViewCount }}&nbsp;{{ 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;
+							<span class="label label-info">{{ topic.getCachedReplyCount }}&nbsp;{{ 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;
+							<span class="label label-info">{{ topic.getCachedViewCount }}&nbsp;{{ 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;
 							<a class="topic_link" href="{{ path('cc_forum_topic_show', {'topic_id': topic.getId }) }}" title="{{ topic.getTitle }}">{{ truncDot(topic.getTitle |capitalize, param('ccdn_forum_moderator.topic.show_closed.topic_title_truncate')) }}</a>
 						</td>
 					
