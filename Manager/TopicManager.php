@@ -32,9 +32,11 @@ class TopicManager extends ForumBundle\Manager\TopicManager implements ManagerIn
 	 * @param $topic
 	 * @return $this
 	 */
-	public function sticky($topic)
+	public function sticky($topic, $user)
 	{
 		$topic->setIsSticky(true);
+		$topic->setStickiedBy($user);
+		$topic->setStickiedDate(new \DateTime());
 		
 		$this->persist($topic);
 		
@@ -52,6 +54,8 @@ class TopicManager extends ForumBundle\Manager\TopicManager implements ManagerIn
 	public function unsticky($topic)
 	{
 		$topic->setIsSticky(false);
+		$topic->setStickiedBy(null);
+		$topic->setStickiedDate(null);
 		
 		$this->persist($topic);
 		

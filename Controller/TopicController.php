@@ -81,13 +81,15 @@ class TopicController extends ContainerAware
 			throw new AccessDeniedException('You do not have access to this section.');
 		}
 
+		$user = $this->container->get('security.context')->getToken()->getUser();
+
 		$topic = $this->container->get('ccdn_forum_forum.topic.repository')->find($topic_id);
 
 		if ( ! $topic) {
 			throw new NotFoundHttpException('No such topic exists!');
 		}
 		
-		$this->container->get('ccdn_forum_moderator.topic.manager')->sticky($topic)->flushNow();
+		$this->container->get('ccdn_forum_moderator.topic.manager')->sticky($topic, $user)->flushNow();
 		
 		$this->container->get('session')->setFlash('success', $this->container->get('translator')->trans('flash.topic.sticky.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 			
