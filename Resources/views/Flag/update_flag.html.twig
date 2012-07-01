@@ -29,9 +29,11 @@
 		<form action="{{ path('cc_moderator_forum_update_flag', { 'flag_id': flag.getId } ) }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
 			<fieldset>
 				
+				{{ form_errors(form) }}
+				
 				<div class="control-group"><div class="controls row-fluid">{{ form_row(form._token) }}</div></div>
 			
-				<div class="control-group">
+				<div class="control-group{{ (form.status.vars.errors|length > 0) ? ' error': '' }}">
 					{{ form_label(form.status, null, { 'label': 'form.label.flag.status'| trans({}, 'CCDNForumModeratorBundle') }) }}
 					<div class="controls row-fluid">
 						{{ form_errors(form.status) }}
@@ -39,7 +41,7 @@
 					</div>
 				</div>
 			
-				<div class="control-group">
+				<div class="control-group{{ (form.moderator_note.vars.errors|length > 0) ? ' error': '' }}">
 					{{ form_label(form.moderators_note, null, { 'label': 'form.label.flag.moderators_note'| trans({}, 'CCDNForumModeratorBundle') }) }}
 					<div class="controls row-fluid">
 						{{ form_errors(form.moderators_note) }}
