@@ -1,0 +1,7 @@
+CCDNForum\ForumBundle\Entity\Flag:
+    properties:
+        status:
+            - NotNull: { groups: [moderate] }
+        moderatorsNote:
+            - NotBlank: { groups: [moderate] }
+            - MinLength: { limit: 20, groups: [moderate] }

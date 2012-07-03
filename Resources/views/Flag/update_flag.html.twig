@@ -41,7 +41,7 @@
 					</div>
 				</div>
 			
-				<div class="control-group{{ (form.moderator_note.vars.errors|length > 0) ? ' error': '' }}">
+				<div class="control-group{{ (form.moderators_note.vars.errors|length > 0) ? ' error': '' }}">
 					{{ form_label(form.moderators_note, null, { 'label': 'form.label.flag.moderators_note'| trans({}, 'CCDNForumModeratorBundle') }) }}
 					<div class="controls row-fluid">
 						{{ form_errors(form.moderators_note) }}
