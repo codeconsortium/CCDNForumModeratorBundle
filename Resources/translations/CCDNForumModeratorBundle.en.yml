@@ -70,6 +70,7 @@ flag.description: 'Description: '
 posts.locked.table.empty: 'No locked posts found.'
 topics.closed.table.empty: 'No closed topics found.'
 
+form.field.required: 'This field is required'
 form.label.flag.status: 'Status: '
 form.label.flag.moderators_note: 'Case Notes: '
 form.label.board: 'Board: '
