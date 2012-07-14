@@ -4,7 +4,7 @@
 	{{ parent() }}
 {% endblock %}
 
-{% block title %}{{- 'title.flag.update' | trans({'%flag_id%': flag.getId }, 'CCDNForumModeratorBundle' ) -}}{% endblock %}
+{% block title %}{{- truncDot('title.flag.update' | trans({'%flag_id%': flag.getId }, 'CCDNForumModeratorBundle'), param('ccdn_forum_moderator.seo.title_length')) -}}{% endblock %}
 
 {% block sidebar %}
 	{{ parent() }}

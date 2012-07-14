@@ -9,7 +9,7 @@
 	<script src="{{- asset('bundles/ccdncomponentcommon/js/ccdn/jquery.checkboxes.js') -}}" type="text/javascript"></script>
 {% endblock %}
 
-{% block title %}{{- 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') -}}{% endblock %}
+{% block title %}{{- truncDot('title.post.locked' | trans({}, 'CCDNForumModeratorBundle'), param('ccdn_forum_moderator.seo.title_length')) -}}{% endblock %}
 
 {% block sidebar %}
 	{{ parent() }}
@@ -32,9 +32,9 @@
 	<form method="POST" action="{{- path('cc_moderator_forum_posts_bulk_action') -}}">
 	
 	<div class="btn-toolbar">
-		<input type="submit" class="btn btn-primary disabled" value="{{- 'link.post.lock' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_lock" disabled data-responds-disabled="posts">
-		<input type="submit" class="btn btn-primary disabled" value="{{- 'link.post.unlock' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_unlock" disabled data-responds-disabled="posts">
-		<input type="submit" class="btn btn-primary disabled" value="{{- 'link.topic.restore' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_restore" disabled data-responds-disabled="posts">
+		<input type="submit" class="btn btn-primary disabled" value="{{- 'link.post.lock' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_lock" disabled data-responds-disabled="posts">&nbsp;
+		<input type="submit" class="btn btn-primary disabled" value="{{- 'link.post.unlock' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_unlock" disabled data-responds-disabled="posts">&nbsp;
+		<input type="submit" class="btn btn-primary disabled" value="{{- 'link.topic.restore' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_restore" disabled data-responds-disabled="posts">&nbsp;
 		<input type="submit" class="btn btn-danger disabled" value="{{- 'link.topic.delete.soft' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_soft_delete" disabled data-responds-disabled="posts">
 	</div>
 	

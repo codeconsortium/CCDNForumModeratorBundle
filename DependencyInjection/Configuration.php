@@ -55,6 +55,7 @@ class Configuration implements ConfigurationInterface
 				->end()
 			->end();
 			
+		$this->addSEOSection($rootNode);
 		$this->addFlagSection($rootNode);
 		$this->addItemFlagSection($rootNode);
 		$this->addTopicSection($rootNode);
@@ -62,6 +63,27 @@ class Configuration implements ConfigurationInterface
 		
         return $treeBuilder;
     }
+	
+	
+	
+	/**
+	 *
+	 * @access protected
+	 * @param ArrayNodeDefinition $node
+	 */
+	protected function addSEOSection(ArrayNodeDefinition $node)
+	{
+		$node
+			->children()
+				->arrayNode('seo')
+					->addDefaultsIfNotSet()
+					->canBeUnset()
+					->children()
+						->scalarNode('title_length')->defaultValue('67')->end()
+					->end()
+				->end()
+			->end();
+	}
 
 
 

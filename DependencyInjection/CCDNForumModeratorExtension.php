@@ -45,6 +45,7 @@ class CCDNForumModeratorExtension extends Extension
 		$container->setParameter('ccdn_forum_moderator.template.engine', $config['template']['engine']);
 		$container->setParameter('ccdn_forum_moderator.user.profile_route', $config['user']['profile_route']);
 		
+		$this->getSEOSection($container, $config);
 		$this->getFlagSection($container, $config);
 		$this->getItemFlagSection($container, $config);
 		$this->getTopicSection($container, $config);
@@ -59,6 +60,18 @@ class CCDNForumModeratorExtension extends Extension
 	public function getAlias()
 	{
 		return 'ccdn_forum_moderator';
+	}
+	
+	
+	
+	/**
+	 *
+	 * @access protected
+	 * @param $container, $config
+	 */
+	protected function getSEOSection($container, $config)
+	{
+	    $container->setParameter('ccdn_forum_moderator.seo.title_length', $config['seo']['title_length']);
 	}
 	
 	
