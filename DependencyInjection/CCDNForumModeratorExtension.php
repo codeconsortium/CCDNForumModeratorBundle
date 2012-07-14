@@ -30,6 +30,17 @@ class CCDNForumModeratorExtension extends Extension
 {
 	
 	
+	
+    /**
+     * {@inheritDoc}
+     */
+	public function getAlias()
+	{
+		return 'ccdn_forum_moderator';
+	}
+	
+	
+	
     /**
      * {@inheritDoc}
      */
@@ -52,15 +63,6 @@ class CCDNForumModeratorExtension extends Extension
 		$this->getPostSection($container, $config);
 		
     }
-	
-	
-    /**
-     * {@inheritDoc}
-     */
-	public function getAlias()
-	{
-		return 'ccdn_forum_moderator';
-	}
 	
 	
 	
@@ -131,6 +133,7 @@ class CCDNForumModeratorExtension extends Extension
 		$container->setParameter('ccdn_forum_moderator.topic.change_board.form_theme', $config['topic']['change_board']['form_theme']);	
 		
 	}
+	
 	
 
 	/**
