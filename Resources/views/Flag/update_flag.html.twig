@@ -2,64 +2,66 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-	<link href="{{ asset('bundles/ccdncomponentcrumbtrail/css/crumbs.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{- asset('bundles/ccdncomponentcrumbtrail/css/crumbs.css') -}}" rel="stylesheet" type="text/css">
 {% endblock %}
 
-{% block title %}{{ 'title.flag.update' | trans({'%flag_id%': flag.getId }, 'CCDNForumModeratorBundle' )}}{% endblock %}
+{% block title %}{{- 'title.flag.update' | trans({'%flag_id%': flag.getId }, 'CCDNForumModeratorBundle' ) -}}{% endblock %}
 
 {% block sidebar %}
 	{{ parent() }}
 
-	{% include 'CCDNForumModeratorBundle:Sidebar:sidebar.html.twig' %}
+	{%- include 'CCDNForumModeratorBundle:Sidebar:sidebar.html.twig' -%}
 	
 {% endblock %}
 
 
 {% block body %}
 
-	{% include 'CCDNComponentCommonBundle:Flashes:flashes.html.twig' %}
+	{%- spaceless -%}
 
-	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+	{%- include 'CCDNComponentCommonBundle:Flashes:flashes.html.twig' -%}
+
+	{%- include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } -%}
 
 	<h2>{{- 'title.flag.update' | trans({'%flag_id%': flag.getId }, 'CCDNForumModeratorBundle' ) -}}</h2>
 
-	{%- spaceless -%}
-		{%- form_theme form param('ccdn_forum_moderator.flag.update_flag.form_theme') -%}
-		<form action="{{- path('cc_moderator_forum_update_flag', { 'flag_id': flag.getId }) -}}" method="post" {{ form_enctype(form) }} class="form-horizontal">
-			<fieldset>
-			
-				{{- form_errors(form) -}}
-			
-				<div class="control-group"><div class="controls row-fluid">{{- form_row(form._token) -}}</div></div>
+	{%- form_theme form param('ccdn_forum_moderator.flag.update_flag.form_theme') -%}
+	<form action="{{- path('cc_moderator_forum_update_flag', { 'flag_id': flag.getId }) -}}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+		<fieldset>
 		
-				<div class="control-group{{- (form.status.vars.errors|length > 0) ? ' error': '' -}}">
-					{{- form_label(form.status, null, { 'label': 'form.label.flag.status'| trans({}, 'CCDNForumModeratorBundle') }) -}}
-					<div class="controls row-fluid">
-						{{- form_errors(form.status) -}}
-						{{- form_widget(form.status) -}}
-					</div>
-				</div>
+			{{- form_errors(form) -}}
 		
-				<div class="control-group{{- (form.moderators_note.vars.errors|length > 0) ? ' error': '' -}}">
-					{{- form_label(form.moderators_note, null, { 'label': 'form.label.flag.moderators_note'| trans({}, 'CCDNForumModeratorBundle') }) -}}
-					<div class="controls row-fluid">
-						{{- form_errors(form.moderators_note) -}}
-						{{- form_widget(form.moderators_note) -}}
-					</div>
+			<div class="control-group"><div class="controls row-fluid">{{- form_row(form._token) -}}</div></div>
+	
+			<div class="control-group{{- (form.status.vars.errors|length > 0) ? ' error': '' -}}">
+				{{- form_label(form.status, null, { 'label': 'form.label.flag.status'| trans({}, 'CCDNForumModeratorBundle') }) -}}
+				<div class="controls row-fluid">
+					{{- form_errors(form.status) -}}
+					{{- form_widget(form.status) -}}
 				</div>
+			</div>
+	
+			<div class="control-group{{- (form.moderators_note.vars.errors|length > 0) ? ' error': '' -}}">
+				{{- form_label(form.moderators_note, null, { 'label': 'form.label.flag.moderators_note'| trans({}, 'CCDNForumModeratorBundle') }) -}}
+				<div class="controls row-fluid">
+					{{- form_errors(form.moderators_note) -}}
+					{{- form_widget(form.moderators_note) -}}
+				</div>
+			</div>
+	
+			<div class="form-actions">
+				<input type="submit" class="btn btn-primary" value="{{- 'form.button.flag.update' | trans({}, 'CCDNForumModeratorBundle') -}}">
+			</div>
 		
-				<div class="form-actions">
-					<input type="submit" class="btn btn-primary" value="{{- 'form.button.flag.update' | trans({}, 'CCDNForumModeratorBundle') -}}">
-				</div>
-			
-			</fieldset>
-		</form>
-	{%- endspaceless -%}
+		</fieldset>
+	</form>
 	
 	<h2>{{- 'title.flag.show' | trans({'%flag_id%': flag.getId, '%topic%': flag.getPost.getTopic.getTitle, '%post_id%': flag.getPost.getId }, 'CCDNForumModeratorBundle') -}}</h2>
 
-	{% include "CCDNForumModeratorBundle:Flag:item_flag.html.twig" %}
+	{%- include "CCDNForumModeratorBundle:Flag:item_flag.html.twig" -%}
 
-	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+	{%- include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } -%}
+	
+	{%- endspaceless -%}
 
 {% endblock %}

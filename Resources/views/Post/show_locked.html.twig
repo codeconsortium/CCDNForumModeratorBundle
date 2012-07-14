@@ -2,142 +2,144 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-	<link href="{{ asset('bundles/ccdncomponentcrumbtrail/css/crumbs.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{- asset('bundles/ccdncomponentcrumbtrail/css/crumbs.css') -}}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block javascripts %}
 	{{ parent() }}
-	<script src="{{ asset('bundles/ccdncomponentcommon/js/ccdn/jquery.checkboxes.js') }}" type="text/javascript"></script>
+	<script src="{{- asset('bundles/ccdncomponentcommon/js/ccdn/jquery.checkboxes.js') -}}" type="text/javascript"></script>
 {% endblock %}
 
-{% block title %}{{ 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') }}{% endblock %}
+{% block title %}{{- 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') -}}{% endblock %}
 
 {% block sidebar %}
 	{{ parent() }}
 
-	{% include 'CCDNForumModeratorBundle:Sidebar:sidebar.html.twig' %}
+	{%- include 'CCDNForumModeratorBundle:Sidebar:sidebar.html.twig' -%}
 	
 {% endblock %}
 
 
 {% block body %}
 
-	{% include 'CCDNComponentCommonBundle:Flashes:flashes.html.twig' %}
+	{%- spaceless -%}
 
-	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+	{%- include 'CCDNComponentCommonBundle:Flashes:flashes.html.twig' -%}
 
-	<h2>{{ 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') }}</h2>
+	{%- include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } -%}
 
-	<form method="POST" action="{{ path('cc_moderator_forum_posts_bulk_action') }}">
+	<h2>{{- 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') -}}</h2>
+
+	<form method="POST" action="{{- path('cc_moderator_forum_posts_bulk_action') -}}">
 	
 	<div class="btn-toolbar">
-		<input type="submit" class="btn btn-primary disabled" value="{{ 'link.post.lock' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_lock" disabled data-responds-disabled="posts">
-		<input type="submit" class="btn btn-primary disabled" value="{{ 'link.post.unlock' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_unlock" disabled data-responds-disabled="posts">
-		<input type="submit" class="btn btn-primary disabled" value="{{ 'link.topic.restore' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_restore" disabled data-responds-disabled="posts">
-		<input type="submit" class="btn btn-danger disabled" value="{{ 'link.topic.delete.soft' |trans({}, 'CCDNForumModeratorBundle') }}" name="submit_soft_delete" disabled data-responds-disabled="posts">
+		<input type="submit" class="btn btn-primary disabled" value="{{- 'link.post.lock' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_lock" disabled data-responds-disabled="posts">
+		<input type="submit" class="btn btn-primary disabled" value="{{- 'link.post.unlock' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_unlock" disabled data-responds-disabled="posts">
+		<input type="submit" class="btn btn-primary disabled" value="{{- 'link.topic.restore' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_restore" disabled data-responds-disabled="posts">
+		<input type="submit" class="btn btn-danger disabled" value="{{- 'link.topic.delete.soft' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_soft_delete" disabled data-responds-disabled="posts">
 	</div>
 	
-	{% if pager.haveToPaginate %}
-		{{ pagerfanta(pager, 'twitter_bootstrap', {'routeName':'cc_moderator_forum_posts_show_all_locked_paginated', 'routeParams':{}} ) }}
-	{% endif %}
+	{%- if pager.haveToPaginate -%}
+		{{- pagerfanta(pager, 'twitter_bootstrap', {'routeName':'cc_moderator_forum_posts_show_all_locked_paginated', 'routeParams':{}} ) -}}
+	{%- endif -%}
 	
-	{% spaceless %}
-		<table class="table">
-			<thead>
-				<tr>
-					<th class="center"><input type="checkbox" id="check_all" name="check_all" class="hidden" data-compat='interactive-js-compat' data-action-toggle="posts" data-identifier="posts" data-qualifier="all"></th>
-					<th class="center"><i class="icon-lock"></i></th>
-					<th class="center"><i class="icon-trash"></i></th>
-					<th class="center">{{ 'board.table.head.post_number' | trans({}, 'CCDNForumForumBundle') }}</th>
-					<th class="left">{{ 'board.table.head.topic_title' | trans({}, 'CCDNForumForumBundle') }}</th>				
-					<th class="center">{{ 'board.table.head.created_by' | trans({}, 'CCDNForumForumBundle') }}</th>
-					<th class="center">{{ 'board.table.head.locked_by' | trans({}, 'CCDNForumForumBundle') }}</th>
-					<th class="center">{{ 'board.table.head.deleted_by' | trans({}, 'CCDNForumForumBundle') }}</th>
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="center"><input type="checkbox" id="check_all" name="check_all" class="hidden" data-compat='interactive-js-compat' data-action-toggle="posts" data-identifier="posts" data-qualifier="all"></th>
+				<th class="center"><i class="icon-lock"></i></th>
+				<th class="center"><i class="icon-trash"></i></th>
+				<th class="center">{{- 'board.table.head.post_number' | trans({}, 'CCDNForumForumBundle') -}}</th>
+				<th class="left">{{- 'board.table.head.topic_title' | trans({}, 'CCDNForumForumBundle') -}}</th>				
+				<th class="center">{{- 'board.table.head.created_by' | trans({}, 'CCDNForumForumBundle') -}}</th>
+				<th class="center">{{- 'board.table.head.locked_by' | trans({}, 'CCDNForumForumBundle') -}}</th>
+				<th class="center">{{- 'board.table.head.deleted_by' | trans({}, 'CCDNForumForumBundle') -}}</th>
+			</tr>
+		</thead>
+		<tbody>
+			{%- for row, post in posts -%}
+				<tr class="{{- cycle(['row_odd', 'row_even'], row) -}}">
+				
+					<td class="center">
+						<input type="checkbox" id="post_{{- post.id -}}" name="check_{{- post.id -}}" data-check-all-responds="true" data-identifier="posts">
+					</td>
+				
+					<td class="center">
+						{%- if post.getLockedBy -%}
+						<i class="icon-lock"></i>
+						{%- endif -%}
+					</td>
+				
+					<td class="center">
+						{%- if post.getDeletedBy -%}
+						<i class="icon-trash"></i>
+						{%- endif -%}
+					</td>
+				
+					<td class="center">
+						<a href="{{- path('cc_forum_post_show', {'post_id': post.getId }) -}}">#{{- post.getId -}}</a>
+					</td>
+				
+					<td class="left">
+						{%- if post.getTopic -%}
+							<span class="label label-info">{{- post.getTopic.getCachedReplyCount -}}&nbsp;{{- 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') -}}</span>&nbsp;
+							<span class="label label-info">{{- post.getTopic.getCachedViewCount -}}&nbsp;{{- 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') -}}</span>&nbsp;				
+							<a href="{{- path('cc_forum_topic_show', {'topic_id': post.getTopic.getId }) -}}" title="{{- post.getTopic.getTitle -}}">{{- truncDot(post.getTopic.getTitle |capitalize, param('ccdn_forum_moderator.post.show_locked.topic_title_truncate')) -}}</a>
+						{%- endif -%}
+					</td>
+
+					<td class="right">
+						{%- if post.getCreatedBy -%}
+							<a href="{{- path(user_profile_route, {'user_id': post.getDeletedBy }) -}}">{{- post.getCreatedBy.getUsername |capitalize -}}</a>
+						{%- endif -%}
+
+						{%- if post.getCreatedDate -%}
+							{{- 'actioned.at' |trans({}, 'CCDNForumModeratorBundle') -}}
+							{{- post.getCreatedDate |date(param('ccdn_forum_moderator.post.show_locked.post_created_datetime_format')) -}}
+						{%- endif -%}
+					</td>
+				
+					<td class="right">
+						{%- if post.getLockedBy -%}
+							<a href="{{- path(user_profile_route, {'user_id': post.getDeletedBy }) -}}">{{- post.getLockedBy.getUsername |capitalize -}}</a>
+						{%- endif -%}
+
+						{%- if post.getLockedDate -%}
+							{{- 'actioned.at' |trans({}, 'CCDNForumModeratorBundle') -}}
+							{{- post.getLockedDate |date(param('ccdn_forum_moderator.post.show_locked.post_locked_datetime_format')) -}}
+						{%- endif -%}
+					</td>
+				
+					<td class="right">
+						{%- if post.getDeletedBy -%}
+							<a href="{{- path(user_profile_route, {'user_id': post.getDeletedBy }) -}}">{{- post.getDeletedBy.getUsername |capitalize -}}</a>
+						{%- endif -%}
+
+						{%- if post.getDeletedDate -%}
+							{{- 'actioned.at' |trans({}, 'CCDNForumModeratorBundle') -}}
+							{{- post.getDeletedDate |date(param('ccdn_forum_moderator.post.show_locked.post_deleted_datetime_format')) -}}
+						{%- endif -%}
+					</td>
+				
 				</tr>
-			</thead>
-			<tbody>
-				{% for row, post in posts %}
-					<tr class="{{ cycle(['row_odd', 'row_even'], row) }}">
-					
-						<td class="center">
-							<input type="checkbox" id="post_{{ post.id }}" name="check_{{ post.id }}" data-check-all-responds="true" data-identifier="posts">
-						</td>
-					
-						<td class="center">
-							{% if post.getLockedBy %}
-							<i class="icon-lock"></i>
-							{% endif %}
-						</td>
-					
-						<td class="center">
-							{% if post.getDeletedBy %}
-							<i class="icon-trash"></i>
-							{% endif %}
-						</td>
-					
-						<td class="center">
-							<a href="{{ path('cc_forum_post_show', {'post_id': post.getId }) }}">#{{ post.getId }}</a>
-						</td>
-					
-						<td class="left">
-							{% if post.getTopic %}
-								<span class="label label-info">{{ post.getTopic.getCachedReplyCount }}&nbsp;{{ 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;
-								<span class="label label-info">{{ post.getTopic.getCachedViewCount }}&nbsp;{{ 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') }}</span>&nbsp;				
-								<a href="{{ path('cc_forum_topic_show', {'topic_id': post.getTopic.getId }) }}" title="{{ post.getTopic.getTitle }}">{{ truncDot(post.getTopic.getTitle |capitalize, param('ccdn_forum_moderator.post.show_locked.topic_title_truncate')) }}</a>
-							{% endif %}
-						</td>
-
-						<td class="right">
-							{% if post.getCreatedBy %}
-								<a href="{{ path(user_profile_route, {'user_id': post.getDeletedBy }) }}">{{ post.getCreatedBy.getUsername |capitalize }}</a>
-							{% endif %}
-
-							{% if post.getCreatedDate %}
-								{{ 'actioned.at' |trans({}, 'CCDNForumModeratorBundle') }}
-								{{ post.getCreatedDate |date(param('ccdn_forum_moderator.post.show_locked.post_created_datetime_format')) }}
-							{% endif %}
-						</td>
-					
-						<td class="right">
-							{% if post.getLockedBy %}
-								<a href="{{ path(user_profile_route, {'user_id': post.getDeletedBy }) }}">{{ post.getLockedBy.getUsername |capitalize }}</a>
-							{% endif %}
-
-							{% if post.getLockedDate %}
-								{{ 'actioned.at' |trans({}, 'CCDNForumModeratorBundle') }}
-								{{ post.getLockedDate |date(param('ccdn_forum_moderator.post.show_locked.post_locked_datetime_format')) }}
-							{% endif %}
-						</td>
-					
-						<td class="right">
-							{% if post.getDeletedBy %}
-								<a href="{{ path(user_profile_route, {'user_id': post.getDeletedBy }) }}">{{ post.getDeletedBy.getUsername |capitalize }}</a>
-							{% endif %}
-
-							{% if post.getDeletedDate %}
-								{{ 'actioned.at' |trans({}, 'CCDNForumModeratorBundle') }}
-								{{ post.getDeletedDate |date(param('ccdn_forum_moderator.post.show_locked.post_deleted_datetime_format')) }}
-							{% endif %}
-						</td>
-					
-					</tr>
-				{% else %}
-					<tr>
-						<td class="center" colspan="11">
-							{{ 'posts.locked.table.empty' | trans({}, 'CCDNForumModeratorBundle') }}
-						</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	{% endspaceless %}
+			{%- else -%}
+				<tr>
+					<td class="center" colspan="11">
+						{{- 'posts.locked.table.empty' | trans({}, 'CCDNForumModeratorBundle') -}}
+					</td>
+				</tr>
+			{%- endfor -%}
+		</tbody>
+	</table>
 	
-	{% if pager.haveToPaginate %}
-		{{ pagerfanta(pager, 'twitter_bootstrap', {'routeName':'cc_moderator_forum_posts_show_all_locked_paginated', 'routeParams':{}} ) }}
-	{% endif %}
+	{%- if pager.haveToPaginate -%}
+		{{- pagerfanta(pager, 'twitter_bootstrap', {'routeName':'cc_moderator_forum_posts_show_all_locked_paginated', 'routeParams':{}} ) -}}
+	{%- endif -%}
 	
 	</form>
 
-	{% include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } %}
+	{%- include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } -%}
+
+	{%- endspaceless -%}
 
 {% endblock %}
