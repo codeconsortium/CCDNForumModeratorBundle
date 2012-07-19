@@ -3,5 +3,7 @@ CCDNForum\ForumBundle\Entity\Flag:
         status:
             - NotNull: { groups: [moderate] }
         moderatorsNote:
+            - Type: { type: string, groups: [moderate] }
             - NotBlank: { groups: [moderate] }
             - MinLength: { limit: 20, groups: [moderate] }
+            - MaxLength: { limit: 2000, groups: [moderate] }
