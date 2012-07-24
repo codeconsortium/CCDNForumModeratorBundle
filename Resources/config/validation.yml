@@ -5,5 +5,5 @@ CCDNForum\ForumBundle\Entity\Flag:
         moderatorsNote:
             - Type: { type: string, groups: [moderate] }
             - NotBlank: { groups: [moderate] }
-            - MinLength: { limit: 20, groups: [moderate] }
+            - MinLength: { limit: 5, groups: [moderate] }
             - MaxLength: { limit: 2000, groups: [moderate] }
