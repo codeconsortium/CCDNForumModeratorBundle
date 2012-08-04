@@ -1,9 +1,9 @@
 parameters:
-    
+
     ccdn_forum_moderator.topic.manager.class:                     CCDNForum\ModeratorBundle\Manager\TopicManager
     ccdn_forum_moderator.post.manager.class:                      CCDNForum\ModeratorBundle\Manager\PostManager
     ccdn_forum_moderator.flag.manager.class:                      CCDNForum\ModeratorBundle\Manager\FlagManager
-    
+
     ccdn_forum_moderator.flag.form.update.type.class:             CCDNForum\ModeratorBundle\Form\Type\FlagUpdateType
     ccdn_forum_moderator.flag.form.update.handler.class:          CCDNForum\ModeratorBundle\Form\Handler\FlagUpdateFormHandler
 
@@ -13,7 +13,7 @@ parameters:
     ccdn_forum_moderator.dashboard.integrator.class:              CCDNForum\ModeratorBundle\Component\Dashboard\DashboardIntegrator
 
 services:
-    
+
     #
     # Managers.
     #
@@ -26,7 +26,7 @@ services:
     ccdn_forum_moderator.flag.manager:
         class: %ccdn_forum_moderator.flag.manager.class%
         arguments:  [@doctrine, @service_container]
-        
+
     #
     # Flag Forms.
     #

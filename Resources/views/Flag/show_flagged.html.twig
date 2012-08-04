@@ -15,7 +15,7 @@
 	{{ parent() }}
 
 	{%- include 'CCDNForumModeratorBundle:Sidebar:sidebar.html.twig' -%}
-	
+
 {% endblock %}
 
 
@@ -23,7 +23,7 @@
 	{{ parent() }}
 
 	{%- spaceless -%}
-	
+
 	<div class="well" style="padding: 8px 0 8px !important;">
 		<ul class="nav nav-list">
 			<li class="nav-header">{{- 'sidebar.header.flags_by_status' | trans({}, 'CCDNForumModeratorBundle') -}}</li>
@@ -36,19 +36,19 @@
 							<li><a href="{{- path('cc_moderator_forum_flagged_show_all_status', {'status':status_key}) -}}"><i class="icon-tag"></i>&nbsp;{{- status -}}</a></li>
 						{%- endif -%}
 					{%- else -%}
-						<li><a href="{{- path('cc_moderator_forum_flagged_show_all_status', {'status':status_key}) -}}"><i class="icon-tag"></i>&nbsp;{{- status -}}</a></li>			
+						<li><a href="{{- path('cc_moderator_forum_flagged_show_all_status', {'status':status_key}) -}}"><i class="icon-tag"></i>&nbsp;{{- status -}}</a></li>
 					{%- endif -%}
-				{%- endfor -%}	
+				{%- endfor -%}
 			{%- else -%}
 				{%- for status_key, status in status_codes -%}
 					<li><a href="{{- path('cc_moderator_forum_flagged_show_all_status', {'status':status_key}) -}}"><i class="icon-tag"></i>&nbsp;{{- status -}}</a></li>
-				{%- endfor -%}	
+				{%- endfor -%}
 			{%- endif -%}
 		</ul>
 	</div>
-	
+
 	{%- endspaceless -%}
-	
+
 {% endblock %}
 
 
@@ -73,11 +73,11 @@
 		</select>&nbsp;
 		<input type="submit" class="btn btn-danger" value="{{- 'link.flag.mark_as' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_mark_as">
 	</div>
-	
+
 	{%- if pager.haveToPaginate -%}
 		{{- pagerfanta(pager, 'twitter_bootstrap', {'routeName':'cc_moderator_forum_flagged_show_all_status_paginated', 'routeParams':{}} ) -}}
 	{%- endif -%}
-	
+
 	<table class="table">
 		<thead>
 			<tr>
@@ -105,7 +105,7 @@
 				</td>
 				<td class="left">
 					{{- 'flag.posted_on_board' | trans({}, 'CCDNForumModeratorBundle') -}}&nbsp;
-					<a href="{{- path('cc_forum_category_show', {'category_id': post.getTopic.getBoard.getCategory.id }) -}}">{{- post.getTopic.getBoard.getCategory.getName -}}</a> / 
+					<a href="{{- path('cc_forum_category_show', {'category_id': post.getTopic.getBoard.getCategory.id }) -}}">{{- post.getTopic.getBoard.getCategory.getName -}}</a> /
 					<a href="{{- path('cc_forum_board_show', {'board_id': post.getTopic.getBoard.id }) -}}">{{- post.getTopic.getBoard.getName -}}</a>
 				</td>
 			</tr>
@@ -163,13 +163,13 @@
 		{%- endfor -%}
 		</tbody>
 	</table>
-	
+
 	</form>
 
 	{%- if pager.haveToPaginate -%}
 		{{- pagerfanta(pager, 'twitter_bootstrap', {'routeName':'cc_moderator_forum_flagged_show_all_status_paginated', 'routeParams':{}} ) -}}
 	{%- endif -%}
-	
+
 	{%- include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } -%}
 
 	{%- endspaceless -%}

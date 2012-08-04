@@ -60,9 +60,9 @@ flag.table.head.reason: Reason
 flag.table.head.status: Status
 flag.table.empty: 'There are no current flags.'
 
-flag.flagged_by: Flagged by 
+flag.flagged_by: Flagged by
 flag.moderated_by: Moderated by
-flag.posted_on_board: Posted on 
+flag.posted_on_board: Posted on
 actioned.at: ' at '
 
 flag.description: 'Description: '

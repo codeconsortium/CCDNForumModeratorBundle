@@ -13,9 +13,9 @@
 
 {% block sidebar %}
 	{{ parent() }}
-	
+
 	{%- include 'CCDNForumModeratorBundle:Sidebar:sidebar.html.twig' -%}
-	
+
 {% endblock %}
 
 
@@ -28,7 +28,7 @@
 	{%- include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } -%}
 
 	<h2>{{- 'title.topic.closed' | trans({}, 'CCDNForumModeratorBundle') -}}</h2>
-	
+
 	<form method="POST" action="{{- path('cc_moderator_forum_topics_closed_bulk_action') -}}">
 
 	<div class="btn-toolbar">
@@ -37,11 +37,11 @@
 		<input type="submit" class="btn btn-primary disabled" value="{{- 'link.topic.restore' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_restore" disabled data-responds-disabled="topics" >&nbsp;
 		<input type="submit" class="btn btn-danger disabled" value="{{- 'link.topic.delete.soft' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_soft_delete" disabled data-responds-disabled="topics" >
 	</div>
-	
+
 	{%- if pager.haveToPaginate -%}
 		{{- pagerfanta(pager, 'twitter_bootstrap', {'routeName':'cc_moderator_forum_topics_closed_show_all_paginated', 'routeParams':{}} ) -}}
 	{%- endif -%}
-	
+
 	<table class="table">
 		<thead>
 			<tr>
@@ -57,29 +57,29 @@
 		<tbody>
 			{%- for row, topic in topics -%}
 				<tr class="{{- cycle(['row_odd', 'row_even'], row) -}}">
-				
+
 					<td class="center">
 						<input type="checkbox" id="topic_{{- topic.id -}}" name="check_{{- topic.id -}}" data-check-all-responds="true" data-identifier="topics">
 					</td>
-				
+
 					<td class="center">
 						{%- if topic.getClosedBy -%}
 						<i class="icon-lock">
 						{%- endif -%}
 					</td>
-				
+
 					<td class="center">
 						{%- if topic.getDeletedBy -%}
 						<i class="icon-trash">
 						{%- endif -%}
 					</td>
-				
+
 					<td class="left">
 						<span class="label label-info">{{- topic.getCachedReplyCount -}}&nbsp;{{- 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') -}}</span>&nbsp;
 						<span class="label label-info">{{- topic.getCachedViewCount -}}&nbsp;{{- 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') -}}</span>&nbsp;
 						<a class="topic_link" href="{{- path('cc_forum_topic_show', {'topic_id': topic.getId }) -}}" title="{{- topic.getTitle -}}">{{- truncDot(topic.getTitle |capitalize, param('ccdn_forum_moderator.topic.show_closed.topic_title_truncate')) -}}</a>
 					</td>
-				
+
 					<td class="right">
 						{%- if topic.getFirstPost -%}
 							{%- if topic.getFirstPost.getCreatedBy -%}
@@ -87,12 +87,12 @@
 							{%- else -%}
 								Guest
 							{%- endif -%}
-						
+
 							{%- if topic.getFirstPost.getCreatedDate -%}
 								{{- 'actioned.at' |trans({}, 'CCDNForumModeratorBundle') -}}
 								{{- topic.getFirstPost.getCreatedDate |date(param('ccdn_forum_moderator.topic.show_closed.post_created_datetime_format')) -}}
 							{%- endif -%}
-						{%- endif -%}						
+						{%- endif -%}
 					</td>
 
 					<td class="right">
@@ -116,7 +116,7 @@
 							{{- topic.getDeletedDate |date(param('ccdn_forum_moderator.topic.show_closed.topic_deleted_datetime_format')) -}}
 						{%- endif -%}
 					</td>
-				
+
 				</tr>
 			{%- else -%}
 				<tr>

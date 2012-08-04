@@ -15,7 +15,7 @@
 	{{ parent() }}
 
 	{%- include 'CCDNForumModeratorBundle:Sidebar:sidebar.html.twig' -%}
-	
+
 {% endblock %}
 
 
@@ -30,18 +30,18 @@
 	<h2>{{- 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') -}}</h2>
 
 	<form method="POST" action="{{- path('cc_moderator_forum_posts_bulk_action') -}}">
-	
+
 	<div class="btn-toolbar">
 		<input type="submit" class="btn btn-primary disabled" value="{{- 'link.post.lock' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_lock" disabled data-responds-disabled="posts">&nbsp;
 		<input type="submit" class="btn btn-primary disabled" value="{{- 'link.post.unlock' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_unlock" disabled data-responds-disabled="posts">&nbsp;
 		<input type="submit" class="btn btn-primary disabled" value="{{- 'link.topic.restore' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_restore" disabled data-responds-disabled="posts">&nbsp;
 		<input type="submit" class="btn btn-danger disabled" value="{{- 'link.topic.delete.soft' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_soft_delete" disabled data-responds-disabled="posts">
 	</div>
-	
+
 	{%- if pager.haveToPaginate -%}
 		{{- pagerfanta(pager, 'twitter_bootstrap', {'routeName':'cc_moderator_forum_posts_show_all_locked_paginated', 'routeParams':{}} ) -}}
 	{%- endif -%}
-	
+
 	<table class="table">
 		<thead>
 			<tr>
@@ -49,7 +49,7 @@
 				<th class="center"><i class="icon-lock"></i></th>
 				<th class="center"><i class="icon-trash"></i></th>
 				<th class="center">{{- 'board.table.head.post_number' | trans({}, 'CCDNForumForumBundle') -}}</th>
-				<th class="left">{{- 'board.table.head.topic_title' | trans({}, 'CCDNForumForumBundle') -}}</th>				
+				<th class="left">{{- 'board.table.head.topic_title' | trans({}, 'CCDNForumForumBundle') -}}</th>
 				<th class="center">{{- 'board.table.head.created_by' | trans({}, 'CCDNForumForumBundle') -}}</th>
 				<th class="center">{{- 'board.table.head.locked_by' | trans({}, 'CCDNForumForumBundle') -}}</th>
 				<th class="center">{{- 'board.table.head.deleted_by' | trans({}, 'CCDNForumForumBundle') -}}</th>
@@ -58,31 +58,31 @@
 		<tbody>
 			{%- for row, post in posts -%}
 				<tr class="{{- cycle(['row_odd', 'row_even'], row) -}}">
-				
+
 					<td class="center">
 						<input type="checkbox" id="post_{{- post.id -}}" name="check_{{- post.id -}}" data-check-all-responds="true" data-identifier="posts">
 					</td>
-				
+
 					<td class="center">
 						{%- if post.getLockedBy -%}
 						<i class="icon-lock"></i>
 						{%- endif -%}
 					</td>
-				
+
 					<td class="center">
 						{%- if post.getDeletedBy -%}
 						<i class="icon-trash"></i>
 						{%- endif -%}
 					</td>
-				
+
 					<td class="center">
 						<a href="{{- path('cc_forum_post_show', {'post_id': post.getId }) -}}">#{{- post.getId -}}</a>
 					</td>
-				
+
 					<td class="left">
 						{%- if post.getTopic -%}
 							<span class="label label-info">{{- post.getTopic.getCachedReplyCount -}}&nbsp;{{- 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') -}}</span>&nbsp;
-							<span class="label label-info">{{- post.getTopic.getCachedViewCount -}}&nbsp;{{- 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') -}}</span>&nbsp;				
+							<span class="label label-info">{{- post.getTopic.getCachedViewCount -}}&nbsp;{{- 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') -}}</span>&nbsp;
 							<a href="{{- path('cc_forum_topic_show', {'topic_id': post.getTopic.getId }) -}}" title="{{- post.getTopic.getTitle -}}">{{- truncDot(post.getTopic.getTitle |capitalize, param('ccdn_forum_moderator.post.show_locked.topic_title_truncate')) -}}</a>
 						{%- endif -%}
 					</td>
@@ -97,7 +97,7 @@
 							{{- post.getCreatedDate |date(param('ccdn_forum_moderator.post.show_locked.post_created_datetime_format')) -}}
 						{%- endif -%}
 					</td>
-				
+
 					<td class="right">
 						{%- if post.getLockedBy -%}
 							<a href="{{- path(user_profile_route, {'user_id': post.getDeletedBy }) -}}">{{- post.getLockedBy.getUsername |capitalize -}}</a>
@@ -108,7 +108,7 @@
 							{{- post.getLockedDate |date(param('ccdn_forum_moderator.post.show_locked.post_locked_datetime_format')) -}}
 						{%- endif -%}
 					</td>
-				
+
 					<td class="right">
 						{%- if post.getDeletedBy -%}
 							<a href="{{- path(user_profile_route, {'user_id': post.getDeletedBy }) -}}">{{- post.getDeletedBy.getUsername |capitalize -}}</a>
@@ -119,7 +119,7 @@
 							{{- post.getDeletedDate |date(param('ccdn_forum_moderator.post.show_locked.post_deleted_datetime_format')) -}}
 						{%- endif -%}
 					</td>
-				
+
 				</tr>
 			{%- else -%}
 				<tr>
@@ -130,11 +130,11 @@
 			{%- endfor -%}
 		</tbody>
 	</table>
-	
+
 	{%- if pager.haveToPaginate -%}
 		{{- pagerfanta(pager, 'twitter_bootstrap', {'routeName':'cc_moderator_forum_posts_show_all_locked_paginated', 'routeParams':{}} ) -}}
 	{%- endif -%}
-	
+
 	</form>
 
 	{%- include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } -%}

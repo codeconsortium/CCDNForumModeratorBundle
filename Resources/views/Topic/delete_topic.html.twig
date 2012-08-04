@@ -10,14 +10,14 @@
 	{{ parent() }}
 
 	{%- include 'CCDNForumModeratorBundle:Sidebar:sidebar.html.twig' -%}
-	
+
 {% endblock %}
 
 
 {% block body %}
 
 	{%- spaceless -%}
-	
+
 	{%- include 'CCDNComponentCommonBundle:Flashes:flashes.html.twig' -%}
 
 	{%- include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } -%}
@@ -29,13 +29,13 @@
 		<div class="form-question">
 			<h3>{{- 'topic.delete_topic_question' | trans({}, 'CCDNForumForumBundle') -}}</h3>
 		</div>
-	
+
 		<div class="form-answer">
 			<a class="btn btn-danger" href="{{- path('cc_moderator_forum_topic_delete_confirmed', {'topic_id': topic.id }) -}}">{{- 'post.delete.confirm_yes' | trans({}, 'CCDNForumForumBundle') -}}</a>
 			&nbsp;&nbsp;&nbsp;
 			<a class="btn" href="{{- path('cc_forum_topic_show', {'topic_id': topic.id }) -}}">{{- 'post.delete.confirm_no' | trans({}, 'CCDNForumForumBundle') -}}</a>
 		</div>
-	
+
 	</div>
 
 	{%- include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } -%}
