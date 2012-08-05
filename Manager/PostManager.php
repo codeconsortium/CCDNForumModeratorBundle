@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the CCDN ForumBundle
+ * This file is part of the CCDNForum ModeratorBundle
  *
  * (c) CCDN (c) CodeConsortium <http://www.codeconsortium.com/>
  *
@@ -13,7 +13,7 @@
 
 namespace CCDNForum\ModeratorBundle\Manager;
 
-use CCDNComponent\CommonBundle\Manager\ManagerInterface;
+use CCDNForum\ModeratorBundle\Manager\ManagerInterface;
 use CCDNForum\ForumBundle;
 
 /**
@@ -147,11 +147,11 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
             }
         }
 
-        $this->flushNow();
+        $this->flush();
 
         if (count($boards_to_update) > 0) {
             // Update all affected board stats.
-            $this->container->get('ccdn_forum_forum.board.manager')->bulkUpdateStats($boards_to_update)->flushNow();
+            $this->container->get('ccdn_forum_forum.board.manager')->bulkUpdateStats($boards_to_update)->flush();
         }
 
         return $this;
@@ -196,11 +196,11 @@ class PostManager extends ForumBundle\Manager\PostManager implements ManagerInte
             $this->persist($post);
         }
 
-        $this->flushNow();
+        $this->flush();
 
         if (count($boards_to_update) > 0) {
             // Update all affected board stats.
-            $this->container->get('ccdn_forum_forum.board.manager')->bulkUpdateStats($boards_to_update)->flushNow();
+            $this->container->get('ccdn_forum_forum.board.manager')->bulkUpdateStats($boards_to_update)->flush();
         }
 
         return $this;

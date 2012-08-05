@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use CCDNComponent\CommonBundle\Manager\ManagerInterface;
+use CCDNForum\ModeratorBundle\Manager\ManagerInterface;
 
 /**
  *
@@ -148,7 +148,7 @@ class TopicChangeBoardFormHandler
      */
     protected function onSuccess($topic)
     {
-        $this->manager->update($topic)->flushNow();
+        $this->manager->update($topic)->flush();
 
         $boardManager = $this->container->get('ccdn_forum_forum.board.manager');
 
@@ -156,14 +156,14 @@ class TopicChangeBoardFormHandler
         // Update stats of the topics old board.
         //
         if ($this->oldBoard) {
-            $boardManager->updateStats($this->oldBoard)->flushNow();
+            $boardManager->updateStats($this->oldBoard)->flush();
         }
 
         //
         // Setup stats on the topics new board.
         //
         if ($topic->getBoard()) {
-            $boardManager->updateStats($topic->getBoard())->flushNow();
+            $boardManager->updateStats($topic->getBoard())->flush();
         }
     }
 

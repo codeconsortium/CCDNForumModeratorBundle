@@ -84,7 +84,7 @@ class PostController extends ContainerAware
             throw new NotFoundHttpException('No such post exists!');
         }
 
-        $this->container->get('ccdn_forum_moderator.post.manager')->lock($post, $user)->flushNow();
+        $this->container->get('ccdn_forum_moderator.post.manager')->lock($post, $user)->flush();
 
         $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.lock.success', array('%post_id%' => $post_id), 'CCDNForumModeratorBundle'));
 
@@ -109,7 +109,7 @@ class PostController extends ContainerAware
             throw new NotFoundHttpException('No such post exists!');
         }
 
-        $this->container->get('ccdn_forum_moderator.post.manager')->unlock($post)->flushNow();
+        $this->container->get('ccdn_forum_moderator.post.manager')->unlock($post)->flush();
 
         $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.unlock.success', array('%post_id%' => $post_id), 'CCDNForumModeratorBundle'));
 
@@ -134,7 +134,7 @@ class PostController extends ContainerAware
             throw new NotFoundHttpException('No such post exists!');
         }
 
-        $this->container->get('ccdn_forum_moderator.post.manager')->restore($post)->flushNow();
+        $this->container->get('ccdn_forum_moderator.post.manager')->restore($post)->flush();
 
         // set flash message
         $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.restore.success', array('%post_id%' => $post_id), 'CCDNForumModeratorBundle'));
@@ -190,16 +190,16 @@ class PostController extends ContainerAware
         }
 
         if (isset($_POST['submit_lock'])) {
-            $this->container->get('ccdn_forum_moderator.post.manager')->bulkLock($posts, $user)->flushNow();
+            $this->container->get('ccdn_forum_moderator.post.manager')->bulkLock($posts, $user)->flush();
         }
         if (isset($_POST['submit_unlock'])) {
-            $this->container->get('ccdn_forum_moderator.post.manager')->bulkUnlock($posts)->flushNow();
+            $this->container->get('ccdn_forum_moderator.post.manager')->bulkUnlock($posts)->flush();
         }
         if (isset($_POST['submit_restore'])) {
-            $this->container->get('ccdn_forum_moderator.post.manager')->bulkRestore($posts)->flushNow();
+            $this->container->get('ccdn_forum_moderator.post.manager')->bulkRestore($posts)->flush();
         }
         if (isset($_POST['submit_soft_delete'])) {
-            $this->container->get('ccdn_forum_moderator.post.manager')->bulkSoftDelete($posts, $user)->flushNow();
+            $this->container->get('ccdn_forum_moderator.post.manager')->bulkSoftDelete($posts, $user)->flush();
         }
 
         return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_posts_show_all_locked'));

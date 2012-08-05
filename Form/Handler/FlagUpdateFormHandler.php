@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use CCDNComponent\CommonBundle\Manager\ManagerInterface;
+use CCDNForum\ModeratorBundle\Manager\ManagerInterface;
 
 /**
  *
@@ -143,7 +143,7 @@ class FlagUpdateFormHandler
      */
     protected function onSuccess($entity)
     {
-        $this->manager->update($entity)->flushNow();
+        $this->manager->update($entity)->flush();
     }
 
 }

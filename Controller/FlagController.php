@@ -224,13 +224,13 @@ class FlagController extends ContainerAware
         $statusName = array_search($statusCode, $statusCodes);
 
         if (isset($_POST['submit_delete'])) {
-            $this->container->get('ccdn_forum_moderator.flag.manager')->bulkDelete($flags)->flushNow();
+            $this->container->get('ccdn_forum_moderator.flag.manager')->bulkDelete($flags)->flush();
         }
         if (isset($_POST['submit_mark_as'])) {
             $markAs = (int) $_POST['select_mark_as'];
 
             if (is_int($markAs) == true) {
-                $this->container->get('ccdn_forum_moderator.flag.manager')->bulkMarkAs($flags, $markAs)->flushNow();
+                $this->container->get('ccdn_forum_moderator.flag.manager')->bulkMarkAs($flags, $markAs)->flush();
             } else {
                 $this->container->get('session')->setFlash('error', $this->container->get('translator')->trans('flash.flag.bad_status', array(), 'CCDNForumModeratorBundle'));
             }

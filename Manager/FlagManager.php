@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the CCDN ForumBundle
+ * This file is part of the CCDNForum ModeratorBundle
  *
  * (c) CCDN (c) CodeConsortium <http://www.codeconsortium.com/>
  *
@@ -13,7 +13,7 @@
 
 namespace CCDNForum\ModeratorBundle\Manager;
 
-use CCDNComponent\CommonBundle\Manager\ManagerInterface;
+use CCDNForum\ModeratorBundle\Manager\ManagerInterface;
 use CCDNForum\ForumBundle;
 
 /**

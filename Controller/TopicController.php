@@ -82,7 +82,7 @@ class TopicController extends ContainerAware
             throw new NotFoundHttpException('No such topic exists!');
         }
 
-        $this->container->get('ccdn_forum_moderator.topic.manager')->sticky($topic, $user)->flushNow();
+        $this->container->get('ccdn_forum_moderator.topic.manager')->sticky($topic, $user)->flush();
 
         $this->container->get('session')->setFlash('success', $this->container->get('translator')->trans('flash.topic.sticky.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 
@@ -107,7 +107,7 @@ class TopicController extends ContainerAware
             throw new NotFoundHttpException('No such topic exists!');
         }
 
-        $this->container->get('ccdn_forum_moderator.topic.manager')->unsticky($topic)->flushNow();
+        $this->container->get('ccdn_forum_moderator.topic.manager')->unsticky($topic)->flush();
 
         $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.unsticky.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 
@@ -136,7 +136,7 @@ class TopicController extends ContainerAware
             throw new NotFoundHttpException('No such topic exists!');
         }
 
-        $this->container->get('ccdn_forum_moderator.topic.manager')->close($topic, $user)->flushNow();
+        $this->container->get('ccdn_forum_moderator.topic.manager')->close($topic, $user)->flush();
 
         $this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('flash.topic.close.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 
@@ -163,7 +163,7 @@ class TopicController extends ContainerAware
             throw new NotFoundHttpException('No such topic exists!');
         }
 
-        $this->container->get('ccdn_forum_moderator.topic.manager')->reopen($topic)->flushNow();
+        $this->container->get('ccdn_forum_moderator.topic.manager')->reopen($topic)->flush();
 
         $this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('flash.topic.reopen.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 
@@ -188,7 +188,7 @@ class TopicController extends ContainerAware
             throw new NotFoundHttpException('No such topic exists!');
         }
 
-        $this->container->get('ccdn_forum_moderator.topic.manager')->restore($topic)->flushNow();
+        $this->container->get('ccdn_forum_moderator.topic.manager')->restore($topic)->flush();
 
         // set flash message
         $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.restore.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
@@ -261,7 +261,7 @@ class TopicController extends ContainerAware
             throw new NotFoundHttpException('No such topic exists!');
         }
 
-        $this->container->get('ccdn_forum_moderator.topic.manager')->softDelete($topic, $user)->flushNow();
+        $this->container->get('ccdn_forum_moderator.topic.manager')->softDelete($topic, $user)->flush();
 
         // set flash message
         $this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('flash.topic.delete.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
@@ -361,16 +361,16 @@ class TopicController extends ContainerAware
         }
 
         if (isset($_POST['submit_close'])) {
-            $this->container->get('ccdn_forum_moderator.topic.manager')->bulkClose($topics, $user)->flushNow();
+            $this->container->get('ccdn_forum_moderator.topic.manager')->bulkClose($topics, $user)->flush();
         }
         if (isset($_POST['submit_reopen'])) {
-            $this->container->get('ccdn_forum_moderator.topic.manager')->bulkReopen($topics)->flushNow();
+            $this->container->get('ccdn_forum_moderator.topic.manager')->bulkReopen($topics)->flush();
         }
         if (isset($_POST['submit_restore'])) {
-            $this->container->get('ccdn_forum_moderator.topic.manager')->bulkRestore($topics)->flushNow();
+            $this->container->get('ccdn_forum_moderator.topic.manager')->bulkRestore($topics)->flush();
         }
         if (isset($_POST['submit_soft_delete'])) {
-            $this->container->get('ccdn_forum_moderator.topic.manager')->bulkSoftDelete($topics, $user)->flushNow();
+            $this->container->get('ccdn_forum_moderator.topic.manager')->bulkSoftDelete($topics, $user)->flush();
         }
 
         return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_topics_closed_show_all'));
