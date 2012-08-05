@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the CCDN ModeratorBundle
+ * This file is part of the CCDNForum ModeratorBundle
  *
  * (c) CCDN (c) CodeConsortium <http://www.codeconsortium.com/>
  *
@@ -13,9 +13,9 @@
 
 namespace CCDNForum\ModeratorBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  *
