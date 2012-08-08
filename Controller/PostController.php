@@ -50,8 +50,8 @@ class PostController extends ContainerAware
 
         // setup crumb trail.
         $crumb_trail = $this->container->get('ccdn_component_crumb.trail')
-            ->add($this->container->get('translator')->trans('crumbs.dashboard.moderator', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_dashboard_show', array('category' => 'moderator')), "sitemap")
-            ->add($this->container->get('translator')->trans('crumbs.post.locked.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('cc_moderator_forum_posts_show_all_locked'), "home");
+            ->add($this->container->get('translator')->trans('crumbs.dashboard.moderator', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('ccdn_component_dashboard_show', array('category' => 'moderator')), "sitemap")
+            ->add($this->container->get('translator')->trans('crumbs.post.locked.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('ccdn_forum_moderator_post_show_all_locked'), "home");
 
         return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Post:show_locked.html.' . $this->getEngine(), array(
             'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
@@ -88,7 +88,7 @@ class PostController extends ContainerAware
 
         $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.lock.success', array('%post_id%' => $post_id), 'CCDNForumModeratorBundle'));
 
-        return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $post->getTopic()->getId()) ));
+        return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topic_id' => $post->getTopic()->getId()) ));
     }
 
     /**
@@ -113,7 +113,7 @@ class PostController extends ContainerAware
 
         $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.unlock.success', array('%post_id%' => $post_id), 'CCDNForumModeratorBundle'));
 
-        return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $post->getTopic()->getId()) ));
+        return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topic_id' => $post->getTopic()->getId()) ));
     }
 
     /**
@@ -140,7 +140,7 @@ class PostController extends ContainerAware
         $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.restore.success', array('%post_id%' => $post_id), 'CCDNForumModeratorBundle'));
 
         // forward user
-        return new RedirectResponse($this->container->get('router')->generate('cc_forum_topic_show', array('topic_id' => $post->getTopic()->getId()) ));
+        return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topic_id' => $post->getTopic()->getId()) ));
     }
 
     /**
@@ -176,7 +176,7 @@ class PostController extends ContainerAware
         // Don't bother if there are no flags to process.
         //
         if (count($itemIds) < 1) {
-            return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_posts_show_all_locked'));
+            return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_moderator_post_show_all_locked'));
         }
 
         $user = $this->container->get('security.context')->getToken()->getUser();
@@ -186,7 +186,7 @@ class PostController extends ContainerAware
         if ( ! $posts || empty($posts)) {
             $this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('flash.post.no_posts_found', array(), 'CCDNForumModeratorBundle'));
 
-            return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_posts_show_all_locked'));
+            return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_moderator_post_show_all_locked'));
         }
 
         if (isset($_POST['submit_lock'])) {
@@ -202,7 +202,7 @@ class PostController extends ContainerAware
             $this->container->get('ccdn_forum_moderator.post.manager')->bulkSoftDelete($posts, $user)->flush();
         }
 
-        return new RedirectResponse($this->container->get('router')->generate('cc_moderator_forum_posts_show_all_locked'));
+        return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_moderator_post_show_all_locked'));
     }
 
     /**

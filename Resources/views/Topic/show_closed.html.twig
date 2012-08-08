@@ -29,7 +29,7 @@
 
 	<h2>{{- 'title.topic.closed' | trans({}, 'CCDNForumModeratorBundle') -}}</h2>
 
-	<form method="POST" action="{{- path('cc_moderator_forum_topics_closed_bulk_action') -}}">
+	<form method="POST" action="{{- path('ccdn_forum_moderator_topic_bulk_action_closed') -}}">
 
 	<div class="btn-toolbar" style="display:block !important;clear:both !important;">
 		<div class="pull-left">
@@ -40,7 +40,7 @@
 		</div>
 		{%- if pager.haveToPaginate -%}
 			<div class="pull-right">
-		    	{{- pagerfanta(pager, 'twitter_bootstrap_compact', {'routeName':'cc_moderator_forum_topics_closed_show_all_paginated', 'routeParams':{}}) -}}
+		    	{{- pagerfanta(pager, 'twitter_bootstrap_compact', {'routeName':'ccdn_forum_moderator_topic_show_all_closed_paginated', 'routeParams':{}}) -}}
 			</div>
 		{%- endif -%}
 		<br><br>
@@ -81,7 +81,7 @@
 					<td class="left">
 						<span class="label label-info">{{- topic.getCachedReplyCount -}}&nbsp;{{- 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') -}}</span>&nbsp;
 						<span class="label label-info">{{- topic.getCachedViewCount -}}&nbsp;{{- 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') -}}</span>&nbsp;
-						<a class="topic_link" href="{{- path('cc_forum_topic_show', {'topic_id': topic.getId }) -}}" title="{{- topic.getTitle -}}">{{- truncDot(topic.getTitle |capitalize, param('ccdn_forum_moderator.topic.show_closed.topic_title_truncate')) -}}</a>
+						<a class="topic_link" href="{{- path('ccdn_forum_forum_topic_show', {'topic_id': topic.getId }) -}}" title="{{- topic.getTitle -}}">{{- truncDot(topic.getTitle |capitalize, param('ccdn_forum_moderator.topic.show_closed.topic_title_truncate')) -}}</a>
 					</td>
 
 					<td class="right">
@@ -137,7 +137,7 @@
 		</div>
 		{%- if pager.haveToPaginate -%}
 			<div class="pull-right">
-		    	{{- pagerfanta(pager, 'twitter_bootstrap_compact', {'routeName':'cc_moderator_forum_topics_closed_show_all_paginated', 'routeParams':{}}) -}}
+		    	{{- pagerfanta(pager, 'twitter_bootstrap_compact', {'routeName':'ccdn_forum_moderator_topic_show_all_closed_paginated', 'routeParams':{}}) -}}
 			</div>
 		{%- endif -%}
 		<br><br>

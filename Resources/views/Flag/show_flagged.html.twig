@@ -27,21 +27,21 @@
 	<div class="well" style="padding: 8px 0 8px !important;">
 		<ul class="nav nav-list">
 			<li class="nav-header">{{- 'sidebar.header.flags_by_status' | trans({}, 'CCDNForumModeratorBundle') -}}</li>
-			{%- if app.request.attributes.get('_route') == 'cc_moderator_forum_flagged_show_all_status' or app.request.attributes.get('_route') == 'cc_moderator_forum_flagged_show_all_status_paginated' -%}
+			{%- if app.request.attributes.get('_route') == 'ccdn_forum_moderator_flagged_show_all_status' or app.request.attributes.get('_route') == 'ccdn_forum_moderator_flagged_show_all_status_paginated' -%}
 				{%- for status_key, status in status_codes -%}
 					{%- if app.request.get('status') -%}
 						{%- if app.request.get('status') == status_key -%}
-							<li class="active"><a href="{{- path('cc_moderator_forum_flagged_show_all_status', {'status':status_key}) -}}"><i class="icon-white icon-tag"></i>&nbsp;{{- status -}}</a></li>
+							<li class="active"><a href="{{- path('ccdn_forum_moderator_flagged_show_all_status', {'status':status_key}) -}}"><i class="icon-white icon-tag"></i>&nbsp;{{- status -}}</a></li>
 						{%- else -%}
-							<li><a href="{{- path('cc_moderator_forum_flagged_show_all_status', {'status':status_key}) -}}"><i class="icon-tag"></i>&nbsp;{{- status -}}</a></li>
+							<li><a href="{{- path('ccdn_forum_moderator_flagged_show_all_status', {'status':status_key}) -}}"><i class="icon-tag"></i>&nbsp;{{- status -}}</a></li>
 						{%- endif -%}
 					{%- else -%}
-						<li><a href="{{- path('cc_moderator_forum_flagged_show_all_status', {'status':status_key}) -}}"><i class="icon-tag"></i>&nbsp;{{- status -}}</a></li>
+						<li><a href="{{- path('ccdn_forum_moderator_flagged_show_all_status', {'status':status_key}) -}}"><i class="icon-tag"></i>&nbsp;{{- status -}}</a></li>
 					{%- endif -%}
 				{%- endfor -%}
 			{%- else -%}
 				{%- for status_key, status in status_codes -%}
-					<li><a href="{{- path('cc_moderator_forum_flagged_show_all_status', {'status':status_key}) -}}"><i class="icon-tag"></i>&nbsp;{{- status -}}</a></li>
+					<li><a href="{{- path('ccdn_forum_moderator_flagged_show_all_status', {'status':status_key}) -}}"><i class="icon-tag"></i>&nbsp;{{- status -}}</a></li>
 				{%- endfor -%}
 			{%- endif -%}
 		</ul>
@@ -62,7 +62,7 @@
 
 	<h2>{{- 'title.flag.show.all' | trans({}, 'CCDNForumModeratorBundle') -}}</h2>
 
-	<form method="POST" action="{{- path('cc_moderate_forum_flag_action_bulk') -}}">
+	<form method="POST" action="{{- path('ccdn_forum_moderator_flag_bulk_action') -}}">
 
 	<div class="btn-toolbar" style="display:block !important;clear:both !important;">
 		<div class="pull-left">
@@ -76,7 +76,7 @@
 		</div>
 		{%- if pager.haveToPaginate -%}
 			<div class="pull-right">
-		    	{{- pagerfanta(pager, 'twitter_bootstrap_compact', {'routeName':'cc_moderator_forum_flagged_show_all_status_paginated', 'routeParams':{}}) -}}
+		    	{{- pagerfanta(pager, 'twitter_bootstrap_compact', {'routeName':'ccdn_forum_moderator_flagged_show_all_status_paginated', 'routeParams':{}}) -}}
 			</div>
 		{%- endif -%}
 		<br><br>
@@ -97,7 +97,7 @@
 				<td class="center"><i class="icon-comment"></i></td>
 				<td class="left">
 					{%- if post.getTopic -%}
-						<a href="{{- path('cc_forum_topic_show', {'topic_id': post.getTopic.getId }) -}}" title="{{- post.getTopic.getTitle -}}">#{{- post.getId -}}&nbsp;{{- truncDot(post.getTopic.getTitle, param('ccdn_forum_moderator.flag.show_flagged.topic_title_truncate')) -}}</a>
+						<a href="{{- path('ccdn_forum_forum_topic_show', {'topic_id': post.getTopic.getId }) -}}" title="{{- post.getTopic.getTitle -}}">#{{- post.getId -}}&nbsp;{{- truncDot(post.getTopic.getTitle, param('ccdn_forum_moderator.flag.show_flagged.topic_title_truncate')) -}}</a>
 					{%- endif -%}
 					<br>
 					{{- 'post.posted_by' | trans({}, 'CCDNForumForumBundle') -}}
@@ -110,8 +110,8 @@
 				</td>
 				<td class="left">
 					{{- 'flag.posted_on_board' | trans({}, 'CCDNForumModeratorBundle') -}}&nbsp;
-					<a href="{{- path('cc_forum_category_show', {'category_id': post.getTopic.getBoard.getCategory.id }) -}}">{{- post.getTopic.getBoard.getCategory.getName -}}</a> /
-					<a href="{{- path('cc_forum_board_show', {'board_id': post.getTopic.getBoard.id }) -}}">{{- post.getTopic.getBoard.getName -}}</a>
+					<a href="{{- path('ccdn_forum_forum_category_show', {'category_id': post.getTopic.getBoard.getCategory.id }) -}}">{{- post.getTopic.getBoard.getCategory.getName -}}</a> /
+					<a href="{{- path('ccdn_forum_forum_board_show', {'board_id': post.getTopic.getBoard.id }) -}}">{{- post.getTopic.getBoard.getName -}}</a>
 				</td>
 			</tr>
 			<tr class="{{- cycler(['row_odd', 'row_even'], 'posts') -}}">
@@ -137,7 +137,7 @@
 									</td>
 									<td class="center"><i class="icon-flag"></i></td>
 									<td class="left">
-										<a href="{{- path('cc_moderator_forum_flag_show', {'flag_id': flag.getId }) -}}">{{- reason_codes[flag.getReason] -}}</a>
+										<a href="{{- path('ccdn_forum_moderator_flag_show', {'flag_id': flag.getId }) -}}">{{- reason_codes[flag.getReason] -}}</a>
 									</td>
 									<td class="center" style="width: 200px;">
 										{%- if flag.getFlaggedBy -%}
@@ -150,7 +150,7 @@
 										{{- flag.getFlaggedDate |date(param('ccdn_forum_moderator.flag.show_flagged.flag_created_datetime_format')) -}}
 									</td>
 									<td class="center" style="width: 100px;">
-										<a href="{{- path('cc_moderator_forum_flag_show', {'flag_id': flag.getId }) -}}">{{- status_codes[flag.getStatus] -}}</a>
+										<a href="{{- path('ccdn_forum_moderator_flag_show', {'flag_id': flag.getId }) -}}">{{- status_codes[flag.getStatus] -}}</a>
 									</td>
 								</tr>
 								{%- endfor -%}
@@ -176,7 +176,7 @@
 		</div>
 		{%- if pager.haveToPaginate -%}
 			<div class="pull-right">
-		    	{{- pagerfanta(pager, 'twitter_bootstrap_compact', {'routeName':'cc_moderator_forum_flagged_show_all_status_paginated', 'routeParams':{}}) -}}
+		    	{{- pagerfanta(pager, 'twitter_bootstrap_compact', {'routeName':'ccdn_forum_moderator_flagged_show_all_status_paginated', 'routeParams':{}}) -}}
 			</div>
 		{%- endif -%}
 		<br><br>

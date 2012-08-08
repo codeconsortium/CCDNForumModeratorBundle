@@ -3,22 +3,22 @@
 
 	<li class="nav-header">{{- 'sidebar.header.tools' | trans({}, 'CCDNForumModeratorBundle') -}}</li>
 
-	{%- if route == 'cc_moderator_forum_flagged_show_all' -%}
-		<li class="active"><a href="{{- path('cc_moderator_forum_flagged_show_all', {}) -}}"><i class="icon-white icon-flag"></i>&nbsp;{{- 'sidebar.link.show_all_flagged_posts' | trans({}, 'CCDNForumModeratorBundle') -}}</a></li>
+	{%- if route == 'ccdn_forum_moderator_flagged_show_all' -%}
+		<li class="active"><a href="{{- path('ccdn_forum_moderator_flagged_show_all', {}) -}}"><i class="icon-white icon-flag"></i>&nbsp;{{- 'sidebar.link.show_all_flagged_posts' | trans({}, 'CCDNForumModeratorBundle') -}}</a></li>
 	{%- else -%}
-		<li><a href="{{- path('cc_moderator_forum_flagged_show_all', {}) -}}"><i class="icon-flag"></i>&nbsp;{{- 'sidebar.link.show_all_flagged_posts' | trans({}, 'CCDNForumModeratorBundle') -}}</a></li>
+		<li><a href="{{- path('ccdn_forum_moderator_flagged_show_all', {}) -}}"><i class="icon-flag"></i>&nbsp;{{- 'sidebar.link.show_all_flagged_posts' | trans({}, 'CCDNForumModeratorBundle') -}}</a></li>
 	{%- endif -%}
 
-	{%- if route == 'cc_moderator_forum_posts_show_all_locked' -%}
-		<li class="active"><a href="{{- path('cc_moderator_forum_posts_show_all_locked', {}) -}}"><i class="icon-white icon-lock"></i>&nbsp;{{- 'sidebar.link.show_all_locked_posts' | trans({}, 'CCDNForumModeratorBundle') -}}</a></li>
+	{%- if route == 'ccdn_forum_moderator_post_show_all_locked' -%}
+		<li class="active"><a href="{{- path('ccdn_forum_moderator_post_show_all_locked', {}) -}}"><i class="icon-white icon-lock"></i>&nbsp;{{- 'sidebar.link.show_all_locked_posts' | trans({}, 'CCDNForumModeratorBundle') -}}</a></li>
 	{%- else -%}
-		<li><a href="{{- path('cc_moderator_forum_posts_show_all_locked', {}) -}}"><i class="icon-lock"></i>&nbsp;{{- 'sidebar.link.show_all_locked_posts' | trans({}, 'CCDNForumModeratorBundle') -}}</a></li>
+		<li><a href="{{- path('ccdn_forum_moderator_post_show_all_locked', {}) -}}"><i class="icon-lock"></i>&nbsp;{{- 'sidebar.link.show_all_locked_posts' | trans({}, 'CCDNForumModeratorBundle') -}}</a></li>
 	{%- endif -%}
 
-	{%- if route == 'cc_moderator_forum_topics_closed_show_all' -%}
-		<li class="active"><a href="{{- path('cc_moderator_forum_topics_closed_show_all', {}) -}}"><i class="icon-white icon-lock"></i>&nbsp;{{- 'sidebar.link.show_all_closed_topics' | trans({}, 'CCDNForumModeratorBundle') -}}</a></li>
+	{%- if route == 'ccdn_forum_moderator_topic_show_all_closed' -%}
+		<li class="active"><a href="{{- path('ccdn_forum_moderator_topic_show_all_closed', {}) -}}"><i class="icon-white icon-lock"></i>&nbsp;{{- 'sidebar.link.show_all_closed_topics' | trans({}, 'CCDNForumModeratorBundle') -}}</a></li>
 	{%- else -%}
-		<li><a href="{{- path('cc_moderator_forum_topics_closed_show_all', {}) -}}"><i class="icon-lock"></i>&nbsp;{{- 'sidebar.link.show_all_closed_topics' | trans({}, 'CCDNForumModeratorBundle') -}}</a></li>
+		<li><a href="{{- path('ccdn_forum_moderator_topic_show_all_closed', {}) -}}"><i class="icon-lock"></i>&nbsp;{{- 'sidebar.link.show_all_closed_topics' | trans({}, 'CCDNForumModeratorBundle') -}}</a></li>
 	{%- endif -%}
 
 {%- endspaceless -%}

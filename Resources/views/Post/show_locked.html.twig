@@ -29,7 +29,7 @@
 
 	<h2>{{- 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') -}}</h2>
 
-	<form method="POST" action="{{- path('cc_moderator_forum_posts_bulk_action') -}}">
+	<form method="POST" action="{{- path('ccdn_forum_moderator_post_bulk_action') -}}">
 
 	<div class="btn-toolbar" style="display:block !important;clear:both !important;">
 		<div class="pull-left">
@@ -40,7 +40,7 @@
 		</div>
 		{%- if pager.haveToPaginate -%}
 			<div class="pull-right">
-		    	{{- pagerfanta(pager, 'twitter_bootstrap_compact', {'routeName':'cc_moderator_forum_posts_show_all_locked_paginated', 'routeParams':{}}) -}}
+		    	{{- pagerfanta(pager, 'twitter_bootstrap_compact', {'routeName':'ccdn_forum_moderator_post_show_all_locked_paginated', 'routeParams':{}}) -}}
 			</div>
 		{%- endif -%}
 		<br><br>
@@ -80,14 +80,14 @@
 					</td>
 
 					<td class="center">
-						<a href="{{- path('cc_forum_post_show', {'post_id': post.getId }) -}}">#{{- post.getId -}}</a>
+						<a href="{{- path('ccdn_forum_forum_post_show', {'post_id': post.getId }) -}}">#{{- post.getId -}}</a>
 					</td>
 
 					<td class="left">
 						{%- if post.getTopic -%}
 							<span class="label label-info">{{- post.getTopic.getCachedReplyCount -}}&nbsp;{{- 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') -}}</span>&nbsp;
 							<span class="label label-info">{{- post.getTopic.getCachedViewCount -}}&nbsp;{{- 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') -}}</span>&nbsp;
-							<a href="{{- path('cc_forum_topic_show', {'topic_id': post.getTopic.getId }) -}}" title="{{- post.getTopic.getTitle -}}">{{- truncDot(post.getTopic.getTitle |capitalize, param('ccdn_forum_moderator.post.show_locked.topic_title_truncate')) -}}</a>
+							<a href="{{- path('ccdn_forum_forum_topic_show', {'topic_id': post.getTopic.getId }) -}}" title="{{- post.getTopic.getTitle -}}">{{- truncDot(post.getTopic.getTitle |capitalize, param('ccdn_forum_moderator.post.show_locked.topic_title_truncate')) -}}</a>
 						{%- endif -%}
 					</td>
 
@@ -140,7 +140,7 @@
 		</div>
 		{%- if pager.haveToPaginate -%}
 			<div class="pull-right">
-		    	{{- pagerfanta(pager, 'twitter_bootstrap_compact', {'routeName':'cc_moderator_forum_posts_show_all_locked_paginated', 'routeParams':{}}) -}}
+		    	{{- pagerfanta(pager, 'twitter_bootstrap_compact', {'routeName':'ccdn_forum_moderator_post_show_all_locked_paginated', 'routeParams':{}}) -}}
 			</div>
 		{%- endif -%}
 		<br><br>
