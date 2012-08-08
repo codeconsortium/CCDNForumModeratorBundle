@@ -64,19 +64,24 @@
 
 	<form method="POST" action="{{- path('cc_moderate_forum_flag_action_bulk') -}}">
 
-	<div class="btn-toolbar form-inline">
-		<input type="submit" class="btn btn-danger" value="{{- 'link.flag.delete' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_delete">&nbsp;
-		<select name="select_mark_as" class="widget_select">
-			{%- for status_key, status in status_codes -%}
-			<option class="widget_select" value="{{- status_key -}}">{{- status -}}</option>
-			{%- endfor -%}
-		</select>&nbsp;
-		<input type="submit" class="btn btn-danger" value="{{- 'link.flag.mark_as' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_mark_as">
+	<div class="btn-toolbar" style="display:block !important;clear:both !important;">
+		<div class="pull-left">
+			<input type="submit" class="btn btn-danger" value="{{- 'link.flag.delete' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_delete">&nbsp;
+			<select name="select_mark_as" class="widget_select">
+				{%- for status_key, status in status_codes -%}
+				<option class="widget_select" value="{{- status_key -}}">{{- status -}}</option>
+				{%- endfor -%}
+			</select>&nbsp;
+			<input type="submit" class="btn btn-danger" value="{{- 'link.flag.mark_as' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_mark_as">
+		</div>
+		{%- if pager.haveToPaginate -%}
+			<div class="pull-right">
+		    	{{- pagerfanta(pager, 'twitter_bootstrap_compact', {'routeName':'cc_moderator_forum_flagged_show_all_status_paginated', 'routeParams':{}}) -}}
+			</div>
+		{%- endif -%}
+		<br><br>
 	</div>
 
-	{%- if pager.haveToPaginate -%}
-		{{- pagerfanta(pager, 'twitter_bootstrap', {'routeName':'cc_moderator_forum_flagged_show_all_status_paginated', 'routeParams':{}} ) -}}
-	{%- endif -%}
 
 	<table class="table">
 		<thead>
@@ -166,9 +171,17 @@
 
 	</form>
 
-	{%- if pager.haveToPaginate -%}
-		{{- pagerfanta(pager, 'twitter_bootstrap', {'routeName':'cc_moderator_forum_flagged_show_all_status_paginated', 'routeParams':{}} ) -}}
-	{%- endif -%}
+	<div class="btn-toolbar" style="display:block !important;clear:both !important;">
+		<div class="pull-left">
+		</div>
+		{%- if pager.haveToPaginate -%}
+			<div class="pull-right">
+		    	{{- pagerfanta(pager, 'twitter_bootstrap_compact', {'routeName':'cc_moderator_forum_flagged_show_all_status_paginated', 'routeParams':{}}) -}}
+			</div>
+		{%- endif -%}
+		<br><br>
+	</div>
+
 
 	{%- include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } -%}
 

@@ -31,16 +31,20 @@
 
 	<form method="POST" action="{{- path('cc_moderator_forum_topics_closed_bulk_action') -}}">
 
-	<div class="btn-toolbar">
-		<input type="submit" class="btn btn-primary disabled" value="{{- 'link.topic.close' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_close" disabled data-responds-disabled="topics" >&nbsp;
-		<input type="submit" class="btn btn-primary disabled" value="{{- 'link.topic.reopen' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_reopen" disabled data-responds-disabled="topics" >&nbsp;
-		<input type="submit" class="btn btn-primary disabled" value="{{- 'link.topic.restore' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_restore" disabled data-responds-disabled="topics" >&nbsp;
-		<input type="submit" class="btn btn-danger disabled" value="{{- 'link.topic.delete.soft' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_soft_delete" disabled data-responds-disabled="topics" >
+	<div class="btn-toolbar" style="display:block !important;clear:both !important;">
+		<div class="pull-left">
+			<input type="submit" class="btn btn-primary disabled" value="{{- 'link.topic.close' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_close" disabled data-responds-disabled="topics" >&nbsp;
+			<input type="submit" class="btn btn-primary disabled" value="{{- 'link.topic.reopen' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_reopen" disabled data-responds-disabled="topics" >&nbsp;
+			<input type="submit" class="btn btn-primary disabled" value="{{- 'link.topic.restore' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_restore" disabled data-responds-disabled="topics" >&nbsp;
+			<input type="submit" class="btn btn-danger disabled" value="{{- 'link.topic.delete.soft' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_soft_delete" disabled data-responds-disabled="topics" >
+		</div>
+		{%- if pager.haveToPaginate -%}
+			<div class="pull-right">
+		    	{{- pagerfanta(pager, 'twitter_bootstrap_compact', {'routeName':'cc_moderator_forum_topics_closed_show_all_paginated', 'routeParams':{}}) -}}
+			</div>
+		{%- endif -%}
+		<br><br>
 	</div>
-
-	{%- if pager.haveToPaginate -%}
-		{{- pagerfanta(pager, 'twitter_bootstrap', {'routeName':'cc_moderator_forum_topics_closed_show_all_paginated', 'routeParams':{}} ) -}}
-	{%- endif -%}
 
 	<table class="table">
 		<thead>
@@ -128,9 +132,16 @@
 		</tbody>
 	</table>
 
-	{%- if pager.haveToPaginate -%}
-	    {{- pagerfanta(pager, 'twitter_bootstrap', {'routeName':'cc_moderator_forum_topics_closed_show_all_paginated', 'routeParams':{}} ) -}}
-	{%- endif -%}
+	<div class="btn-toolbar" style="display:block !important;clear:both !important;">
+		<div class="pull-left">
+		</div>
+		{%- if pager.haveToPaginate -%}
+			<div class="pull-right">
+		    	{{- pagerfanta(pager, 'twitter_bootstrap_compact', {'routeName':'cc_moderator_forum_topics_closed_show_all_paginated', 'routeParams':{}}) -}}
+			</div>
+		{%- endif -%}
+		<br><br>
+	</div>
 
 	</form>
 
