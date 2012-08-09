@@ -5,9 +5,9 @@
 				<td class="center"><a class="post_link" name="{{- flag.getPost.getId -}}" href="#{{- flag.getPost.getId -}}">#{{- flag.getId -}}</a></td>
 				<td class="center">{{- reason_codes[flag.getReason] -}}</td>
 				<td class="center">{{- flag.getFlaggedDate |date(param('ccdn_forum_moderator.item_flag.flag_created_datetime_format')) -}}</td>
-				<td class="center">{%- if flag.getFlaggedBy -%}<a href="{{- path(user_profile_route, {'user_id': flag.getFlaggedBy.getId } ) -}}">{{- flag.getFlaggedBy.getUsername -}}</a>{%- else -%}Guest{%- endif -%}</td>
+				<td class="center">{%- if flag.getFlaggedBy -%}<a href="{{- path(user_profile_route, {'userId': flag.getFlaggedBy.getId } ) -}}">{{- flag.getFlaggedBy.getUsername -}}</a>{%- else -%}Guest{%- endif -%}</td>
 				<td class="center">{{- 'post.user.post_count' | trans({'%post_count%': '50'}, 'CCDNForumForumBundle') -}}</td>
-				<td class="center"><a href="{{- path('ccdn_forum_moderator_update_flag', {'flag_id': flag.getId }) -}}">{{- 'link.flag.update' | trans({}, 'CCDNForumModeratorBundle') -}}</a></td>
+				<td class="center"><a href="{{- path('ccdn_forum_moderator_update_flag', {'flagId': flag.getId }) -}}">{{- 'link.flag.update' | trans({}, 'CCDNForumModeratorBundle') -}}</a></td>
 			</tr>
 			<tr>
 				<td class="left" colspan="6">
@@ -31,7 +31,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td class="center">{%- if flag.getModeratedBy -%}<a href="{{- path(user_profile_route, {'user_id': flag.getModeratedBy.getId }) -}}">{{- flag.getModeratedBy -}}</a>{%- else -%}Guest{%- endif -%}</td>
+					<td class="center">{%- if flag.getModeratedBy -%}<a href="{{- path(user_profile_route, {'userId': flag.getModeratedBy.getId }) -}}">{{- flag.getModeratedBy -}}</a>{%- else -%}Guest{%- endif -%}</td>
 					<td class="center">{{- flag.getModeratedDate |date(param('ccdn_forum_moderator.item_flag.moderated_datetime_format')) -}}</td>
 					<td class="center">{{- status_codes[flag.getStatus] -}}</td>
 				</tr>

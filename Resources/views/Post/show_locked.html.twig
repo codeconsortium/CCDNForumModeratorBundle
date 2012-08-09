@@ -80,20 +80,20 @@
 					</td>
 
 					<td class="center">
-						<a href="{{- path('ccdn_forum_forum_post_show', {'post_id': post.getId }) -}}">#{{- post.getId -}}</a>
+						<a href="{{- path('ccdn_forum_forum_post_show', {'postId': post.getId }) -}}">#{{- post.getId -}}</a>
 					</td>
 
 					<td class="left">
 						{%- if post.getTopic -%}
 							<span class="label label-info">{{- post.getTopic.getCachedReplyCount -}}&nbsp;{{- 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') -}}</span>&nbsp;
 							<span class="label label-info">{{- post.getTopic.getCachedViewCount -}}&nbsp;{{- 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') -}}</span>&nbsp;
-							<a href="{{- path('ccdn_forum_forum_topic_show', {'topic_id': post.getTopic.getId }) -}}" title="{{- post.getTopic.getTitle -}}">{{- truncDot(post.getTopic.getTitle |capitalize, param('ccdn_forum_moderator.post.show_locked.topic_title_truncate')) -}}</a>
+							<a href="{{- path('ccdn_forum_forum_topic_show', {'topicId': post.getTopic.getId }) -}}" title="{{- post.getTopic.getTitle -}}">{{- truncDot(post.getTopic.getTitle |capitalize, param('ccdn_forum_moderator.post.show_locked.topic_title_truncate')) -}}</a>
 						{%- endif -%}
 					</td>
 
 					<td class="right">
 						{%- if post.getCreatedBy -%}
-							<a href="{{- path(user_profile_route, {'user_id': post.getDeletedBy }) -}}">{{- post.getCreatedBy.getUsername |capitalize -}}</a>
+							<a href="{{- path(user_profile_route, {'userId': post.getDeletedBy }) -}}">{{- post.getCreatedBy.getUsername |capitalize -}}</a>
 						{%- endif -%}
 
 						{%- if post.getCreatedDate -%}
@@ -104,7 +104,7 @@
 
 					<td class="right">
 						{%- if post.getLockedBy -%}
-							<a href="{{- path(user_profile_route, {'user_id': post.getDeletedBy }) -}}">{{- post.getLockedBy.getUsername |capitalize -}}</a>
+							<a href="{{- path(user_profile_route, {'userId': post.getDeletedBy }) -}}">{{- post.getLockedBy.getUsername |capitalize -}}</a>
 						{%- endif -%}
 
 						{%- if post.getLockedDate -%}
@@ -115,7 +115,7 @@
 
 					<td class="right">
 						{%- if post.getDeletedBy -%}
-							<a href="{{- path(user_profile_route, {'user_id': post.getDeletedBy }) -}}">{{- post.getDeletedBy.getUsername |capitalize -}}</a>
+							<a href="{{- path(user_profile_route, {'userId': post.getDeletedBy }) -}}">{{- post.getDeletedBy.getUsername |capitalize -}}</a>
 						{%- endif -%}
 
 						{%- if post.getDeletedDate -%}

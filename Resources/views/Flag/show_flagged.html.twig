@@ -97,12 +97,12 @@
 				<td class="center"><i class="icon-comment"></i></td>
 				<td class="left">
 					{%- if post.getTopic -%}
-						<a href="{{- path('ccdn_forum_forum_topic_show', {'topic_id': post.getTopic.getId }) -}}" title="{{- post.getTopic.getTitle -}}">#{{- post.getId -}}&nbsp;{{- truncDot(post.getTopic.getTitle, param('ccdn_forum_moderator.flag.show_flagged.topic_title_truncate')) -}}</a>
+						<a href="{{- path('ccdn_forum_forum_topic_show', {'topicId': post.getTopic.getId }) -}}" title="{{- post.getTopic.getTitle -}}">#{{- post.getId -}}&nbsp;{{- truncDot(post.getTopic.getTitle, param('ccdn_forum_moderator.flag.show_flagged.topic_title_truncate')) -}}</a>
 					{%- endif -%}
 					<br>
 					{{- 'post.posted_by' | trans({}, 'CCDNForumForumBundle') -}}
 					{%- if post.getCreatedBy -%}
-						<a href="{{- path(user_profile_route, {'user_id': post.getCreatedBy.getId } ) -}}">{{- post.getCreatedBy |capitalize -}}</a>
+						<a href="{{- path(user_profile_route, {'userId': post.getCreatedBy.getId } ) -}}">{{- post.getCreatedBy |capitalize -}}</a>
 					{%- else -%}
 						Guest
 					{%- endif -%}
@@ -110,8 +110,8 @@
 				</td>
 				<td class="left">
 					{{- 'flag.posted_on_board' | trans({}, 'CCDNForumModeratorBundle') -}}&nbsp;
-					<a href="{{- path('ccdn_forum_forum_category_show', {'category_id': post.getTopic.getBoard.getCategory.id }) -}}">{{- post.getTopic.getBoard.getCategory.getName -}}</a> /
-					<a href="{{- path('ccdn_forum_forum_board_show', {'board_id': post.getTopic.getBoard.id }) -}}">{{- post.getTopic.getBoard.getName -}}</a>
+					<a href="{{- path('ccdn_forum_forum_category_show', {'categoryId': post.getTopic.getBoard.getCategory.id }) -}}">{{- post.getTopic.getBoard.getCategory.getName -}}</a> /
+					<a href="{{- path('ccdn_forum_forum_board_show', {'boardId': post.getTopic.getBoard.id }) -}}">{{- post.getTopic.getBoard.getName -}}</a>
 				</td>
 			</tr>
 			<tr class="{{- cycler(['row_odd', 'row_even'], 'posts') -}}">
@@ -137,11 +137,11 @@
 									</td>
 									<td class="center"><i class="icon-flag"></i></td>
 									<td class="left">
-										<a href="{{- path('ccdn_forum_moderator_flag_show', {'flag_id': flag.getId }) -}}">{{- reason_codes[flag.getReason] -}}</a>
+										<a href="{{- path('ccdn_forum_moderator_flag_show', {'flagId': flag.getId }) -}}">{{- reason_codes[flag.getReason] -}}</a>
 									</td>
 									<td class="center" style="width: 200px;">
 										{%- if flag.getFlaggedBy -%}
-											<a href="{{- path(user_profile_route, {'user_id': flag.getFlaggedBy.getId } ) -}}">{{- flag.getFlaggedBy |capitalize -}}</a>
+											<a href="{{- path(user_profile_route, {'userId': flag.getFlaggedBy.getId } ) -}}">{{- flag.getFlaggedBy |capitalize -}}</a>
 										{%- else -%}
 											Guest
 										{%- endif -%}
@@ -150,7 +150,7 @@
 										{{- flag.getFlaggedDate |date(param('ccdn_forum_moderator.flag.show_flagged.flag_created_datetime_format')) -}}
 									</td>
 									<td class="center" style="width: 100px;">
-										<a href="{{- path('ccdn_forum_moderator_flag_show', {'flag_id': flag.getId }) -}}">{{- status_codes[flag.getStatus] -}}</a>
+										<a href="{{- path('ccdn_forum_moderator_flag_show', {'flagId': flag.getId }) -}}">{{- status_codes[flag.getStatus] -}}</a>
 									</td>
 								</tr>
 								{%- endfor -%}

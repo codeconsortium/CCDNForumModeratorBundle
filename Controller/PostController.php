@@ -31,8 +31,8 @@ class PostController extends ContainerAware
      * Display a list of locked posts (locked from editing)
      *
      * @access public
-     * @param  int                             $page
-     * @return RedirectResponse|RenderResponse
+     * @param  Int $page
+     * @return RenderResponse
      */
     public function showLockedAction($page)
     {
@@ -42,23 +42,23 @@ class PostController extends ContainerAware
 
         $user = $this->container->get('security.context')->getToken()->getUser();
 
-        $posts_paginated = $this->container->get('ccdn_forum_forum.post.repository')->findLockedPostsForModeratorsPaginated();
+        $postsPager = $this->container->get('ccdn_forum_forum.post.repository')->findLockedPostsForModeratorsPaginated();
 
-        $posts_per_page = $this->container->getParameter('ccdn_forum_moderator.post.show_locked.posts_per_page');
-        $posts_paginated->setMaxPerPage($posts_per_page);
-        $posts_paginated->setCurrentPage($page, false, true);
+        $postsPerPage = $this->container->getParameter('ccdn_forum_moderator.post.show_locked.posts_per_page');
+        $postsPager->setMaxPerPage($postsPerPage);
+        $postsPager->setCurrentPage($page, false, true);
 
         // setup crumb trail.
-        $crumb_trail = $this->container->get('ccdn_component_crumb.trail')
+        $crumbs = $this->container->get('ccdn_component_crumb.trail')
             ->add($this->container->get('translator')->trans('crumbs.dashboard.moderator', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('ccdn_component_dashboard_show', array('category' => 'moderator')), "sitemap")
             ->add($this->container->get('translator')->trans('crumbs.post.locked.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('ccdn_forum_moderator_post_show_all_locked'), "home");
 
         return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Post:show_locked.html.' . $this->getEngine(), array(
             'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
             'user' => $user,
-            'crumbs' => $crumb_trail,
-            'posts' => $posts_paginated,
-            'pager' => $posts_paginated,
+            'crumbs' => $crumbs,
+            'posts' => $postsPager,
+            'pager' => $postsPager,
         ));
     }
 
@@ -67,10 +67,10 @@ class PostController extends ContainerAware
      * Lock to prevent editing of post.
      *
      * @access public
-     * @param  int                             $post_id
-     * @return RedirectResponse|RenderResponse
+     * @param  Int $postId
+     * @return RedirectResponse
      */
-    public function lockAction($post_id)
+    public function lockAction($postId)
     {
         if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR')) {
             throw new AccessDeniedException('You do not have access to this section.');
@@ -78,7 +78,7 @@ class PostController extends ContainerAware
 
         $user = $this->container->get('security.context')->getToken()->getUser();
 
-        $post = $this->container->get('ccdn_forum_forum.post.repository')->find($post_id);
+        $post = $this->container->get('ccdn_forum_forum.post.repository')->find($postId);
 
         if (! $post) {
             throw new NotFoundHttpException('No such post exists!');
@@ -86,24 +86,24 @@ class PostController extends ContainerAware
 
         $this->container->get('ccdn_forum_moderator.post.manager')->lock($post, $user)->flush();
 
-        $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.lock.success', array('%post_id%' => $post_id), 'CCDNForumModeratorBundle'));
+        $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.lock.success', array('%post_id%' => $postId), 'CCDNForumModeratorBundle'));
 
-        return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topic_id' => $post->getTopic()->getId()) ));
+        return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topicId' => $post->getTopic()->getId()) ));
     }
 
     /**
      *
      * @access public
-     * @param  int                             $post_id
-     * @return RedirectResponse|RenderResponse
+     * @param  Int $postId
+     * @return RedirectResponse
      */
-    public function unlockAction($post_id)
+    public function unlockAction($postId)
     {
         if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR')) {
             throw new AccessDeniedException('You do not have access to this section.');
         }
 
-        $post = $this->container->get('ccdn_forum_forum.post.repository')->find($post_id);
+        $post = $this->container->get('ccdn_forum_forum.post.repository')->find($postId);
 
         if (! $post) {
             throw new NotFoundHttpException('No such post exists!');
@@ -111,24 +111,24 @@ class PostController extends ContainerAware
 
         $this->container->get('ccdn_forum_moderator.post.manager')->unlock($post)->flush();
 
-        $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.unlock.success', array('%post_id%' => $post_id), 'CCDNForumModeratorBundle'));
+        $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.unlock.success', array('%post_id%' => $postId), 'CCDNForumModeratorBundle'));
 
-        return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topic_id' => $post->getTopic()->getId()) ));
+        return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topicId' => $post->getTopic()->getId()) ));
     }
 
     /**
      *
      * @access public
-     * @param $post_id
-     * @return RedirectResponse|RenderResponse
+     * @param Int $postId
+     * @return RedirectResponse
      */
-    public function restoreAction($post_id)
+    public function restoreAction($postId)
     {
         if ( ! $this->container->get('security.context')->isGranted('ROLE_MODERATOR')) {
             throw new AccessDeniedException('You do not have permission to use this resource!');
         }
 
-        $post = $this->container->get('ccdn_forum_forum.post.repository')->findPostForEditing($post_id);
+        $post = $this->container->get('ccdn_forum_forum.post.repository')->findPostForEditing($postId);
 
         if (! $post) {
             throw new NotFoundHttpException('No such post exists!');
@@ -137,10 +137,10 @@ class PostController extends ContainerAware
         $this->container->get('ccdn_forum_moderator.post.manager')->restore($post)->flush();
 
         // set flash message
-        $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.restore.success', array('%post_id%' => $post_id), 'CCDNForumModeratorBundle'));
+        $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.restore.success', array('%post_id%' => $postId), 'CCDNForumModeratorBundle'));
 
         // forward user
-        return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topic_id' => $post->getTopic()->getId()) ));
+        return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topicId' => $post->getTopic()->getId()) ));
     }
 
     /**
@@ -208,7 +208,7 @@ class PostController extends ContainerAware
     /**
      *
      * @access protected
-     * @return string
+     * @return String
      */
     protected function getEngine()
     {

@@ -10,15 +10,15 @@ ccdn_forum_moderator_post_show_all_locked_paginated:
     defaults: { _controller: CCDNForumModeratorBundle:Post:showLocked, _locale: en, page: 1 }
 
 ccdn_forum_moderator_post_lock:
-    pattern: /{_locale}/moderate/forum/post/{post_id}/lock
+    pattern: /{_locale}/moderate/forum/post/{postId}/lock
     defaults: { _controller: CCDNForumModeratorBundle:Post:lock, _locale: en }
 
 ccdn_forum_moderator_post_unlock:
-    pattern: /{_locale}/moderate/forum/post/{post_id}/unlock
+    pattern: /{_locale}/moderate/forum/post/{postId}/unlock
     defaults: { _controller: CCDNForumModeratorBundle:Post:unlock, _locale: en }
 
 ccdn_forum_moderator_post_restore:
-    pattern: /{_locale}/moderate/forum/post/{post_id}/restore
+    pattern: /{_locale}/moderate/forum/post/{postId}/restore
     defaults: { _controller: CCDNForumModeratorBundle:Post:restore, _locale: en }
 
 ccdn_forum_moderator_post_bulk_action:
@@ -41,35 +41,35 @@ ccdn_forum_moderator_topic_bulk_action_closed:
     defaults: { _controller: CCDNForumModeratorBundle:Topic:bulk, _locale: en }
 
 ccdn_forum_moderator_topic_close:
-    pattern: /{_locale}/moderate/forum/topic/{topic_id}/close
+    pattern: /{_locale}/moderate/forum/topic/{topicId}/close
     defaults: { _controller: CCDNForumModeratorBundle:Topic:close, _locale: en }
 
 ccdn_forum_moderator_topic_reopen:
-    pattern: /{_locale}/moderate/forum/topic/{topic_id}/reopen
+    pattern: /{_locale}/moderate/forum/topic/{topicId}/reopen
     defaults: { _controller: CCDNForumModeratorBundle:Topic:reopen, _locale: en }
 
 ccdn_forum_moderator_topic_sticky:
-    pattern: /{_locale}/moderate/forum/topic/{topic_id}/sticky
+    pattern: /{_locale}/moderate/forum/topic/{topicId}/sticky
     defaults: { _controller: CCDNForumModeratorBundle:Topic:sticky, _locale: en }
 
 ccdn_forum_moderator_topic_unsticky:
-    pattern: /{_locale}/moderate/forum/topic/{topic_id}/unsticky
+    pattern: /{_locale}/moderate/forum/topic/{topicId}/unsticky
     defaults: { _controller: CCDNForumModeratorBundle:Topic:unsticky, _locale: en }
 
 ccdn_forum_moderator_topic_delete:
-    pattern: /{_locale}/moderate/forum/topic/{topic_id}/delete
+    pattern: /{_locale}/moderate/forum/topic/{topicId}/delete
     defaults: { _controller: CCDNForumModeratorBundle:Topic:delete, _locale: en }
 
 ccdn_forum_moderator_topic_delete_confirmed:
-    pattern: /{_locale}/moderate/forum/topic/{topic_id}/delete/confirm
+    pattern: /{_locale}/moderate/forum/topic/{topicId}/delete/confirm
     defaults: { _controller: CCDNForumModeratorBundle:Topic:deleteConfirmed, _locale: en }
 
 ccdn_forum_moderator_topic_restore:
-    pattern: /{_locale}/moderate/forum/topic/{topic_id}/restore
+    pattern: /{_locale}/moderate/forum/topic/{topicId}/restore
     defaults: { _controller: CCDNForumModeratorBundle:Topic:restore, _locale: en }
 
 ccdn_forum_moderator_topic_change_board:
-    pattern: /{_locale}/moderate/forum/topic/{topic_id}/change/board
+    pattern: /{_locale}/moderate/forum/topic/{topicId}/change/board
     defaults: { _controller: CCDNForumModeratorBundle:Topic:move, _locale: en }
 
 #
@@ -92,11 +92,11 @@ ccdn_forum_moderator_flagged_show_all_status_paginated:
     defaults: { _controller: CCDNForumModeratorBundle:Flag:showFlaggedPosts, _locale: en, page: 1, status: 0 }
 
 ccdn_forum_moderator_update_flag:
-    pattern: /{_locale}/moderate/forum/flag/{flag_id}/update
+    pattern: /{_locale}/moderate/forum/flag/{flagId}/update
     defaults: { _controller: CCDNForumModeratorBundle:Flag:updateFlag, _locale: en }
 
 ccdn_forum_moderator_flag_show:
-    pattern: /{_locale}/moderate/forum/flag/{flag_id}/show
+    pattern: /{_locale}/moderate/forum/flag/{flagId}/show
     defaults: { _controller: CCDNForumModeratorBundle:Flag:showFlag, _locale: en }
 
 ccdn_forum_moderator_flag_bulk_action:

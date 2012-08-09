@@ -81,13 +81,13 @@
 					<td class="left">
 						<span class="label label-info">{{- topic.getCachedReplyCount -}}&nbsp;{{- 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') -}}</span>&nbsp;
 						<span class="label label-info">{{- topic.getCachedViewCount -}}&nbsp;{{- 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') -}}</span>&nbsp;
-						<a class="topic_link" href="{{- path('ccdn_forum_forum_topic_show', {'topic_id': topic.getId }) -}}" title="{{- topic.getTitle -}}">{{- truncDot(topic.getTitle |capitalize, param('ccdn_forum_moderator.topic.show_closed.topic_title_truncate')) -}}</a>
+						<a class="topic_link" href="{{- path('ccdn_forum_forum_topic_show', {'topicId': topic.getId }) -}}" title="{{- topic.getTitle -}}">{{- truncDot(topic.getTitle |capitalize, param('ccdn_forum_moderator.topic.show_closed.topic_title_truncate')) -}}</a>
 					</td>
 
 					<td class="right">
 						{%- if topic.getFirstPost -%}
 							{%- if topic.getFirstPost.getCreatedBy -%}
-								<a href="{{- path(user_profile_route, {'user_id': topic.getFirstPost.getCreatedBy.getId } ) -}}">{{- topic.getFirstPost.getCreatedBy |capitalize -}}</a>
+								<a href="{{- path(user_profile_route, {'userId': topic.getFirstPost.getCreatedBy.getId } ) -}}">{{- topic.getFirstPost.getCreatedBy |capitalize -}}</a>
 							{%- else -%}
 								Guest
 							{%- endif -%}
@@ -101,7 +101,7 @@
 
 					<td class="right">
 						{%- if topic.getClosedBy -%}
-							<a href="{{- path(user_profile_route, {'user_id': topic.getClosedBy.getId }) -}}">{{- topic.getClosedBy.getUsername |capitalize -}}</a>
+							<a href="{{- path(user_profile_route, {'userId': topic.getClosedBy.getId }) -}}">{{- topic.getClosedBy.getUsername |capitalize -}}</a>
 						{%- endif -%}
 
 						{%- if topic.getClosedDate -%}
@@ -112,7 +112,7 @@
 
 					<td class="right">
 						{%- if topic.getDeletedBy -%}
-							<a href="{{- path(user_profile_route, {'user_id': topic.getDeletedBy.getId }) -}}">{{- topic.getDeletedBy.getUsername |capitalize -}}</a>
+							<a href="{{- path(user_profile_route, {'userId': topic.getDeletedBy.getId }) -}}">{{- topic.getDeletedBy.getUsername |capitalize -}}</a>
 						{%- endif -%}
 
 						{%- if topic.getDeletedDate -%}
