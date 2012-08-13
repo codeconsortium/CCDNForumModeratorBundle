@@ -1,78 +1,108 @@
-sidebar.header.tools: Moderator Tools
-sidebar.link.show_all_flagged_posts: Flagged Posts
-sidebar.link.show_all_locked_posts: Locked Posts
-sidebar.link.show_all_closed_topics: Closed Topics
+#
+# Page Titles.
+#
+ccdn_forum_moderator.title.flag.list: 'Flagged Posts.'
+ccdn_forum_moderator.title.flag.show: 'Flag #%flag_id% on post #%post_id%, of topic: %topic%.'
+ccdn_forum_moderator.title.flag.update: 'Update flag: #%flag_id%.'
+ccdn_forum_moderator.title.post.locked: 'Locked Posts.'
+ccdn_forum_moderator.title.topic.closed: 'Closed Topics.'
+ccdn_forum_moderator.title.topic.change_board: 'Change board for topic: %topic_title%.'
 
-sidebar.header.flags_by_reason: Flags by Reason
-sidebar.header.flags_by_status: Flags by Status
+#
+# Crumbs.
+#
+ccdn_forum_moderator.crumbs.dashboard.index: 'Dashboard'
+ccdn_forum_moderator.crumbs.dashboard.moderator: 'Moderator Panel'
+ccdn_forum_moderator.crumbs.flag.index: 'Flag Index'
+ccdn_forum_moderator.crumbs.flag.show: 'Flag %flag_id%'
+ccdn_forum_moderator.crumbs.flag.mark: 'Update Flag'
+ccdn_forum_moderator.crumbs.post.locked.index: 'Show Locked Posts'
+ccdn_forum_moderator.crumbs.topic.closed.index: 'Show Closed Topics'
+ccdn_forum_moderator.crumbs.topic.change_board: 'Change Board'
 
-crumbs.dashboard: 'Dashboard'
-crumbs.dashboard.moderator: 'Moderator Panel'
+#
+# Flash Messages.
+#
+ccdn_forum_moderator.flash.flag.update.success: 'Flag: #%flag_id% updated.'
+ccdn_forum_moderator.flash.post.lock.success: 'Post: #%post_id% locked.'
+ccdn_forum_moderator.flash.post.unlock.success: 'Post: #%post_id% unlocked.'
+ccdn_forum_moderator.flash.post.restore.success: 'Post: #%post_id% restored.'
+ccdn_forum_moderator.flash.topic.close.success: 'Topic %topic_title% closed.'
+ccdn_forum_moderator.flash.topic.reopen.success: 'Topic: %topic_title% reopened.'
+ccdn_forum_moderator.flash.topic.move.success: 'Topic: %topic_title% moved.'
+ccdn_forum_moderator.flash.topic.restore.success: 'Topic: %topic_title% restored.'
+ccdn_forum_moderator.flash.topic.delete.success: 'Topic: %topic_title% deleted.'
+ccdn_forum_moderator.flash.topic.sticky.success: 'Topic: %topic_title% made sticky.'
+ccdn_forum_moderator.flash.topic.unsticky.success: 'Topic: %topic_title% is no longer sticky.'
+ccdn_forum_moderator.flash.flag.bad_status: 'Bad flag status.'
+ccdn_forum_moderator.flash.flag.no_flags_found: 'The flags you were looking for were not found!'
+ccdn_forum_moderator.flash.post.no_posts_found: 'The posts you were looking for were not found!'
+ccdn_forum_moderator.flash.topic.no_topics_found: 'The topics you were looking for were not found!'
 
-crumbs.flag.index: Flag Index
-crumbs.flag.show: Flag %flag_id%
-crumbs.flag.mark: Update Flag
-crumbs.post.locked.index: Show Locked Posts
-crumbs.topic.closed.index: Show Closed Topics
-crumbs.topic.change_board: Change Board
+#
+# Sidebar.
+#
+ccdn_forum_moderator.sidebar.header.tools: 'Moderator Tools'
+ccdn_forum_moderator.sidebar.link.show_all_flagged_posts: 'Flagged Posts'
+ccdn_forum_moderator.sidebar.link.show_all_locked_posts: 'Locked Posts'
+ccdn_forum_moderator.sidebar.link.show_all_closed_topics: 'Closed Topics'
+ccdn_forum_moderator.sidebar.header.flags_by_reason: 'Flags by Reason'
+ccdn_forum_moderator.sidebar.header.flags_by_status: 'Flags by Status'
 
-title.flag.show.all: 'Flagged Posts.'
-title.flag.show: 'Flag #%flag_id% on post #%post_id%, of topic: %topic%.'
-title.flag.update: 'Update flag: #%flag_id%.'
-title.post.locked: 'Locked Posts.'
-title.topic.closed: 'Closed Topics.'
-title.topic.change_board: 'Change board for topic: %topic_title%.'
+#
+# Link Labels.
+#
+ccdn_forum_moderator.link.flag.update: 'Change Status'
+ccdn_forum_moderator.link.topic.change_board: 'Change Board'
+ccdn_forum_moderator.link.flag.delete: 'Delete Flag'
+ccdn_forum_moderator.link.flag.mark_as: 'Change Status'
+ccdn_forum_moderator.link.topic.close: 'Close'
+ccdn_forum_moderator.link.topic.reopen: 'Re-Open'
+ccdn_forum_moderator.link.topic.restore: 'Restore'
+ccdn_forum_moderator.link.topic.delete_soft: 'Soft Delete'
+ccdn_forum_moderator.link.topic.sticky: 'Make Sticky Topic'
+ccdn_forum_moderator.link.topic.unsticky: 'Unsticky Topic'
+ccdn_forum_moderator.link.post.lock: 'Lock'
+ccdn_forum_moderator.link.post.unlock: 'Unlock'
 
-link.flag.update: Change Status
-link.topic.change_board: Change Board
-link.flag.delete: Delete Flag
-link.flag.mark_as: Change Status
-link.topic.close: 'Close'
-link.topic.reopen: 'Re-Open'
-link.topic.restore: 'Restore'
-link.topic.delete.soft: 'Soft Delete'
-link.topic.sticky: 'Make Sticky Topic'
-link.topic.unsticky: 'Unsticky Topic'
-link.post.lock: 'Lock'
-link.post.unlock: 'Unlock'
+#
+# Forms.
+#
+ccdn_forum_moderator.form.field.required: 'This field is required'
+ccdn_forum_moderator.form.label.flag.status: 'Status: '
+ccdn_forum_moderator.form.label.flag.moderators_note: 'Case Notes: '
+ccdn_forum_moderator.form.label.board: 'Board: '
+ccdn_forum_moderator.form.button.flag.update: 'Update'
+ccdn_forum_moderator.form.button.topic.move_to_board: 'Update Topic'
 
-flash.flag.update.success: 'Flag: #%flag_id% updated.'
-flash.post.lock.success: 'Post: #%post_id% locked.'
-flash.post.unlock.success: 'Post: #%post_id% unlocked.'
-flash.post.restore.success: 'Post: #%post_id% restored.'
+#
+# Table Labels.
+#
+ccdn_forum_moderator.flag.table.head.topic: 'Topic'
+ccdn_forum_moderator.flag.table.head.board: 'Board'
+ccdn_forum_moderator.flag.table.head.reason: 'Reason'
+ccdn_forum_moderator.flag.table.head.status: 'Status'
+ccdn_forum_moderator.flag.table.empty: 'There are no current flags.'
+ccdn_forum_moderator.board.table.head.reply_count: 'replies'
+ccdn_forum_moderator.board.table.head.view_count: 'views'
+ccdn_forum_moderator.board.table.head.post_number: 'Post #'
+ccdn_forum_moderator.board.table.head.topic_title: 'Topic'
+ccdn_forum_moderator.board.table.head.created_by: 'Created By'
+ccdn_forum_moderator.board.table.head.locked_by: 'Locked By'
+ccdn_forum_moderator.board.table.head.closed_by: 'Closed By'
+ccdn_forum_moderator.board.table.head.deleted_by: 'Deleted By'
+ccdn_forum_moderator.posts.locked.table.empty: 'No locked posts found.'
+ccdn_forum_moderator.topics.closed.table.empty: 'No closed topics found.'
 
-flash.topic.close.success: 'Topic %topic_title% closed.'
-flash.topic.reopen.success: 'Topic: %topic_title% reopened.'
-flash.topic.move.success: 'Topic: %topic_title% moved.'
-flash.topic.restore.success: 'Topic: %topic_title% restored.'
-flash.topic.delete.success: 'Topic: %topic_title% deleted.'
-flash.topic.sticky.success: 'Topic: %topic_title% made sticky.'
-flash.topic.unsticky.success: 'Topic: %topic_title% is no longer sticky.'
-flash.flag.bad_status: 'Bad flag status.'
-flash.flag.no_flags_found: 'The flags you were looking for were not found!'
-flash.post.no_posts_found: 'The posts you were looking for were not found!'
-flash.topic.no_topics_found: 'The topics you were looking for were not found!'
+
+#
+# Generic.
+#
+ccdn_forum_moderator.flag.description: 'Description: '
+ccdn_forum_moderator.flag.flagged_by: 'Flagged by'
+ccdn_forum_moderator.flag.moderated_by: 'Moderated by'
+ccdn_forum_moderator.flag.posted_on_board: 'Posted on'
+ccdn_forum_moderator.flag.posted_by: 'Posted by '
+ccdn_forum_moderator.actioned_at: ' at '
 
 
-flag.table.head.topic: Topic
-flag.table.head.board: Board
-flag.table.head.reason: Reason
-flag.table.head.status: Status
-flag.table.empty: 'There are no current flags.'
-
-flag.flagged_by: Flagged by
-flag.moderated_by: Moderated by
-flag.posted_on_board: Posted on
-actioned.at: ' at '
-
-flag.description: 'Description: '
-
-posts.locked.table.empty: 'No locked posts found.'
-topics.closed.table.empty: 'No closed topics found.'
-
-form.field.required: 'This field is required'
-form.label.flag.status: 'Status: '
-form.label.flag.moderators_note: 'Case Notes: '
-form.label.board: 'Board: '
-form.button.flag.update: Update
-form.button.topic.move_to_board: Update Topic

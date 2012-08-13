@@ -50,8 +50,8 @@ class PostController extends ContainerAware
 
         // setup crumb trail.
         $crumbs = $this->container->get('ccdn_component_crumb.trail')
-            ->add($this->container->get('translator')->trans('crumbs.dashboard.moderator', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('ccdn_component_dashboard_show', array('category' => 'moderator')), "sitemap")
-            ->add($this->container->get('translator')->trans('crumbs.post.locked.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('ccdn_forum_moderator_post_show_all_locked'), "home");
+            ->add($this->container->get('translator')->trans('ccdn_forum_moderator.crumbs.dashboard.moderator', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('ccdn_component_dashboard_show', array('category' => 'moderator')), "sitemap")
+            ->add($this->container->get('translator')->trans('ccdn_forum_moderator.crumbs.post.locked.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('ccdn_forum_moderator_post_show_all_locked'), "home");
 
         return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Post:show_locked.html.' . $this->getEngine(), array(
             'user_profile_route' => $this->container->getParameter('ccdn_forum_moderator.user.profile_route'),
@@ -86,7 +86,7 @@ class PostController extends ContainerAware
 
         $this->container->get('ccdn_forum_moderator.post.manager')->lock($post, $user)->flush();
 
-        $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.lock.success', array('%post_id%' => $postId), 'CCDNForumModeratorBundle'));
+        $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('ccdn_forum_moderator.flash.post.lock.success', array('%post_id%' => $postId), 'CCDNForumModeratorBundle'));
 
         return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topicId' => $post->getTopic()->getId()) ));
     }
@@ -111,7 +111,7 @@ class PostController extends ContainerAware
 
         $this->container->get('ccdn_forum_moderator.post.manager')->unlock($post)->flush();
 
-        $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.unlock.success', array('%post_id%' => $postId), 'CCDNForumModeratorBundle'));
+        $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('ccdn_forum_moderator.flash.post.unlock.success', array('%post_id%' => $postId), 'CCDNForumModeratorBundle'));
 
         return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topicId' => $post->getTopic()->getId()) ));
     }
@@ -137,7 +137,7 @@ class PostController extends ContainerAware
         $this->container->get('ccdn_forum_moderator.post.manager')->restore($post)->flush();
 
         // set flash message
-        $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.post.restore.success', array('%post_id%' => $postId), 'CCDNForumModeratorBundle'));
+        $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('ccdn_forum_moderator.flash.post.restore.success', array('%post_id%' => $postId), 'CCDNForumModeratorBundle'));
 
         // forward user
         return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topicId' => $post->getTopic()->getId()) ));
@@ -184,7 +184,7 @@ class PostController extends ContainerAware
         $posts = $this->container->get('ccdn_forum_forum.post.repository')->findThesePostsByIdForModeration($itemIds);
 
         if ( ! $posts || empty($posts)) {
-            $this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('flash.post.no_posts_found', array(), 'CCDNForumModeratorBundle'));
+            $this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('ccdn_forum_moderator.flash.post.no_posts_found', array(), 'CCDNForumModeratorBundle'));
 
             return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_moderator_post_show_all_locked'));
         }

@@ -4,7 +4,7 @@
 	{{ parent() }}
 {% endblock %}
 
-{% block title %}{{- truncDot('title.topic.change_board' | trans({'%topic_title%': topic.getTitle }, 'CCDNForumModeratorBundle'), param('ccdn_forum_moderator.seo.title_length')) -}}{% endblock %}
+{% block title %}{{- truncDot('ccdn_forum_moderator.title.topic.change_board' | trans({'%topic_title%': topic.getTitle }, 'CCDNForumModeratorBundle'), param('ccdn_forum_moderator.seo.title_length')) -}}{% endblock %}
 
 {% block sidebar %}
 	{{ parent() }}
@@ -22,7 +22,7 @@
 
 	{%- include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } -%}
 
-	<h2>{{- 'title.topic.change_board' | trans({'%topic_title%': topic.getTitle }, 'CCDNForumModeratorBundle') -}}</h2>
+	<h2>{{- 'ccdn_forum_moderator.title.topic.change_board' | trans({'%topic_title%': topic.getTitle }, 'CCDNForumModeratorBundle') -}}</h2>
 
 	{%- form_theme form param('ccdn_forum_moderator.topic.change_board.form_theme') -%}
 	<form action="{{- path('ccdn_forum_moderator_topic_change_board', { 'topicId': topic.getId} ) -}}" method="post" {{ form_enctype(form) }} class="form-horizontal">
@@ -33,7 +33,7 @@
 			<div class="control-group"><div class="controls row-fluid">{{- form_row(form._token) -}}</div></div>
 
 			<div class="control-group{{- (form.board.vars.errors|length > 0) ? ' error': '' -}}">
-				{{- form_label(form.board, null, { 'label': 'form.label.board'| trans({}, 'CCDNForumModeratorBundle') }) -}}
+				{{- form_label(form.board, null, { 'label': 'ccdn_forum_moderator.form.label.board'| trans({}, 'CCDNForumModeratorBundle') }) -}}
 				<div class="controls row-fluid">
 					{{- form_errors(form.board) -}}
 					{{- form_widget(form.board) -}}
@@ -41,7 +41,7 @@
 			</div>
 
 			<div class="form-actions">
-				<input type="submit" class="btn btn-danger" value="{{- 'form.button.topic.move_to_board' | trans({}, 'CCDNForumModeratorBundle') -}}">
+				<input type="submit" class="btn btn-danger" value="{{- 'ccdn_forum_moderator.form.button.topic.move_to_board' | trans({}, 'CCDNForumModeratorBundle') -}}">
 			</div>
 
 		</fieldset>

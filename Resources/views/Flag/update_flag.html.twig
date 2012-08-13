@@ -4,7 +4,7 @@
 	{{ parent() }}
 {% endblock %}
 
-{% block title %}{{- truncDot('title.flag.update' | trans({'%flag_id%': flag.getId }, 'CCDNForumModeratorBundle'), param('ccdn_forum_moderator.seo.title_length')) -}}{% endblock %}
+{% block title %}{{- truncDot('ccdn_forum_moderator.title.flag.update' | trans({'%flag_id%': flag.getId }, 'CCDNForumModeratorBundle'), param('ccdn_forum_moderator.seo.title_length')) -}}{% endblock %}
 
 {% block sidebar %}
 	{{ parent() }}
@@ -22,7 +22,7 @@
 
 	{%- include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } -%}
 
-	<h2>{{- 'title.flag.update' | trans({'%flag_id%': flag.getId }, 'CCDNForumModeratorBundle' ) -}}</h2>
+	<h2>{{- 'ccdn_forum_moderator.title.flag.update' | trans({'%flag_id%': flag.getId }, 'CCDNForumModeratorBundle' ) -}}</h2>
 
 	{%- form_theme form param('ccdn_forum_moderator.flag.update_flag.form_theme') -%}
 	<form action="{{- path('ccdn_forum_moderator_update_flag', { 'flagId': flag.getId }) -}}" method="post" {{ form_enctype(form) }} class="form-horizontal">
@@ -33,7 +33,7 @@
 			<div class="control-group"><div class="controls row-fluid">{{- form_row(form._token) -}}</div></div>
 
 			<div class="control-group{{- (form.status.vars.errors|length > 0) ? ' error': '' -}}">
-				{{- form_label(form.status, null, { 'label': 'form.label.flag.status'| trans({}, 'CCDNForumModeratorBundle') }) -}}
+				{{- form_label(form.status, null, { 'label': 'ccdn_forum_moderator.form.label.flag.status'| trans({}, 'CCDNForumModeratorBundle') }) -}}
 				<div class="controls row-fluid">
 					{{- form_errors(form.status) -}}
 					{{- form_widget(form.status) -}}
@@ -41,7 +41,7 @@
 			</div>
 
 			<div class="control-group{{- (form.moderators_note.vars.errors|length > 0) ? ' error': '' -}}">
-				{{- form_label(form.moderators_note, null, { 'label': 'form.label.flag.moderators_note'| trans({}, 'CCDNForumModeratorBundle') }) -}}
+				{{- form_label(form.moderators_note, null, { 'label': 'ccdn_forum_moderator.form.label.flag.moderators_note'| trans({}, 'CCDNForumModeratorBundle') }) -}}
 				<div class="controls row-fluid">
 					{{- form_errors(form.moderators_note) -}}
 					{{- form_widget(form.moderators_note) -}}
@@ -49,13 +49,13 @@
 			</div>
 
 			<div class="form-actions">
-				<input type="submit" class="btn btn-primary" value="{{- 'form.button.flag.update' | trans({}, 'CCDNForumModeratorBundle') -}}">
+				<input type="submit" class="btn btn-primary" value="{{- 'ccdn_forum_moderator.form.button.flag.update' | trans({}, 'CCDNForumModeratorBundle') -}}">
 			</div>
 
 		</fieldset>
 	</form>
 
-	<h2>{{- 'title.flag.show' | trans({'%flag_id%': flag.getId, '%topic%': flag.getPost.getTopic.getTitle, '%post_id%': flag.getPost.getId }, 'CCDNForumModeratorBundle') -}}</h2>
+	<h2>{{- 'ccdn_forum_moderator.title.flag.show' | trans({'%flag_id%': flag.getId, '%topic%': flag.getPost.getTopic.getTitle, '%post_id%': flag.getPost.getId }, 'CCDNForumModeratorBundle') -}}</h2>
 
 	{%- include "CCDNForumModeratorBundle:Flag:item_flag.html.twig" -%}
 

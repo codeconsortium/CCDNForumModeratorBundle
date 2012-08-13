@@ -9,7 +9,7 @@
 	<script src="{{- asset('bundles/ccdncomponentcommon/js/ccdn/jquery.checkboxes.js') -}}" type="text/javascript"></script>
 {% endblock %}
 
-{% block title %}{{- truncDot('title.flag.show.all' | trans({}, 'CCDNForumModeratorBundle'), param('ccdn_forum_moderator.seo.title_length')) -}}{% endblock %}
+{% block title %}{{- truncDot('ccdn_forum_moderator.title.flag.list' | trans({}, 'CCDNForumModeratorBundle'), param('ccdn_forum_moderator.seo.title_length')) -}}{% endblock %}
 
 {% block sidebar %}
 	{{ parent() }}
@@ -26,7 +26,7 @@
 
 	<div class="well" style="padding: 8px 0 8px !important;">
 		<ul class="nav nav-list">
-			<li class="nav-header">{{- 'sidebar.header.flags_by_status' | trans({}, 'CCDNForumModeratorBundle') -}}</li>
+			<li class="nav-header">{{- 'ccdn_forum_moderator.sidebar.header.flags_by_status' | trans({}, 'CCDNForumModeratorBundle') -}}</li>
 			{%- if app.request.attributes.get('_route') == 'ccdn_forum_moderator_flagged_show_all_status' or app.request.attributes.get('_route') == 'ccdn_forum_moderator_flagged_show_all_status_paginated' -%}
 				{%- for status_key, status in status_codes -%}
 					{%- if app.request.get('status') -%}
@@ -60,19 +60,19 @@
 
 	{%- include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } -%}
 
-	<h2>{{- 'title.flag.show.all' | trans({}, 'CCDNForumModeratorBundle') -}}</h2>
+	<h2>{{- 'ccdn_forum_moderator.title.flag.list' | trans({}, 'CCDNForumModeratorBundle') -}}</h2>
 
 	<form method="POST" action="{{- path('ccdn_forum_moderator_flag_bulk_action') -}}">
 
 	<div class="btn-toolbar" style="display:block !important;clear:both !important;">
 		<div class="pull-left">
-			<input type="submit" class="btn btn-danger" value="{{- 'link.flag.delete' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_delete">&nbsp;
+			<input type="submit" class="btn btn-danger" value="{{- 'ccdn_forum_moderator.link.flag.delete' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_delete">&nbsp;
 			<select name="select_mark_as" class="widget_select">
 				{%- for status_key, status in status_codes -%}
 				<option class="widget_select" value="{{- status_key -}}">{{- status -}}</option>
 				{%- endfor -%}
 			</select>&nbsp;
-			<input type="submit" class="btn btn-danger" value="{{- 'link.flag.mark_as' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_mark_as">
+			<input type="submit" class="btn btn-danger" value="{{- 'ccdn_forum_moderator.link.flag.mark_as' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_mark_as">
 		</div>
 		{%- if pager.haveToPaginate -%}
 			<div class="pull-right">
@@ -87,8 +87,8 @@
 		<thead>
 			<tr>
 				<th class="center" style="width:18px;"></th>
-				<th class="left">{{- 'flag.table.head.topic' | trans({}, 'CCDNForumModeratorBundle') -}}</th>
-				<th class="left">{{- 'flag.table.head.board' | trans({}, 'CCDNForumModeratorBundle') -}}</th>
+				<th class="left">{{- 'ccdn_forum_moderator.flag.table.head.topic' | trans({}, 'CCDNForumModeratorBundle') -}}</th>
+				<th class="left">{{- 'ccdn_forum_moderator.flag.table.head.board' | trans({}, 'CCDNForumModeratorBundle') -}}</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -100,16 +100,19 @@
 						<a href="{{- path('ccdn_forum_forum_topic_show', {'topicId': post.getTopic.getId }) -}}" title="{{- post.getTopic.getTitle -}}">#{{- post.getId -}}&nbsp;{{- truncDot(post.getTopic.getTitle, param('ccdn_forum_moderator.flag.show_flagged.topic_title_truncate')) -}}</a>
 					{%- endif -%}
 					<br>
-					{{- 'post.posted_by' | trans({}, 'CCDNForumForumBundle') -}}
+					{{- 'ccdn_forum_moderator.flag.posted_by' | trans({}, 'CCDNForumModeratorBundle') -}}
 					{%- if post.getCreatedBy -%}
 						<a href="{{- path(user_profile_route, {'userId': post.getCreatedBy.getId } ) -}}">{{- post.getCreatedBy |capitalize -}}</a>
 					{%- else -%}
 						Guest
 					{%- endif -%}
-					{{- 'actioned.at' | trans({'%date%': post.getCreatedDate |date(param('ccdn_forum_moderator.flag.show_flagged.post_created_datetime_format'))}, 'CCDNForumForumBundle') -}}
+					{%- if post.getCreatedDate is not empty -%}
+						{{- 'ccdn_forum_moderator.actioned_at' | trans({}, 'CCDNForumModeratorBundle') -}}
+						{{- post.getCreatedDate |date(param('ccdn_forum_moderator.flag.show_flagged.post_created_datetime_format')) -}}
+					{%- endif -%}
 				</td>
 				<td class="left">
-					{{- 'flag.posted_on_board' | trans({}, 'CCDNForumModeratorBundle') -}}&nbsp;
+					{{- 'ccdn_forum_moderator.flag.posted_on_board' | trans({}, 'CCDNForumModeratorBundle') -}}&nbsp;
 					<a href="{{- path('ccdn_forum_forum_category_show', {'categoryId': post.getTopic.getBoard.getCategory.id }) -}}">{{- post.getTopic.getBoard.getCategory.getName -}}</a> /
 					<a href="{{- path('ccdn_forum_forum_board_show', {'boardId': post.getTopic.getBoard.id }) -}}">{{- post.getTopic.getBoard.getName -}}</a>
 				</td>
@@ -123,10 +126,10 @@
 								<tr>
 									<th class="center" style="width:18px;"><input type="checkbox" class="hidden" id="check_all" name="check_all_for_{{- post.getId -}}" class="hidden" data-compat='interactive-js-compat' data-action-toggle="check_all_for_{{- post.getId -}}" data-identifier="check_all_for_{{- post.getId -}}" data-qualifier="all"></th>
 									<th class="center" style="width:18px;"><i class="icon-flag"></i></th>
-									<th class="left">{{- 'flag.table.head.reason' | trans({}, 'CCDNForumModeratorBundle') -}}</th>
-									<th class="center">{{- 'flag.flagged_by' | trans({}, 'CCDNForumModeratorBundle') -}}</th>
-									<th class="center">{{- 'actioned.at' | trans({}, 'CCDNForumModeratorBundle') -}}</th>
-									<th class="center">{{- 'flag.table.head.status' | trans({}, 'CCDNForumModeratorBundle') -}}</th>
+									<th class="left">{{- 'ccdn_forum_moderator.flag.table.head.reason' | trans({}, 'CCDNForumModeratorBundle') -}}</th>
+									<th class="center">{{- 'ccdn_forum_moderator.flag.flagged_by' | trans({}, 'CCDNForumModeratorBundle') -}}</th>
+									<th class="center">{{- 'ccdn_forum_moderator.actioned_at' | trans({}, 'CCDNForumModeratorBundle') -}}</th>
+									<th class="center">{{- 'ccdn_forum_moderator.flag.table.head.status' | trans({}, 'CCDNForumModeratorBundle') -}}</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -162,7 +165,7 @@
 		{%- else -%}
 			<tr>
 				<td class="center" colspan="6">
-					{{- 'flag.table.empty' | trans({}, 'CCDNForumModeratorBundle') -}}
+					{{- 'ccdn_forum_moderator.flag.table.empty' | trans({}, 'CCDNForumModeratorBundle') -}}
 				</td>
 			</tr>
 		{%- endfor -%}

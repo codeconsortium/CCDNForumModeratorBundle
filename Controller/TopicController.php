@@ -50,8 +50,8 @@ class TopicController extends ContainerAware
 
         // setup crumb trail.
         $crumbs = $this->container->get('ccdn_component_crumb.trail')
-            ->add($this->container->get('translator')->trans('crumbs.dashboard.moderator', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('ccdn_component_dashboard_show', array('category' => 'moderator')), "sitemap")
-            ->add($this->container->get('translator')->trans('crumbs.topic.closed.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('ccdn_forum_moderator_topic_show_all_closed'), "home");
+            ->add($this->container->get('translator')->trans('ccdn_forum_moderator.crumbs.dashboard.moderator', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('ccdn_component_dashboard_show', array('category' => 'moderator')), "sitemap")
+            ->add($this->container->get('translator')->trans('ccdn_forum_moderator.crumbs.topic.closed.index', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('ccdn_forum_moderator_topic_show_all_closed'), "home");
 
         return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Topic:show_closed.html.' . $this->getEngine(), array(
             'crumbs' => $crumbs,
@@ -84,7 +84,7 @@ class TopicController extends ContainerAware
 
         $this->container->get('ccdn_forum_moderator.topic.manager')->sticky($topic, $user)->flush();
 
-        $this->container->get('session')->setFlash('success', $this->container->get('translator')->trans('flash.topic.sticky.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
+        $this->container->get('session')->setFlash('success', $this->container->get('translator')->trans('ccdn_forum_moderator.flash.topic.sticky.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 
         return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topicId' => $topic->getId()) ));
     }
@@ -109,7 +109,7 @@ class TopicController extends ContainerAware
 
         $this->container->get('ccdn_forum_moderator.topic.manager')->unsticky($topic)->flush();
 
-        $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.unsticky.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
+        $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('ccdn_forum_moderator.flash.topic.unsticky.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 
         return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topicId' => $topic->getId()) ));
     }
@@ -138,7 +138,7 @@ class TopicController extends ContainerAware
 
         $this->container->get('ccdn_forum_moderator.topic.manager')->close($topic, $user)->flush();
 
-        $this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('flash.topic.close.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
+        $this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('ccdn_forum_moderator.flash.topic.close.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 
         return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topicId' => $topic->getId()) ));
     }
@@ -165,7 +165,7 @@ class TopicController extends ContainerAware
 
         $this->container->get('ccdn_forum_moderator.topic.manager')->reopen($topic)->flush();
 
-        $this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('flash.topic.reopen.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
+        $this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('ccdn_forum_moderator.flash.topic.reopen.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 
         return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topicId' => $topic->getId()) ));
     }
@@ -191,7 +191,7 @@ class TopicController extends ContainerAware
         $this->container->get('ccdn_forum_moderator.topic.manager')->restore($topic)->flush();
 
         // set flash message
-        $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('flash.topic.restore.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
+        $this->container->get('session')->setFlash('notice', $this->container->get('translator')->trans('ccdn_forum_moderator.flash.topic.restore.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 
         // forward user
         return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_board_show', array('boardId' => $topic->getBoard()->getId()) ));
@@ -260,7 +260,7 @@ class TopicController extends ContainerAware
         $this->container->get('ccdn_forum_moderator.topic.manager')->softDelete($topic, $user)->flush();
 
         // set flash message
-        $this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('flash.topic.delete.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
+        $this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('ccdn_forum_moderator.flash.topic.delete.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 
         // forward user
         return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_board_show', array('boardId' => $topic->getBoard()->getId()) ));
@@ -287,7 +287,7 @@ class TopicController extends ContainerAware
         $formHandler = $this->container->get('ccdn_forum_moderator.topic.form.change_board.handler')->setDefaultValues(array('topic' => $topic));
 
         if ($formHandler->process()) {
-            $this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('flash.topic.move.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
+            $this->container->get('session')->setFlash('warning', $this->container->get('translator')->trans('ccdn_forum_moderator.flash.topic.move.success', array('%topic_title%' => $topic->getTitle()), 'CCDNForumModeratorBundle'));
 
             return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topicId' => $topic->getId()) ));
         } else {
@@ -300,7 +300,7 @@ class TopicController extends ContainerAware
                 ->add($category->getName(), $this->container->get('router')->generate('ccdn_forum_forum_category_show', array('categoryId' => $category->getId())), "category")
                 ->add($board->getName(), $this->container->get('router')->generate('ccdn_forum_forum_board_show', array('boardId' => $board->getId())), "board")
                 ->add($topic->getTitle(), $this->container->get('router')->generate('ccdn_forum_forum_topic_show', array('topicId' => $topic->getId())), "communication")
-                ->add($this->container->get('translator')->trans('crumbs.topic.change_board', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('ccdn_forum_moderator_topic_change_board', array('topicId' => $topic->getId())), "edit");
+                ->add($this->container->get('translator')->trans('ccdn_forum_moderator.crumbs.topic.change_board', array(), 'CCDNForumModeratorBundle'), $this->container->get('router')->generate('ccdn_forum_moderator_topic_change_board', array('topicId' => $topic->getId())), "edit");
 
             return $this->container->get('templating')->renderResponse('CCDNForumModeratorBundle:Topic:change_board.html.' . $this->getEngine(), array(
                 'crumbs' => $crumbs,
@@ -351,7 +351,7 @@ class TopicController extends ContainerAware
         $topics = $this->container->get('ccdn_forum_forum.topic.repository')->findTheseTopicsByIdForModeration($itemIds);
 
         if ( ! $topics || empty($topics)) {
-            $this->container->get('session')->setFlash('error', $this->container->get('translator')->trans('flash.topic.no_topics_found', array(), 'CCDNForumModeratorBundle'));
+            $this->container->get('session')->setFlash('error', $this->container->get('translator')->trans('ccdn_forum_moderator.flash.topic.no_topics_found', array(), 'CCDNForumModeratorBundle'));
 
             return new RedirectResponse($this->container->get('router')->generate('ccdn_forum_moderator_topic_show_all_closed'));
         }

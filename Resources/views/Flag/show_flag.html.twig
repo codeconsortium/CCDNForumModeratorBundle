@@ -7,7 +7,7 @@
 
 {% endblock %}
 
-{% block title %}{{- truncDot('title.flag.show' | trans({'%flag_id%': flag.getId, '%topic%': flag.getPost.getTopic.getTitle, '%post_id%': flag.getPost.getId }, 'CCDNForumModeratorBundle'), param('ccdn_forum_moderator.seo.title_length')) -}}{% endblock %}
+{% block title %}{{- truncDot('ccdn_forum_moderator.title.flag.show' | trans({'%flag_id%': flag.getId, '%topic%': flag.getPost.getTopic.getTitle, '%post_id%': flag.getPost.getId }, 'CCDNForumModeratorBundle'), param('ccdn_forum_moderator.seo.title_length')) -}}{% endblock %}
 
 {% block sidebar %}
 	{{ parent() }}
@@ -27,7 +27,7 @@
 
 	{%- set post = flag.getPost -%}
 
-	<h2>{{- 'title.flag.show' | trans({'%flag_id%': flag.getId, '%topic%': flag.getPost.getTopic.getTitle, '%post_id%': flag.getPost.getId }, 'CCDNForumModeratorBundle') -}}</h2>
+	<h2>{{- 'ccdn_forum_moderator.title.flag.show' | trans({'%flag_id%': flag.getId, '%topic%': flag.getPost.getTopic.getTitle, '%post_id%': flag.getPost.getId }, 'CCDNForumModeratorBundle') -}}</h2>
 
 	{%- include "CCDNForumModeratorBundle:Flag:item_flag.html.twig" -%}
 

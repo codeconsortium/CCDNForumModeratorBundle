@@ -9,7 +9,7 @@
 	<script src="{{- asset('bundles/ccdncomponentcommon/js/ccdn/jquery.checkboxes.js') -}}" type="text/javascript"></script>
 {% endblock %}
 
-{% block title %}{{- truncDot('title.post.locked' | trans({}, 'CCDNForumModeratorBundle'), param('ccdn_forum_moderator.seo.title_length')) -}}{% endblock %}
+{% block title %}{{- truncDot('ccdn_forum_moderator.title.post.locked' | trans({}, 'CCDNForumModeratorBundle'), param('ccdn_forum_moderator.seo.title_length')) -}}{% endblock %}
 
 {% block sidebar %}
 	{{ parent() }}
@@ -27,16 +27,16 @@
 
 	{%- include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } -%}
 
-	<h2>{{- 'title.post.locked' | trans({}, 'CCDNForumModeratorBundle') -}}</h2>
+	<h2>{{- 'ccdn_forum_moderator.title.post.locked' | trans({}, 'CCDNForumModeratorBundle') -}}</h2>
 
 	<form method="POST" action="{{- path('ccdn_forum_moderator_post_bulk_action') -}}">
 
 	<div class="btn-toolbar" style="display:block !important;clear:both !important;">
 		<div class="pull-left">
-			<input type="submit" class="btn btn-primary disabled" value="{{- 'link.post.lock' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_lock" disabled data-responds-disabled="posts">&nbsp;
-			<input type="submit" class="btn btn-primary disabled" value="{{- 'link.post.unlock' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_unlock" disabled data-responds-disabled="posts">&nbsp;
-			<input type="submit" class="btn btn-primary disabled" value="{{- 'link.topic.restore' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_restore" disabled data-responds-disabled="posts">&nbsp;
-			<input type="submit" class="btn btn-danger disabled" value="{{- 'link.topic.delete.soft' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_soft_delete" disabled data-responds-disabled="posts">
+			<input type="submit" class="btn btn-primary disabled" value="{{- 'ccdn_forum_moderator.link.post.lock' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_lock" disabled data-responds-disabled="posts">&nbsp;
+			<input type="submit" class="btn btn-primary disabled" value="{{- 'ccdn_forum_moderator.link.post.unlock' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_unlock" disabled data-responds-disabled="posts">&nbsp;
+			<input type="submit" class="btn btn-primary disabled" value="{{- 'ccdn_forum_moderator.link.topic.restore' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_restore" disabled data-responds-disabled="posts">&nbsp;
+			<input type="submit" class="btn btn-danger disabled" value="{{- 'ccdn_forum_moderator.link.topic.delete_soft' |trans({}, 'CCDNForumModeratorBundle') -}}" name="submit_soft_delete" disabled data-responds-disabled="posts">
 		</div>
 		{%- if pager.haveToPaginate -%}
 			<div class="pull-right">
@@ -52,11 +52,11 @@
 				<th class="center"><input type="checkbox" id="check_all" name="check_all" class="hidden" data-compat='interactive-js-compat' data-action-toggle="posts" data-identifier="posts" data-qualifier="all"></th>
 				<th class="center"><i class="icon-lock"></i></th>
 				<th class="center"><i class="icon-trash"></i></th>
-				<th class="center">{{- 'board.table.head.post_number' | trans({}, 'CCDNForumForumBundle') -}}</th>
-				<th class="left">{{- 'board.table.head.topic_title' | trans({}, 'CCDNForumForumBundle') -}}</th>
-				<th class="center">{{- 'board.table.head.created_by' | trans({}, 'CCDNForumForumBundle') -}}</th>
-				<th class="center">{{- 'board.table.head.locked_by' | trans({}, 'CCDNForumForumBundle') -}}</th>
-				<th class="center">{{- 'board.table.head.deleted_by' | trans({}, 'CCDNForumForumBundle') -}}</th>
+				<th class="center">{{- 'ccdn_forum_moderator.board.table.head.post_number' | trans({}, 'CCDNForumModeratorBundle') -}}</th>
+				<th class="left">{{- 'ccdn_forum_moderator.board.table.head.topic_title' | trans({}, 'CCDNForumModeratorBundle') -}}</th>
+				<th class="center">{{- 'ccdn_forum_moderator.board.table.head.created_by' | trans({}, 'CCDNForumModeratorBundle') -}}</th>
+				<th class="center">{{- 'ccdn_forum_moderator.board.table.head.locked_by' | trans({}, 'CCDNForumModeratorBundle') -}}</th>
+				<th class="center">{{- 'ccdn_forum_moderator.board.table.head.deleted_by' | trans({}, 'CCDNForumModeratorBundle') -}}</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -85,8 +85,8 @@
 
 					<td class="left">
 						{%- if post.getTopic -%}
-							<span class="label label-info">{{- post.getTopic.getCachedReplyCount -}}&nbsp;{{- 'board.table.head.reply_count' | trans({}, 'CCDNForumForumBundle') -}}</span>&nbsp;
-							<span class="label label-info">{{- post.getTopic.getCachedViewCount -}}&nbsp;{{- 'board.table.head.view_count' | trans({}, 'CCDNForumForumBundle') -}}</span>&nbsp;
+							<span class="label label-info">{{- post.getTopic.getCachedReplyCount -}}&nbsp;{{- 'ccdn_forum_moderator.board.table.head.reply_count' | trans({}, 'CCDNForumModeratorBundle') -}}</span>&nbsp;
+							<span class="label label-info">{{- post.getTopic.getCachedViewCount -}}&nbsp;{{- 'ccdn_forum_moderator.board.table.head.view_count' | trans({}, 'CCDNForumModeratorBundle') -}}</span>&nbsp;
 							<a href="{{- path('ccdn_forum_forum_topic_show', {'topicId': post.getTopic.getId }) -}}" title="{{- post.getTopic.getTitle -}}">{{- truncDot(post.getTopic.getTitle |capitalize, param('ccdn_forum_moderator.post.show_locked.topic_title_truncate')) -}}</a>
 						{%- endif -%}
 					</td>
@@ -97,7 +97,7 @@
 						{%- endif -%}
 
 						{%- if post.getCreatedDate -%}
-							{{- 'actioned.at' |trans({}, 'CCDNForumModeratorBundle') -}}
+							{{- 'ccdn_forum_moderator.actioned_at' |trans({}, 'CCDNForumModeratorBundle') -}}
 							{{- post.getCreatedDate |date(param('ccdn_forum_moderator.post.show_locked.post_created_datetime_format')) -}}
 						{%- endif -%}
 					</td>
@@ -108,7 +108,7 @@
 						{%- endif -%}
 
 						{%- if post.getLockedDate -%}
-							{{- 'actioned.at' |trans({}, 'CCDNForumModeratorBundle') -}}
+							{{- 'ccdn_forum_moderator.actioned_at' |trans({}, 'CCDNForumModeratorBundle') -}}
 							{{- post.getLockedDate |date(param('ccdn_forum_moderator.post.show_locked.post_locked_datetime_format')) -}}
 						{%- endif -%}
 					</td>
@@ -119,7 +119,7 @@
 						{%- endif -%}
 
 						{%- if post.getDeletedDate -%}
-							{{- 'actioned.at' |trans({}, 'CCDNForumModeratorBundle') -}}
+							{{- 'ccdn_forum_moderator.actioned_at' |trans({}, 'CCDNForumModeratorBundle') -}}
 							{{- post.getDeletedDate |date(param('ccdn_forum_moderator.post.show_locked.post_deleted_datetime_format')) -}}
 						{%- endif -%}
 					</td>
@@ -128,7 +128,7 @@
 			{%- else -%}
 				<tr>
 					<td class="center" colspan="11">
-						{{- 'posts.locked.table.empty' | trans({}, 'CCDNForumModeratorBundle') -}}
+						{{- 'ccdn_forum_moderator.posts.locked.table.empty' | trans({}, 'CCDNForumModeratorBundle') -}}
 					</td>
 				</tr>
 			{%- endfor -%}
