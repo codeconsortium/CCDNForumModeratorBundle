@@ -19,39 +19,6 @@
 {% endblock %}
 
 
-{% block sidebar_filter_tags %}
-	{{ parent() }}
-
-	{%- spaceless -%}
-
-	<div class="well" style="padding: 8px 0 8px !important;">
-		<ul class="nav nav-list">
-			<li class="nav-header">{{- 'ccdn_forum_moderator.sidebar.header.flags_by_status' | trans({}, 'CCDNForumModeratorBundle') -}}</li>
-			{%- if app.request.attributes.get('_route') == 'ccdn_forum_moderator_flagged_show_all_status' or app.request.attributes.get('_route') == 'ccdn_forum_moderator_flagged_show_all_status_paginated' -%}
-				{%- for status_key, status in status_codes -%}
-					{%- if app.request.get('status') -%}
-						{%- if app.request.get('status') == status_key -%}
-							<li class="active"><a href="{{- path('ccdn_forum_moderator_flagged_show_all_status', {'status':status_key}) -}}"><i class="icon-white icon-tag"></i>&nbsp;{{- status -}}</a></li>
-						{%- else -%}
-							<li><a href="{{- path('ccdn_forum_moderator_flagged_show_all_status', {'status':status_key}) -}}"><i class="icon-tag"></i>&nbsp;{{- status -}}</a></li>
-						{%- endif -%}
-					{%- else -%}
-						<li><a href="{{- path('ccdn_forum_moderator_flagged_show_all_status', {'status':status_key}) -}}"><i class="icon-tag"></i>&nbsp;{{- status -}}</a></li>
-					{%- endif -%}
-				{%- endfor -%}
-			{%- else -%}
-				{%- for status_key, status in status_codes -%}
-					<li><a href="{{- path('ccdn_forum_moderator_flagged_show_all_status', {'status':status_key}) -}}"><i class="icon-tag"></i>&nbsp;{{- status -}}</a></li>
-				{%- endfor -%}
-			{%- endif -%}
-		</ul>
-	</div>
-
-	{%- endspaceless -%}
-
-{% endblock %}
-
-
 {% block body %}
 
 	{%- spaceless -%}
