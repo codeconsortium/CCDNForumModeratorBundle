@@ -1,4 +1,4 @@
-Installing CCDNForum ModeratorBundle 1.0
+Installing CCDNForum ModeratorBundle 1.2
 ========================================
 
 
@@ -6,15 +6,15 @@ Installing CCDNForum ModeratorBundle 1.0
 
 1. [PagerFanta](http://github.com/whiteoctober/Pagerfanta).
 2. [PagerFantaBundle](http://github.com/whiteoctober/WhiteOctoberPagerfantaBundle).
-3. [CCDNComponent CommonBundle](http://github.com/codeconsortium/CommonBundle).
-4. [CCDNComponent BBCodeBundle](http://github.com/codeconsortium/BBCodeBundle).
-5. [lib-geshi](http://github.com/codeconsortium/lib-geshi).
-6. [CCDNComponent CrumbTrailBundle](http://github.com/codeconsortium/CrumbTrailBundle).
-7. [CCDNComponent DashboardBundle](http://github.com/codeconsortium/DashboardBundle).
-8. [CCDNComponent AttachmentBundle](http://github.com/codeconsortium/AttachmentBundle).
-9. [CCDNForum ForumBundle](http://github.com/codeconsortium/CCDNForumForumBundle).
-10. [CCDNForum KarmaBundle](http://github.com/codeconsortium/CCDNForumKarmaBundle).
-11. [CCDNForum AdminBundle](http://github.com/codeconsortium/CCDNForumModeratorBundle).
+3. [lib-geshi](http://github.com/codeconsortium/lib-geshi).
+4. [CCDNComponent CommonBundle](http://github.com/codeconsortium/CommonBundle/tree/v1.2).
+5. [CCDNComponent BBCodeBundle](http://github.com/codeconsortium/BBCodeBundle/tree/v1.2).
+6. [CCDNComponent CrumbTrailBundle](http://github.com/codeconsortium/CrumbTrailBundle/tree/v1.2).
+7. [CCDNComponent DashboardBundle](http://github.com/codeconsortium/DashboardBundle/tree/v1.2).
+8. [CCDNComponent AttachmentBundle](http://github.com/codeconsortium/AttachmentBundle/tree/v1.2).
+9. [CCDNForum ForumBundle](http://github.com/codeconsortium/CCDNForumForumBundle/tree/v1.2).
+10. [CCDNForum KarmaBundle](http://github.com/codeconsortium/CCDNForumKarmaBundle/tree/v1.2).
+11. [CCDNForum AdminBundle](http://github.com/codeconsortium/CCDNForumModeratorBundle/tree/v1.2).
 
 ## Installation:
 
@@ -39,7 +39,7 @@ Append the following to end of your deps file (found in the root of your Symfony
 [CCDNForum_ModeratorBundle]
     git=http://github.com/codeconsortium/CCDNForumModeratorBundle.git
     target=/bundles/CCDNForum/ModeratorBundle
-
+    version=v1.2
 ```
 
 ### Step 2: Register bundles with autoload.php.
