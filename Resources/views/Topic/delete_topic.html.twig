@@ -4,7 +4,7 @@
 	{{ parent() }}
 {% endblock %}
 
-{% block title %}{{- truncDot('title.topic.delete' |trans({'%topic_title%': topic.getTitle }, 'CCDNForumForumBundle'), param('ccdn_forum_moderator.seo.title_length')) -}}{% endblock %}
+{% block title %}{{- truncDot('ccdn_forum_forum.title.topic.delete' |trans({'%topic_title%': topic.getTitle }, 'CCDNForumForumBundle'), param('ccdn_forum_moderator.seo.title_length')) -}}{% endblock %}
 
 {% block sidebar %}
 	{{ parent() }}
@@ -22,18 +22,18 @@
 
 	{%- include 'CCDNComponentCrumbTrailBundle:Trail:trail.html.twig' with {'crumbs': crumbs } -%}
 
-	<h2>{{- 'title.topic.delete' |trans({'%topic_title%': topic.getTitle }, 'CCDNForumForumBundle') -}}</h2>
+	<h2>{{- 'ccdn_forum_forum.title.topic.delete' |trans({'%topic_title%': topic.getTitle }, 'CCDNForumForumBundle') -}}</h2>
 
 	<div class="form-confirmation">
 
 		<div class="form-question">
-			<h3>{{- 'topic.delete_topic_question' | trans({}, 'CCDNForumForumBundle') -}}</h3>
+			<h3>{{- 'ccdn_forum_forum.topic.delete_topic_question' | trans({}, 'CCDNForumForumBundle') -}}</h3>
 		</div>
 
 		<div class="form-answer">
-			<a class="btn btn-danger" href="{{- path('ccdn_forum_moderator_topic_delete_confirmed', {'topicId': topic.id }) -}}">{{- 'post.delete.confirm_yes' | trans({}, 'CCDNForumForumBundle') -}}</a>
+			<a class="btn btn-danger" href="{{- path('ccdn_forum_moderator_topic_delete_confirmed', {'topicId': topic.id }) -}}">{{- 'ccdn_forum_forum.post.delete.confirm_yes' | trans({}, 'CCDNForumForumBundle') -}}</a>
 			&nbsp;&nbsp;&nbsp;
-			<a class="btn" href="{{- path('ccdn_forum_forum_topic_show', {'topicId': topic.id }) -}}">{{- 'post.delete.confirm_no' | trans({}, 'CCDNForumForumBundle') -}}</a>
+			<a class="btn" href="{{- path('ccdn_forum_forum_topic_show', {'topicId': topic.id }) -}}">{{- 'ccdn_forum_forum.post.delete.confirm_no' | trans({}, 'CCDNForumForumBundle') -}}</a>
 		</div>
 
 	</div>
